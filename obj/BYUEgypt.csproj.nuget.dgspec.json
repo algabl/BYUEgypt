@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sponk\\Source\\Repos\\algabl\\BYUEgypt\\BYUEgypt.csproj": {}
+    "/Users/alexanderblack/Documents/source/repos/BYUEgypt/BYUEgypt.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sponk\\Source\\Repos\\algabl\\BYUEgypt\\BYUEgypt.csproj": {
+    "/Users/alexanderblack/Documents/source/repos/BYUEgypt/BYUEgypt.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sponk\\Source\\Repos\\algabl\\BYUEgypt\\BYUEgypt.csproj",
+        "projectUniqueName": "/Users/alexanderblack/Documents/source/repos/BYUEgypt/BYUEgypt.csproj",
         "projectName": "BYUEgypt",
-        "projectPath": "C:\\Users\\sponk\\Source\\Repos\\algabl\\BYUEgypt\\BYUEgypt.csproj",
-        "packagesPath": "C:\\Users\\sponk\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sponk\\Source\\Repos\\algabl\\BYUEgypt\\obj\\",
+        "projectPath": "/Users/alexanderblack/Documents/source/repos/BYUEgypt/BYUEgypt.csproj",
+        "packagesPath": "/Users/alexanderblack/.nuget/packages/",
+        "outputPath": "/Users/alexanderblack/Documents/source/repos/BYUEgypt/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\sponk\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/alexanderblack/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -84,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.407/RuntimeIdentifierGraph.json"
         }
       }
     }
