@@ -23,7 +23,24 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult ManageAccounts()
+    public IActionResult RecordView()
+    {
+        return View();
+    }
+    public IActionResult RecordViewAuth()
+    {
+        return View();
+    }
+    public IActionResult SupAnalysis()
+    {
+        return View();
+    }
+    public IActionResult UnSupAnalysis()
+    {
+        return View();
+    }
+
+    public IActionResult Admin()
     {
         return View();
     }
@@ -33,4 +50,6 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+    
+    
 }
