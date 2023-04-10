@@ -28,8 +28,8 @@
             <li class="nav-item navbar-text">
               <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </li>
-            <li class="nav-item navbar-text">
-              <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Admin">Admin</a>
+            <li class="nav-item">
+              <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Users">Users</a>
             </li>
             
             <li class="nav-item navbar-text dropdown">
@@ -37,7 +37,7 @@
                             Record View
                           </a>
               <ul class="dropdown-menu bg-primary">
-                <li><a class="dropdown-item text-light" asp-area="" asp-controller="Home" asp-action="RecordViewAuth">Record View Auth</a></li>
+                <li><a class="dropdown-item text-light" asp-area="" asp-controller="Home" asp-action="EditRecord">Edit Record</a></li>
                 <li><a class="dropdown-item text-light" asp-area="" asp-controller="Home" asp-action="RecordView">Record Public</a></li>
               </ul>
             </li>
@@ -57,7 +57,9 @@
     </nav>
 </header>
 <div class="container">
-    <main role="main" class="">
+        <partial name="_CookieConsentPartial" />
+    <main role="main" class="pb-3">
+
         @RenderBody()
     </main>
 </div>
