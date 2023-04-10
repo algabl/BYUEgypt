@@ -5,48 +5,69 @@ build_property.UsingMicrosoftNETSdkWeb = true
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
 build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BYUEgypt
 build_property.RootNamespace = BYUEgypt
-build_property.ProjectDir = /Users/alexanderblack/Documents/source/repos/BYUEgypt/
+build_property.ProjectDir = /Users/tophkearl/byU/wint_23/intex/
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
-build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/alexanderblack/Documents/source/repos/BYUEgypt
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
+build_property.MSBuildProjectDirectory = /Users/tophkearl/byU/wint_23/intex
 build_property._RazorSourceGeneratorDebug = 
 
-[/Users/alexanderblack/Documents/source/repos/BYUEgypt/Areas/Identity/Pages/_ViewStart.cshtml]
+[/Users/tophkearl/byU/wint_23/intex/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/alexanderblack/Documents/source/repos/BYUEgypt/Views/Home/Index.cshtml]
+[/Users/tophkearl/byU/wint_23/intex/Views/Home/Admin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9BZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/tophkearl/byU/wint_23/intex/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/alexanderblack/Documents/source/repos/BYUEgypt/Views/Home/Privacy.cshtml]
+[/Users/tophkearl/byU/wint_23/intex/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/alexanderblack/Documents/source/repos/BYUEgypt/Views/Shared/Error.cshtml]
+[/Users/tophkearl/byU/wint_23/intex/Views/Home/RecordView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9SZWNvcmRWaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/tophkearl/byU/wint_23/intex/Views/Home/RecordViewAuth.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9SZWNvcmRWaWV3QXV0aC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/tophkearl/byU/wint_23/intex/Views/Home/SupAnalysis.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9TdXBBbmFseXNpcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/tophkearl/byU/wint_23/intex/Views/Home/UnSupAnalysis.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9VblN1cEFuYWx5c2lzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/tophkearl/byU/wint_23/intex/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/alexanderblack/Documents/source/repos/BYUEgypt/Views/Shared/_LoginPartial.cshtml]
+[/Users/tophkearl/byU/wint_23/intex/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/alexanderblack/Documents/source/repos/BYUEgypt/Views/Shared/_ValidationScriptsPartial.cshtml]
+[/Users/tophkearl/byU/wint_23/intex/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/alexanderblack/Documents/source/repos/BYUEgypt/Views/_ViewImports.cshtml]
+[/Users/tophkearl/byU/wint_23/intex/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/alexanderblack/Documents/source/repos/BYUEgypt/Views/_ViewStart.cshtml]
+[/Users/tophkearl/byU/wint_23/intex/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/alexanderblack/Documents/source/repos/BYUEgypt/Views/Shared/_Layout.cshtml]
+[/Users/tophkearl/byU/wint_23/intex/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-zbwmd9cb2k
