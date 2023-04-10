@@ -35,6 +35,7 @@ builder.Services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
 });
 
 
+
 var app = builder.Build();
 
 
