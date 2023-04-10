@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BYUEgypt.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class AdminController : Controller
 {
     private readonly ILogger<HomeController> _logger;
