@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/tophkearl/byU/wint_23/intex/BYUEgypt.csproj": {}
+    "C:\\Users\\sponk\\Source\\Repos\\algabl\\BYUEgypt\\BYUEgypt.csproj": {}
   },
   "projects": {
-    "/Users/tophkearl/byU/wint_23/intex/BYUEgypt.csproj": {
+    "C:\\Users\\sponk\\Source\\Repos\\algabl\\BYUEgypt\\BYUEgypt.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/tophkearl/byU/wint_23/intex/BYUEgypt.csproj",
+        "projectUniqueName": "C:\\Users\\sponk\\Source\\Repos\\algabl\\BYUEgypt\\BYUEgypt.csproj",
         "projectName": "BYUEgypt",
-        "projectPath": "/Users/tophkearl/byU/wint_23/intex/BYUEgypt.csproj",
-        "packagesPath": "/Users/tophkearl/.nuget/packages/",
-        "outputPath": "/Users/tophkearl/byU/wint_23/intex/obj/",
+        "projectPath": "C:\\Users\\sponk\\Source\\Repos\\algabl\\BYUEgypt\\BYUEgypt.csproj",
+        "packagesPath": "C:\\Users\\sponk\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sponk\\Source\\Repos\\algabl\\BYUEgypt\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/tophkearl/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\sponk\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -82,7 +84,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
