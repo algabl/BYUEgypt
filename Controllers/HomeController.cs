@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using BYUEgypt.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BYUEgypt.Controllers;
 
@@ -12,7 +13,7 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
-
+    
     public IActionResult Index()
     {
         return View();
@@ -31,15 +32,18 @@ public class HomeController : Controller
     {
         return View();
     }
+    
     public IActionResult SupAnalysis()
     {
         return View();
     }
+    
     public IActionResult UnSupAnalysis()
     {
         return View();
     }
 
+    [Authorize]
     public IActionResult Admin()
     {
         return View();
