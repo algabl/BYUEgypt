@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "Admin";
+}
+<h1>@ViewData["Title"]</h1>
+<p>Will be used to add and delete accounts</p>
+
+@using Microsoft.AspNetCore.Identity
+@model UsersViewModel
+
+<table class="table table-bordered table-striped table-hover table-responsive-lg">
+    <thead class="fw-bold">
+    <tr>
+        <td>Email</td>
+        <td></td>
+        <td></td>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (IdentityUser u in Model.Users)
+    {
+        <partial name="UserSummary" model="u"/>
+    }
+    </tbody>
+</table>
+<button asp-action="UserForm"></button>
+  
