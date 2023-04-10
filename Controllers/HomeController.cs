@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
+
 namespace BYUEgypt.Controllers;
 
 public class HomeController : Controller
@@ -19,7 +20,7 @@ public class HomeController : Controller
         _logger = logger;
         context = temp;
     }
-
+    
     public IActionResult Index()
     {
         return View();
@@ -40,10 +41,12 @@ public class HomeController : Controller
     {
         return View();
     }
+    
     public IActionResult SupAnalysis()
     {
         return View();
     }
+    
     public IActionResult UnSupAnalysis()
     {
         return View();
@@ -58,6 +61,7 @@ public class HomeController : Controller
         };
         return View(viewModel);
     }
+
 
     [HttpGet]
     public IActionResult UserForm()
