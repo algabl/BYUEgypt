@@ -66,10 +66,6 @@ public class AdminController : Controller
                 var errors = string.Join(", ", errorList.Select(e => e.Description));
                 ModelState.AddModelError(string.Empty, errors);
             }
-            
-      
-
-
         }
         ViewBag.Roles = _roleManager.Roles.ToList();
         return View(viewModel);
@@ -79,8 +75,8 @@ public class AdminController : Controller
     public IActionResult Edit(string id)
     {
         ViewBag.Roles = _roleManager.Roles.ToList();
-        ViewData["Title"] = "Edit";
         var user = _userManager.FindByIdAsync(id).Result;
+        ViewData["Title"] = "Edit" + user.UserName;
         var viewModel = new UserViewModel()
         {
             User = user,
@@ -122,7 +118,7 @@ public class AdminController : Controller
 
         }
 
-        ViewData["Title"] = "Edit";
+        ViewData["Title"] = "Edit" + viewModel.User.UserName;
         ViewBag.Roles = _roleManager.Roles.ToList();
         return View("UserForm", viewModel);
     }
@@ -131,6 +127,7 @@ public class AdminController : Controller
     public IActionResult Delete(string id)
     {
         var user = _userManager.FindByIdAsync(id).Result;
+        ViewData["Title"] = "Delete" + user.UserName;
         return View(user);
     }
 

@@ -5,9 +5,10 @@
 
 @model IdentityUser
 
-<p>Confirmation page</p>
+<h1>Confirm deletion</h1>
+<p>Are you sure you want to delete @Model.UserName?</p>
 <form method="post" asp-action="Delete">
-    <button type="submit">Delete @Model.UserName</button>
-    <a asp-action="Users" class="btn btn-light">Cancel</a>
+    <button class="btn btn-warning" type="submit">Yes, delete @Model.UserName</button>
+    <a asp-action="Users" class="btn btn-light">No, cancel</a>
     <input type="hidden" asp-for="Id"/>
 </form>
