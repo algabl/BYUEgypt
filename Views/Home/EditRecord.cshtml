@@ -1,4 +1,14 @@
 @{
     ViewData["Title"] = "Record View Authorized";
 }
-<h1>@ViewData["Title"]</h1>
+
+@model Artifact
+
+<div class="row d-flex flex-column justify-content-center align-items-center">
+    <div class="col-10">
+        <div class="card">
+            <div class="card-header">@Model.Name</div>
+            <div class="card-body">Body Text</div>
+        </div>
+    </div>
+</div>
