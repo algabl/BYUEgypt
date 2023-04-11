@@ -1,6 +1,5 @@
 ﻿
 @{
-    ViewData["Title"] = "Manage Accounts";
 }
 
 @model UserViewModel
@@ -21,18 +20,24 @@
         <input asp-for="User.PhoneNumber" type="tel" class="form-control"/>
         <label>Phone</label>
     </div>
-    <div class="form-floating mb3">
+    <div class="form-floating mb-3">
         <input asp-for="Password" type="password" class="form-control"/>
         <label>Password</label>
     </div>
-    <div class="input-group">
-        <select asp-for="Roles" class="form-select" multiple>
-            <option selected>Select</option>
-            @foreach (IdentityRole r in ViewBag.Roles)
-            {
-                <option value="@r.Name">@r.Name</option>
-            }
-        </select>
+    @if (ViewData["Title"] == "Edit")
+    {
+        <div class="form-floating mb-3">
+            <input asp-for="CurrentPassword" type="password" class="form-control"/>
+            <label>Enter this account's current password</label>
+        </div>
+    }
+   <div class="form-check">
+       <input asp-for="UserRole" class="form-check-input" type="checkbox">
+       <label class="form-check-label">User</label>
+   </div>
+    <div class="form-check">
+        <input asp-for="AdminRole" class="form-check-input" type="checkbox">
+        <label class="form-check-label">Admin</label>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     <div asp-validation-summary="All"></div>

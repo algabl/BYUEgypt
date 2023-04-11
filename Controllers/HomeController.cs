@@ -36,7 +36,7 @@ public class HomeController : Controller
         return View();
     }
     
-    [Authorize]
+    [Authorize(Roles = "USER, ADMIN")]
     public IActionResult EditRecord()
     {
         return View();

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BYUEgypt.Controllers;
 
-[Authorize(Roles = "Admin")]
+[Authorize(Roles = "ADMIN")]
 public class AdminController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -30,7 +30,8 @@ public class AdminController : Controller
             var viewModel = new UserViewModel()
             {
                 User = u,
-                Roles = _userManager.GetRolesAsync(u).Result
+                UserRole = _userManager.IsInRoleAsync(u, "USER").Result,
+                AdminRole = _userManager.IsInRoleAsync(u, "ADMIN").Result
             };
             users.Add(viewModel);
         }
@@ -50,53 +51,78 @@ public class AdminController : Controller
         if (ModelState.IsValid)
         {
             viewModel.User.Id = Guid.NewGuid().ToString();
-            await _userManager.CreateAsync(viewModel.User, viewModel.Password);
-            await _userManager.AddToRolesAsync(viewModel.User, viewModel.Roles);
+            var result = await _userManager.CreateAsync(viewModel.User, viewModel.Password);
+            if (result.Succeeded)
+            {
+                if (viewModel.UserRole)
+                    await _userManager.AddToRoleAsync(viewModel.User, "USER");
+                if (viewModel.AdminRole)
+                    await _userManager.AddToRoleAsync(viewModel.User, "ADMIN");
+                return RedirectToAction("Users");
+            }
+            else
+            {
+                List<IdentityError> errorList = result.Errors.ToList();
+                var errors = string.Join(", ", errorList.Select(e => e.Description));
+                ModelState.AddModelError(string.Empty, errors);
+            }
+            
       
 
-            return RedirectToAction("Users");
+
         }
         ViewBag.Roles = _roleManager.Roles.ToList();
-        return View();
+        return View(viewModel);
     }
 
     [HttpGet]
     public IActionResult Edit(string id)
     {
         ViewBag.Roles = _roleManager.Roles.ToList();
+        ViewData["Title"] = "Edit";
         var user = _userManager.FindByIdAsync(id).Result;
         var viewModel = new UserViewModel()
         {
             User = user,
-            Roles = _userManager.GetRolesAsync(user).Result
+            UserRole = _userManager.IsInRoleAsync(user, "USER").Result,
+            AdminRole = _userManager.IsInRoleAsync(user, "ADMIN").Result
         };
         return View("UserForm", viewModel);
     }
 
     [HttpPost]
-    public IActionResult Edit(UserViewModel viewModel, List<string> newRoles)
+    public async Task<IActionResult> Edit(UserViewModel viewModel)
     {
         if (ModelState.IsValid)
         {
-            var user = viewModel.User;
-            _userManager.UpdateAsync(user);
-            if (!string.IsNullOrEmpty(viewModel.CurrentPassword))
-                _userManager.ChangePasswordAsync(user, viewModel.CurrentPassword, viewModel.Password);
-            var oldRoles = _userManager.GetRolesAsync(user).Result;
-            foreach (string r in newRoles)
+            var user = await _userManager.FindByIdAsync(viewModel.User.Id);
+
+            user.UserName = viewModel.User.UserName;
+            user.Email = viewModel.User.Email;
+            user.PhoneNumber = viewModel.User.PhoneNumber;
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
             {
-                if (!oldRoles.Contains(r))
-                {
-                    _userManager.AddToRoleAsync(user, r);
-                }
+                if (!string.IsNullOrEmpty(viewModel.CurrentPassword))
+                    await _userManager.ChangePasswordAsync(user, viewModel.CurrentPassword, viewModel.Password);
+                if (viewModel.AdminRole)
+                    await _userManager.AddToRoleAsync(user, "ADMIN");
+                else
+                    await _userManager.RemoveFromRoleAsync(user, "ADMIN");
+                if (viewModel.UserRole)
+                    await _userManager.AddToRoleAsync(user, "USER");
+                else
+                    await _userManager.RemoveFromRoleAsync(user, "USER");
+                return RedirectToAction("Users");
             }
-            foreach ( string r in oldRoles )
-                if (!newRoles.Contains(r))
-                {
-                    _userManager.RemoveFromRoleAsync(user, r);
-                }
-            return RedirectToAction("Users");
+
+            List<IdentityError> errorList = result.Errors.ToList();
+            var errors = string.Join(", ", errorList.Select(e => e.Description));
+            ModelState.AddModelError(string.Empty, errors);
+
         }
+
+        ViewData["Title"] = "Edit";
         ViewBag.Roles = _roleManager.Roles.ToList();
         return View("UserForm", viewModel);
     }
