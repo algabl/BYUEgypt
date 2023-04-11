@@ -33,6 +33,12 @@ builder.Services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
     microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
     microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
 });
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = configuration["Authentication:Google:ClientID"];
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+});
+
 
 
 var app = builder.Build();
