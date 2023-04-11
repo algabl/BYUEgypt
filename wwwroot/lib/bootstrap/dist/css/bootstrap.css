@@ -28,7 +28,7 @@
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: #0d6efd;
+  --bs-primary: #002e5d;
   --bs-secondary: #C44536;
   --bs-success: #198754;
   --bs-info: #D1CCBD;
@@ -3967,7 +3967,7 @@ textarea.form-control-lg {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
@@ -3981,7 +3981,7 @@ textarea.form-control-lg {
   display: flex;
   flex-wrap: inherit;
   align-items: center;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
 }
 .navbar .navbar-brand {
   padding-top: 0.3125rem;
@@ -7682,7 +7682,12 @@ textarea.form-control-lg {
 
 .text-light {
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-light-rgb), var(--bs-text-opacity)) !important;
+  color: rgba(var(--bs-light-rgb), var(--bs-text-opacity)) ;
+}
+
+.text-light:hover {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-secondary-rgb), var(--bs-text-opacity)) !important;
 }
 
 .text-dark {
