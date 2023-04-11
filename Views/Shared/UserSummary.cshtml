@@ -1,5 +1,8 @@
 @model IdentityUser
 
-<td>@Model.NormalizedEmail</td>
-<td><a>Edit</a></td>
-<td><a>Delete</a></td>
+<tr>
+    <td>@Model.NormalizedEmail</td>
+    <td><a asp-controller="Admin" asp-action="Edit" asp-route-id="@Model.Id">Edit</a></td>
+    <td><a asp-controller="Admin" asp-action="Delete" asp-route-id="@Model.Id">Delete</a></td>
+</tr>
+

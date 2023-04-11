@@ -56,37 +56,6 @@ public class HomeController : Controller
         return View();
     }
     
-    [Authorize]
-    public IActionResult Users()
-    {
-        var viewModel = new UsersViewModel
-        {
-            Users = context.Users
-        };
-        return View(viewModel);
-    }
-
-
-    [HttpGet]
-    public IActionResult UserForm()
-    {
-        return View(new IdentityUser());
-    }
-
-    [HttpPost]
-    public IActionResult UserForm(IdentityUser user)
-    {
-        if (ModelState.IsValid)
-        {
-            context.Add(user);
-            context.SaveChanges();
-            return RedirectToAction("Users");
-        }
-
-        return View(new IdentityUser());
-    }
-    
-
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
