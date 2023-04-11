@@ -6,3 +6,8 @@
 @model IdentityUser
 
 <p>Confirmation page</p>
+<form method="post" asp-action="Delete">
+    <button type="submit">Delete @Model.UserName</button>
+    <a asp-action="Users" class="btn btn-light">Cancel</a>
+    <input type="hidden" asp-for="Id"/>
+</form>

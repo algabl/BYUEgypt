@@ -5,22 +5,25 @@
 <p>Will be used to add and delete accounts</p>
 
 @using Microsoft.AspNetCore.Identity
-@model UsersViewModel
+@model List<UserViewModel>
 
 <table class="table table-bordered table-striped table-hover table-responsive-lg">
     <thead class="fw-bold">
     <tr>
+        <td>Username</td>
         <td>Email</td>
+        <td>Phone Number</td>
+        <td>Role(s)</td>
         <td></td>
         <td></td>
     </tr>
     </thead>
     <tbody>
-    @foreach (IdentityUser u in Model.Users)
+    @foreach (UserViewModel u in Model)
     {
         <partial name="UserSummary" model="u"/>
     }
     </tbody>
 </table>
-<button class="btn-primary" asp-action="UserForm">Add new user</button>
+<a class="btn btn-primary" asp-action="UserForm">Add new user</a>
   

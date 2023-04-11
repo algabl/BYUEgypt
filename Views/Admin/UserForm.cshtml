@@ -2,8 +2,39 @@
 @{
     ViewData["Title"] = "Manage Accounts";
 }
+
+@model UserViewModel
 <h1>@ViewData["Title"]</h1>
 
-<form method="post">
 
+<form method="post">
+    <input type="hidden" asp-for="User.Id"/>
+    <div class="form-floating mb-3">
+        <input asp-for="User.UserName" type="text" class="form-control"/>
+        <label>Username</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="User.Email" type="email" class="form-control"/>
+        <label>Email address</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="User.PhoneNumber" type="tel" class="form-control"/>
+        <label>Phone</label>
+    </div>
+    <div class="form-floating mb3">
+        <input asp-for="Password" type="password" class="form-control"/>
+        <label>Password</label>
+    </div>
+    <div class="input-group">
+        <select asp-for="Roles" class="form-select" multiple>
+            <option selected>Select</option>
+            @foreach (IdentityRole r in ViewBag.Roles)
+            {
+                <option value="@r.Name">@r.Name</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <div asp-validation-summary="All"></div>
 </form>
+

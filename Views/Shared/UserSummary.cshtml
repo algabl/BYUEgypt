@@ -1,8 +1,16 @@
-@model IdentityUser
+@model UserViewModel
 
 <tr>
-    <td>@Model.NormalizedEmail</td>
-    <td><a asp-controller="Admin" asp-action="Edit" asp-route-id="@Model.Id">Edit</a></td>
-    <td><a asp-controller="Admin" asp-action="Delete" asp-route-id="@Model.Id">Delete</a></td>
+    <td>@Model.User.UserName</td>
+    <td>@Model.User.Email</td>
+    <td>@Model.User.PhoneNumber</td>
+    <td>
+        @foreach (string r in Model.Roles!)
+        {
+            <p>@r</p>
+        }
+    </td>
+    <td><a asp-controller="Admin" asp-action="Edit" asp-route-id="@Model.User.Id">Edit</a></td>
+    <td><a asp-controller="Admin" asp-action="Delete" asp-route-id="@Model.User.Id">Delete</a></td>
 </tr>
 
