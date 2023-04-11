@@ -4,15 +4,19 @@ using BYUEgypt.Data;
 using BYUEgypt.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddDbContext<ArtifactContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("ArtifactConnection")));
+    options.UseSqlite(connectionString));
+
+var connectionString2 = builder.Configuration.GetConnectionString("EgyptConnection");
+builder.Services.AddDbContext<fagelgamous_databaseContext>(options =>
+    options.UseNpgsql(connectionString2));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
