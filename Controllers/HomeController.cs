@@ -15,9 +15,9 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private ApplicationDbContext context;
-    private ArtifactContext artContext { get; set; }
+    private ArtifactsContext artContext { get; set; }
 
-    public HomeController(ILogger<HomeController> logger, ApplicationDbContext temp, ArtifactContext artTemp)
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext temp, ArtifactsContext artTemp)
     {
         _logger = logger;
         context = temp;

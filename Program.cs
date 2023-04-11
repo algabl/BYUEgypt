@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddDbContext<ArtifactContext>(options =>
+builder.Services.AddDbContext<ArtifactsContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("ArtifactConnection")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
