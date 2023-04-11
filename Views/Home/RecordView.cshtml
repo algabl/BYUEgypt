@@ -4,24 +4,49 @@
 
 @model Artifact 
 
-<section class="d-flex justify-content-center align-items-center" style="height:100vh;">
-    <div class="record-view-container">
-        <div class="record-description bg-info">
-            <div class="flex-column">
-                <div class="row">@Model.Name</div>
-                <img src="" alt="@Model.PhotoId"/>
-                <div class="row"><b>Burial Number: </b>@Model.BurialNumber</div>
-                <div class="row"><b>Sex: </b>@Model.Sex</div>
-                <div class="row"><b>Area: </b>@Model.Area</div>
-                <div class="row"><b>Depth: </b>@Model.Depth</div>
-                <div class="row"><b>Length: </b>@Model.Length</div>
-                <div class="row"><b>Recorder: </b>@Model.ExcavationRecorder</div>
+
+<section style="height: 70vh" class="mt-5 mb-5 d-flex flex-column justify-content-center align-items-center">
+    <div class="record-view-container w-90">
+        <div class="record-photo">
+            <img src="~/img/fag_el-gamous.jpg" alt="" width="100%">
+        </div>
+        <div class="record-highlight h-100 w-100">
+            <div class="bg-secondary h-100 w-100 text-start">
+                <div class="card-header">
+                    Model.Name
+                </div>
+                <div class="ps-3 mb-3">
+                    <div class="card-text">
+                        Model.AgeAtDeath
+                    </div>
+                    <div class="card-text">
+                        Model.Preservation
+                    </div>
+                    <div class="card-text">
+                        Model.ExcavationRecorder
+                    </div>
+                    <div class="card-text">
+                        Model.Depth
+                    </div>
+                    <div class="card-text">
+                        Model.Length
+                    </div>
+                    <div class="card-text">
+                        Model.HairColor
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="record-facts bg-secondary">
-            <div class="row">@Model.Text</div>
-            <div class="row">@Model.Preservation</div>
-            some text for the facts
+        <div class="record-details h-100 w-100">
+            <div class="bg-info h-100 w-100 text-start">
+                <div class="card border-0" style="background:transparent;">
+                    <div class="card-header">Description</div>
+                    <div class="card-text ps-3">
+                        Model.Text
+                    </div>
+                    
+                </div>
+            </div>
         </div>
-    </div>
+    </div>    
 </section>

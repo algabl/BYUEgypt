@@ -27,7 +27,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var artifacts = artContext.Artifacts.ToList();
-        return View(artifacts);
+        return View();
     }
 
     public IActionResult Privacy()

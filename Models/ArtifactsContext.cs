@@ -2,14 +2,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BYUEgypt.Models;
 
-public class ArtifactsContext : DbContext
+public partial class ArtifactContext : DbContext
 {
-    public ArtifactsContext(DbContextOptions<ArtifactsContext> options) : base(options)
+    public ArtifactContext(DbContextOptions<ArtifactContext> options) : base(options)
     {
         // leavin blank
     }
     
-    public DbSet<Artifact> Artifacts { get; set; }
+    public virtual DbSet<Artifact> Artifacts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder mb)
     {
