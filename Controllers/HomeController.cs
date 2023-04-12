@@ -48,10 +48,21 @@ public class HomeController : Controller
     public IActionResult RecordView(long id)
     {
         Burialmain bm = repo.Burials.Single(x => x.Id == id);
+        ViewData["Title"] = "Burial " + bm.Id;
         return View(bm);
     }
     
-    [Authorize]
+    [HttpGet]
+    [Authorize(Roles = "USER, ADMIN")]
+    public IActionResult EditRecord(long id)
+    {
+        Burialmain bm = repo.Burials.Single(x => x.Id == id);
+
+        return View();
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "USER, ADMIN")]
     public IActionResult EditRecord()
     {
         return View();

@@ -1,10 +1,25 @@
+
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
 @{
-    ViewData["Title"] = "Record View";
+    var currentUser = UserManager.GetUserAsync(User).Result;
 }
-
+@using Microsoft.CodeAnalysis.Differencing
 @model Burialmain 
-
-
+<div class="row">
+    <div class="col align-self-start">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        if (await UserManager.IsInRoleAsync(currentUser, "USER") || await UserManager.IsInRoleAsync(currentUser, "ADMIN"))
+        {
+            <div class="col align-self-end">
+                <a class="btn btn-primary" asp-controller="Home" asp-action="EditRecord" asp-route-id="@Model.Id">Edit record</a>
+            </div>
+        }
+    }
+</div>
 <section style="height: 70vh" class="mt-5 mb-5 d-flex flex-column justify-content-center align-items-center">
     <div class="record-view-container w-90">
         <div class="record-photo">
