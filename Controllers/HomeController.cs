@@ -30,13 +30,13 @@ public class HomeController : Controller
     {
         int pageSize = 5;
 
-        var Burialmains = gamous_context.Burialmains
+        var burialmains = gamous_context.Burialmains
             .Where(bm => bm.Area != "NW")
             .OrderBy(bm => bm.Burialnumber)
             .Skip((pageNum - 1) * pageSize)
             .Take(pageSize);
                 
-        return View(Burialmains);
+        return View(burialmains);
     }
 
     public IActionResult Privacy()
@@ -44,15 +44,25 @@ public class HomeController : Controller
         return View();
     }
 
-    [HttpPost]
-    public IActionResult RecordView(int id)
+    [HttpGet]
+    public IActionResult RecordView(long id)
     {
-        Burialmain bm = repo.Burials.FirstOrDefault(bm => bm.Id == id);
-
+        Burialmain bm = repo.Burials.Single(x => x.Id == id);
+        ViewData["Title"] = "Burial " + bm.Id;
         return View(bm);
     }
     
-    [Authorize]
+    [HttpGet]
+    [Authorize(Roles = "USER, ADMIN")]
+    public IActionResult EditRecord(long id)
+    {
+        Burialmain bm = repo.Burials.Single(x => x.Id == id);
+
+        return View();
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "USER, ADMIN")]
     public IActionResult EditRecord()
     {
         return View();

@@ -1,8 +1,7 @@
 @using BYUEgypt.Infrastructure
 @model Burialmain
-<form method="post" asp-action="RecordView" asp-controller="Home">
-    <input type="hidden" asp-for="@Model.Id" value="">
-    <a type="submit">
+
+<a style="all: unset" asp-controller="Home" asp-action="RecordView" asp-route-id="@Model.Id">
     <div class="card border-dark mb-3" style="min-width: 50rem;">
         <div class="card-header d-flex justify-content-end align-items-center">
             <div class="display-8">
@@ -35,10 +34,7 @@
             </div>
         </div>
     </div>
-    </a>
-</form>    
+</a>
+  
 
-@{
-    Layout = null;
-}
 
