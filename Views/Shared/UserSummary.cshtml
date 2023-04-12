@@ -1,8 +1,21 @@
-@model IdentityUser
+@using Microsoft.EntityFrameworkCore.Infrastructure
+@model UserViewModel
 
 <tr>
-    <td>@Model.NormalizedEmail</td>
-    <td><a asp-controller="Admin" asp-action="Edit" asp-route-id="@Model.Id">Edit</a></td>
-    <td><a asp-controller="Admin" asp-action="Delete" asp-route-id="@Model.Id">Delete</a></td>
+    <td>@Model.User.UserName</td>
+    <td>@Model.User.Email</td>
+    <td>@Model.User.PhoneNumber</td>
+    <td>
+        @if (Model.UserRole)
+        {
+            <div>User</div>
+        }
+        @if (Model.AdminRole)
+        {
+            <div>Admin</div>
+        }
+    </td>
+    <td><a asp-controller="Admin" asp-action="Edit" asp-route-id="@Model.User.Id">Edit</a></td>
+    <td><a asp-controller="Admin" asp-action="Delete" asp-route-id="@Model.User.Id">Delete</a></td>
 </tr>
 

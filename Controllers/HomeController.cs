@@ -26,8 +26,11 @@ public class HomeController : Controller
     
     public IActionResult Index()
     {
-        var artifacts = artContext.Artifacts.ToList();
-        return View(artifacts);
+        var viewModel = new ArtifactViewModel()
+        {
+            Artifacts = artContext.Artifacts
+        };
+        return View(viewModel);
     }
 
     public IActionResult Privacy()
@@ -40,7 +43,7 @@ public class HomeController : Controller
         return View();
     }
     
-    [Authorize]
+    [Authorize(Roles = "USER, ADMIN")]
     public IActionResult EditRecord()
     {
         return View();
@@ -62,5 +65,21 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
     
+    [HttpGet]
+    public IActionResult Delete(int id)
+    {
+        var artifact = artContext.Artifacts.Single(x => x.BurialId == id);
+        ViewData["Title"] = "Delete " + artifact.Name;
+        return View(artifact);
+    }
+
+    [HttpPost]
+    public IActionResult Delete(Artifact artifact)
+    {
+        artifact = artContext.Artifacts.Single(x => x.BurialId == artifact.BurialId);
+        artContext.Artifacts.Remove(artifact);
+        artContext.SaveChanges();
+        return RedirectToAction("Index");
+    }
     
 }
