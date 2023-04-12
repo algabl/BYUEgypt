@@ -15,6 +15,7 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private ApplicationDbContext context;
+
     private IBurialRepository repo;
     private fagelgamous_databaseContext gamous_context;
 
@@ -52,6 +53,7 @@ public class HomeController : Controller
         return View(bm);
     }
     
+
     [HttpGet]
     [Authorize(Roles = "USER, ADMIN")]
     public IActionResult EditRecord(long id)
@@ -75,5 +77,21 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
     
+    [HttpGet]
+    public IActionResult Delete(int id)
+    {
+        var artifact = artContext.Artifacts.Single(x => x.BurialId == id);
+        ViewData["Title"] = "Delete " + artifact.Name;
+        return View(artifact);
+    }
+
+    [HttpPost]
+    public IActionResult Delete(Artifact artifact)
+    {
+        artifact = artContext.Artifacts.Single(x => x.BurialId == artifact.BurialId);
+        artContext.Artifacts.Remove(artifact);
+        artContext.SaveChanges();
+        return RedirectToAction("Index");
+    }
     
 }
