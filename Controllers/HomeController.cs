@@ -58,15 +58,6 @@ public class HomeController : Controller
         return View();
     }
     
-    public IActionResult SupAnalysis()
-    {
-        return View();
-    }
-    
-    public IActionResult UnSupAnalysis()
-    {
-        return View();
-    }
     
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
