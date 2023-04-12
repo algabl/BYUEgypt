@@ -5,7 +5,7 @@
 
 @model IdentityUser
 
-<h1>Confirm deletion</h1>
+<h1 class="mt-2">Confirm deletion</h1>
 <p>Are you sure you want to delete @Model.UserName?</p>
 <form method="post" asp-action="Delete">
     <button class="btn btn-warning" type="submit">Yes, delete @Model.UserName</button>

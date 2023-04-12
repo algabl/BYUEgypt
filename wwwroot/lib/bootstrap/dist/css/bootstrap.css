@@ -56,7 +56,7 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-bg: #fff;
-  --bs-body-text-align: center;
+  --bs-body-text-align: start;
 }
 
 *,
@@ -3930,11 +3930,12 @@ textarea.form-control-lg {
   background: none;
   border: 0;
   border-radius: 0.25rem;
+  color:#002e5d;
 }
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #0d6efd;
+  background-color: #002e5d;
 }
 
 .nav-fill > .nav-link,
