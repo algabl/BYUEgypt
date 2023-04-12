@@ -2,7 +2,7 @@
     ViewData["Title"] = "Supervised Analysis";
 }
 
-<h1>@ViewData["Title"]</h1>
+@model Burialmain
 
 <section style="height:70vh;">
     <div class="d-flex justify-content-center align-items-center cairo-font display-7">
@@ -28,17 +28,17 @@
               <div class="accordion-body">
                   <form class="row g-3">
                     <div class="col-md-4">
-                      <label asp-for="" class="form-label">Sex</label>
-                      <select id="inputState" class="form-select">
+                      <label asp-for="Sex" class="form-label">Sex</label>
+                      <select asp-for="Sex" id="inputState" class="form-select">
                         <option selected>Choose...</option>
                         <option>Female</option>
                         <option>Male</option>
                         <option>Unknown</option>
                       </select>
                     </div>
-                    <div class="col-md-4">
-                      <label asp-for="" class="form-label">Prservation</label>
-                      <select id="inputAdultsubadult" class="form-select">
+                    <div class="col-md-4" id="Preservation">
+                      <label asp-for="Preservation" class="form-label">Preservation</label>
+                      <select asp-for="Preservation" id="inputPreservation" class="form-select">
                         <option selected>Choose...</option>
                         <option value="V">Very Disturbed</option>
                         <option value="B">Badly Preserved</option>
@@ -49,9 +49,9 @@
                         <option value="W">Whole/Great Preservation</option>
                       </select>
                     </div>
-                    <div class="col-md-4">
-                      <label asp-for="" class="form-label">Area</label>
-                      <select id="inputArea" class="form-select">
+                    <div class="col-md-4" id="Area">
+                      <label asp-for="Area" class="form-label">Area</label>
+                      <select asp-for="Area" id="inputArea" class="form-select">
                         <option selected>Choose...</option>
                         <option>NW</option>
                         <option>SW</option>
@@ -60,11 +60,11 @@
                       </select>
                     </div>
                     <div class="col-md-3">
-                      <label asp-for="" class="form-label">Depth</label>
-                      <input type="number" class="form-control" id="inputDepth" placeholder="1234 Main St">
+                      <label asp-for="Depth" class="form-label">Depth</label>
+                      <input asp-for="Depth" type="number" class="form-control" id="inputDepth" placeholder="">
                     </div>
                     <div class="col-md-3">
-                      <label asp-for="" class="form-label">Depth Indicator</label>
+                      <label class="form-label">Depth Indicator</label>
                       <select id="inputDepthIndicator" class="form-select">
                         <option selected>Choose...</option>
                         <option>Greater than ></option>
@@ -72,11 +72,11 @@
                       </select>
                     </div>
                     <div class="col-md-3">
-                      <label asp-for="" class="form-label">Length</label>
-                      <input type="number" class="form-control" id="inputLength" placeholder="1234 Main St">
+                      <label asp-for="Length" class="form-label">Length</label>
+                      <input asp-for="Length" type="number" class="form-control" id="inputLength" placeholder="">
                     </div>
                     <div class="col-md-3">
-                      <label asp-for="" class="form-label">Length Indicator</label>
+                      <label class="form-label">Length Indicator</label>
                       <select id="inputLengthIndicator" class="form-select">
                         <option selected>Choose...</option>
                         <option>Greater than ></option>
@@ -84,8 +84,8 @@
                       </select>
                       </div>
                     <div class="col-md-6">
-                      <label asp-for="" class="form-label">Age at Death</label>
-                      <select id="inputAgeatdeath" class="form-select">
+                      <label asp-for="Ageatdeath" class="form-label">Age at Death</label>
+                      <select asp-for="Ageatdeath" id="inputAgeatdeath" class="form-select">
                         <option selected>Choose...</option>
                         <option value="A">Adult - years 15+</option>
                         <option value="C">Child - years 3-15</option>
@@ -95,8 +95,8 @@
                       </select>
                     </div>
                     <div class="col-md-6">
-                      <label asp-for="" class="form-label">Wrapping</label>
-                      <select id="inputWrapping" class="form-select">
+                      <label asp-for="Wrapping" class="form-label">Wrapping</label>
+                      <select asp-for="Wrapping" id="inputWrapping" class="form-select">
                         <option selected value="">Choose...</option>
                         <option value="W">Full or nearly full wrapping remains</option>
                         <option value="H">Partial wrapping remain</option>
@@ -105,7 +105,7 @@
                       </select>
                     </div>
                     <div class="col-12">
-                      <button type="submit" class="btn btn-primary">Filter</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                   </form>
               </div>
@@ -114,7 +114,7 @@
         
       </div>  
   </div>
-  
 
+  
 </section>
 
