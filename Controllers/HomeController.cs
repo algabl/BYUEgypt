@@ -14,24 +14,20 @@ namespace BYUEgypt.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private ApplicationDbContext context;
 
     private IBurialRepository repo;
-    private fagelgamous_databaseContext gamous_context;
 
-    public HomeController(ILogger<HomeController> logger, ApplicationDbContext temp, IBurialRepository burialTemp, fagelgamous_databaseContext gamousContext)
+    public HomeController(ILogger<HomeController> logger, IBurialRepository burialTemp)
     {
         _logger = logger;
-        context = temp;
         repo = burialTemp;
-        gamous_context = gamousContext;
     }
     
     public IActionResult Index(int pageNum = 1)
     {
         int pageSize = 5;
 
-        var burialmains = gamous_context.Burialmains
+        var burialmains = repo.Burials
             .Where(bm => bm.Area != "NW")
             .OrderBy(bm => bm.Burialnumber)
             .Skip((pageNum - 1) * pageSize)
@@ -80,17 +76,15 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult Delete(int id)
     {
-        var artifact = artContext.Artifacts.Single(x => x.BurialId == id);
-        ViewData["Title"] = "Delete " + artifact.Name;
-        return View(artifact);
+        var burial = repo.Burials.Single(x => x.Id == id);
+        ViewData["Title"] = "Delete " + burial.Id;
+        return View(burial);
     }
 
     [HttpPost]
-    public IActionResult Delete(Artifact artifact)
+    public IActionResult Delete(Burialmain burial)
     {
-        artifact = artContext.Artifacts.Single(x => x.BurialId == artifact.BurialId);
-        artContext.Artifacts.Remove(artifact);
-        artContext.SaveChanges();
+        burial = repo.Burials.Single(x => x.Id == burial.Id);
         return RedirectToAction("Index");
     }
     

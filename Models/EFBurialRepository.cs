@@ -10,4 +10,14 @@ public class EFBurialRepository : IBurialRepository
     }
 
     public IQueryable<Burialmain> Burials => Context.Burialmains;
+    public void DeleteRecord(Burialmain burial)
+    {
+        Context.Remove(burial);
+        Context.SaveChanges();
+    }
+
+    public string Whatever()
+    {
+        return "Hello world";
+    }
 }
