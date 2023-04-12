@@ -162,3 +162,15 @@
 .record-highlight { grid-area: record-highlight; }
 
 .record-details { grid-area: record-details; }
+
+.display-7 {
+  font-size: calc(0.5rem + 0.75vw);
+  font-weight: 300;
+  line-height: 1.05;
+}
+
+.display-8 {
+  font-size: calc(0.3rem + 0.45vw);
+  font-weight: 300;
+  line-height: 1.05;
+}
