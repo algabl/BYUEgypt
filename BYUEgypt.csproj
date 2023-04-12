@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
@@ -40,6 +40,14 @@
 
     <ItemGroup>
       <Folder Include="Views\Shared\Components" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include=".ebextensions\00_install_certbot.config" CopyToPublishDirectory="Always" />
+      <None Include=".ebextensions\01_open_https_port.config" CopyToPublishDirectory="Always" />
+      <None Include=".ebextensions\02_grant_executable_rights.config" CopyToPublishDirectory="Always" />
+      <None Include=".ebextensions\03_renew_ssl_certificate_cron_job.config" CopyToPublishDirectory="Always" />
+      <None Include=".platform\hooks\postdeploy\00_get_certificate.sh" CopyToPublishDirectory="Always" />
     </ItemGroup>
 
 </Project>
