@@ -80,6 +80,7 @@
     ". . . ."
     ". index-left-image index-left-card ."
     ". . . .";
+  overflow: hidden;
 }
 
 .index-left-image { grid-area: index-left-image; }
@@ -88,6 +89,9 @@
   grid-area: index-left-card;
   align-self: center;
   text-align: end;
+  height:100%;
+  width: 100%;
+  overflow: scroll;
 }
 
 .index-right-container {
@@ -106,6 +110,7 @@
     ". . . ."
     ". index-right-card index-right-image ."
     ". . . .";
+  overflow: hidden;
 }
 
 .index-right-image { grid-area: index-right-image; }
@@ -114,6 +119,13 @@
   grid-area: index-right-card;
   align-self: center;
   text-align: start;
+  height:100%;
+  width: 100%;
+  overflow: scroll;
+}
+
+.cairo-font {
+  font-family: Cairo, sans-serif;
 }
 
 .index-font{
@@ -124,4 +136,41 @@
 .wb-section-photo {
   border: 12px solid rgba(209, 204, 189, 0.5);
   border-radius: 25px;
+}
+
+.record-view-container {  
+  
+  height: inherit;
+  display: grid;
+  grid-template-columns: .75fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1.5% 1.5%;
+  grid-auto-flow: column dense;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-template-areas:
+    "record-photo record-highlight"
+    "record-details record-details";
+}
+.w-90 {
+  width: 90%;
+}
+.record-photo { grid-area: record-photo; }
+
+.record-highlight { grid-area: record-highlight; }
+
+.record-details { grid-area: record-details; }
+
+.display-7 {
+  font-size: calc(0.5rem + 0.75vw);
+  font-weight: 300;
+  line-height: 1.05;
+}
+
+.display-8 {
+  font-size: calc(0.3rem + 0.45vw);
+  font-weight: 300;
+  line-height: 1.05;
 }
