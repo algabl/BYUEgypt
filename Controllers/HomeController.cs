@@ -6,6 +6,7 @@ using BYUEgypt.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System.Linq;
 
 
 namespace BYUEgypt.Controllers;
@@ -14,16 +15,19 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private ApplicationDbContext context;
+    private ArtifactsContext artContext { get; set; }
 
-    public HomeController(ILogger<HomeController> logger, ApplicationDbContext temp)
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext temp, ArtifactsContext artTemp)
     {
         _logger = logger;
         context = temp;
+        artContext = artTemp;
     }
     
     public IActionResult Index()
     {
-        return View();
+        var artifacts = artContext.Artifacts.ToList();
+        return View(artifacts);
     }
 
     public IActionResult Privacy()

@@ -1,4 +1,27 @@
 @{
     ViewData["Title"] = "Record View";
 }
-<h1>@ViewData["Title"]</h1>
+
+@model Artifact 
+
+<section class="d-flex justify-content-center align-items-center" style="height:100vh;">
+    <div class="record-view-container">
+        <div class="record-description bg-info">
+            <div class="flex-column">
+                <div class="row">@Model.Name</div>
+                <img src="" alt="@Model.PhotoId"/>
+                <div class="row"><b>Burial Number: </b>@Model.BurialNumber</div>
+                <div class="row"><b>Sex: </b>@Model.Sex</div>
+                <div class="row"><b>Area: </b>@Model.Area</div>
+                <div class="row"><b>Depth: </b>@Model.Depth</div>
+                <div class="row"><b>Length: </b>@Model.Length</div>
+                <div class="row"><b>Recorder: </b>@Model.ExcavationRecorder</div>
+            </div>
+        </div>
+        <div class="record-facts bg-secondary">
+            <div class="row">@Model.Text</div>
+            <div class="row">@Model.Preservation</div>
+            some text for the facts
+        </div>
+    </div>
+</section>
