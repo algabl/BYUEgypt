@@ -15,38 +15,28 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private ApplicationDbContext context;
-    private IBurialRepository repo;
-    // private fagelgamous_databaseContext gamous_context;
+    //private IBurialRepository repo;
+    private fagelgamous_databaseContext gamous_context;
 
-    public HomeController(ILogger<HomeController> logger, ApplicationDbContext temp, IBurialRepository burialTemp/*, fagelgamous_databaseContext gamousContext*/)
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext temp/*,IBurialRepository burialTemp*/, fagelgamous_databaseContext gamousContext)
     {
         _logger = logger;
         context = temp;
-        repo = burialTemp;
-        // gamous_context = gamousContext;
+        //repo = burialTemp;
+        gamous_context = gamousContext;
     }
     
     public IActionResult Index(int pageNum = 1)
     {
         int pageSize = 5;
 
-        var burialmainsViewModel = new BurialmainsViewModel
-        {
-            Burialmains = repo.Burials
-                .Where(bm => bm.Area != "SW")
-                .OrderBy(bm => bm.Burialnumber)
-                .Skip((pageNum - 1) * pageSize)
-                .Take(pageSize),
-
-            PageInfo = new PageInfo
-            {
-                TotalNumBurials = repo.Burials.Count(),
-                BurialsPerPage = pageSize,
-                CurrentPage = pageNum
-            }
-        };
-        
-        return View(burialmainsViewModel);
+        var Burialmains = gamous_context.Burialmains
+            .Where(bm => bm.Area != "SW")
+            .OrderBy(bm => bm.Burialnumber)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+                
+        return View(Burialmains);
     }
 
     public IActionResult Privacy()

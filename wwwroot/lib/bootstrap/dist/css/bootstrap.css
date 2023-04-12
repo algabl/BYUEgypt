@@ -2212,11 +2212,11 @@ progress {
   height: 1.5em;
 }
 .form-control::-moz-placeholder {
-  color: #C44536;
+  color: #002e5d;
   opacity: 1;
 }
 .form-control::placeholder {
-  color: #C44536;
+  color: #002e5d;
   opacity: 1;
 }
 .form-control:disabled, .form-control[readonly] {

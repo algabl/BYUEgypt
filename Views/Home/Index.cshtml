@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model BurialmainsViewModel 
+@model IQueryable<Burialmain> 
 
 <div class="index-font">
     <section class="index-background" style="height: 95vh;">
@@ -57,23 +57,23 @@
 </section>
 
     <section style="">
-        <div class="row m-5">
-            <h1>Current Burials</h1>
-        </div>
         <div class="d-flex justify-content-center align-items center w-auto cairo-font">
+            
+        </div>
+        <div class="d-flex mt-5 mb-3 justify-content-center align-items center w-auto cairo-font">
             <div class="accordion accordion-flush w-75 " id="accordionFlushExample">
                 <div class="accordion-item ">
                   <h2 class="accordion-header bg-primary text-light display-6">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                      Test your own artifact!
+                      Current Burials - click to Filter
                     </button>
                   </h2>
                   <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                       <div class="accordion-body">
                           <form class="row g-3">
                             <div class="col-md-4">
-                              <label asp-for="" class="form-label">Sex</label>
-                              <select id="inputState" class="form-select">
+                              <label class="form-label">Sex</label>
+                              <select id="inputSex" class="form-select">
                                 <option selected>Choose...</option>
                                 <option>Female</option>
                                 <option>Male</option>
@@ -81,7 +81,7 @@
                               </select>
                             </div>
                             <div class="col-md-4">
-                              <label asp-for="" class="form-label">Prservation</label>
+                              <label class="form-label">Prservation</label>
                               <select id="inputAdultsubadult" class="form-select">
                                 <option selected>Choose...</option>
                                 <option value="V">Very Disturbed</option>
@@ -94,7 +94,7 @@
                               </select>
                             </div>
                             <div class="col-md-4">
-                              <label asp-for="" class="form-label">Area</label>
+                              <label class="form-label">Area</label>
                               <select id="inputArea" class="form-select">
                                 <option selected>Choose...</option>
                                 <option>NW</option>
@@ -104,23 +104,23 @@
                               </select>
                             </div>
                             <div class="col-md-3">
-                              <label asp-for="" class="form-label">Depth</label>
-                              <input type="number" class="form-control" id="inputDepth" placeholder="1234 Main St">
+                              <label class="form-label">Depth</label>
+                              <input type="number" class="form-control" id="inputDepth" placeholder="Enter a number">
                             </div>
                             <div class="col-md-3">
-                              <label asp-for="" class="form-label">Depth Indicator</label>
-                              <select id="inputDepthIndicator" class="form-select">
+                              <label class="form-label">Depth Indicator</label>
+                              <select id="inputDepthIndicator" class="form-select" aria-label="Default select example">
                                 <option selected>Choose...</option>
                                 <option>Greater than ></option>
                                 <option>Less than <</option>
                               </select>
                             </div>
                             <div class="col-md-3">
-                              <label asp-for="" class="form-label">Length</label>
-                              <input type="number" class="form-control" id="inputLength" placeholder="1234 Main St">
+                              <label class="form-label">Length</label>
+                              <input type="number" class="form-control" id="inputLength" placeholder="Enter a number">
                             </div>
                             <div class="col-md-3">
-                              <label asp-for="" class="form-label">Length Indicator</label>
+                              <label class="form-label">Length Indicator</label>
                               <select id="inputLengthIndicator" class="form-select">
                                 <option selected>Choose...</option>
                                 <option>Greater than ></option>
@@ -128,7 +128,7 @@
                               </select>
                               </div>
                             <div class="col-md-6">
-                              <label asp-for="" class="form-label">Age at Death</label>
+                              <label class="form-label">Age at Death</label>
                               <select id="inputAgeatdeath" class="form-select">
                                 <option selected>Choose...</option>
                                 <option value="A">Adult - years 15+</option>
@@ -139,7 +139,7 @@
                               </select>
                             </div>
                             <div class="col-md-6">
-                              <label asp-for="" class="form-label">Wrapping</label>
+                              <label class="form-label">Wrapping</label>
                               <select id="inputWrapping" class="form-select">
                                 <option selected value="">Choose...</option>
                                 <option value="W">Full or nearly full wrapping remains</option>
@@ -159,13 +159,13 @@
               </div>  
           </div>
         <div class="container ">
-            @foreach (var bm in Model.Burialmains)
+            @foreach (var bm in Model)
             {
                 <partial name="BurialSummary" model="bm"/>
             }
         </div>
 
-        <div page-burials="@Model.PageInfo"></div>
+        <div page-burials=""></div>
     </section>
 
 
