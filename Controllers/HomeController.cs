@@ -2,11 +2,11 @@
 using BYUEgypt.Data;
 using Microsoft.AspNetCore.Mvc;
 using BYUEgypt.Models;
-using BYUEgypt.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Linq;
+using BYUEgypt.Models.ViewModels;
 
 
 namespace BYUEgypt.Controllers;
@@ -15,22 +15,29 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private ApplicationDbContext context;
-    private ArtifactsContext artContext { get; set; }
 
-    public HomeController(ILogger<HomeController> logger, ApplicationDbContext temp, ArtifactsContext artTemp)
+    private IBurialRepository repo;
+    private fagelgamous_databaseContext gamous_context;
+
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext temp, IBurialRepository burialTemp, fagelgamous_databaseContext gamousContext)
     {
         _logger = logger;
         context = temp;
-        artContext = artTemp;
+        repo = burialTemp;
+        gamous_context = gamousContext;
     }
     
-    public IActionResult Index()
+    public IActionResult Index(int pageNum = 1)
     {
-        var viewModel = new ArtifactViewModel()
-        {
-            Artifacts = artContext.Artifacts
-        };
-        return View(viewModel);
+        int pageSize = 5;
+
+        var burialmains = gamous_context.Burialmains
+            .Where(bm => bm.Area != "NW")
+            .OrderBy(bm => bm.Burialnumber)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+                
+        return View(burialmains);
     }
 
     public IActionResult Privacy()
@@ -38,26 +45,31 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult RecordView()
+    [HttpGet]
+    public IActionResult RecordView(long id)
     {
-        return View();
+        Burialmain bm = repo.Burials.Single(x => x.Id == id);
+        ViewData["Title"] = "Burial " + bm.Id;
+        return View(bm);
     }
     
+
+    [HttpGet]
+    [Authorize(Roles = "USER, ADMIN")]
+    public IActionResult EditRecord(long id)
+    {
+        Burialmain bm = repo.Burials.Single(x => x.Id == id);
+
+        return View();
+    }
+
+    [HttpPost]
     [Authorize(Roles = "USER, ADMIN")]
     public IActionResult EditRecord()
     {
         return View();
     }
     
-    public IActionResult SupAnalysis()
-    {
-        return View();
-    }
-    
-    public IActionResult UnSupAnalysis()
-    {
-        return View();
-    }
     
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

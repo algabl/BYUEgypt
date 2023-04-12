@@ -6,13 +6,17 @@
     <td>@Model.User.Email</td>
     <td>@Model.User.PhoneNumber</td>
     <td>
-        @if (Model.UserRole)
-        {
-            <div>User</div>
-        }
-        @if (Model.AdminRole)
-        {
-            <div>Admin</div>
+        @{
+            string roles = "";
+            if (Model.UserRole)
+            {
+                roles += "User ";
+            }
+            if (Model.AdminRole)
+            {
+                roles += "Admin";
+            }
+            <div>@roles</div>
         }
     </td>
     <td><a asp-controller="Admin" asp-action="Edit" asp-route-id="@Model.User.Id">Edit</a></td>

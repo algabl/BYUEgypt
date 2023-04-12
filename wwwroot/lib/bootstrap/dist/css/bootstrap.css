@@ -56,7 +56,7 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-bg: #fff;
-  --bs-body-text-align: center;
+  --bs-body-text-align: start;
 }
 
 *,
@@ -539,7 +539,7 @@ progress {
 }
 
 .display-6 {
-  font-size: calc(1.375rem + 1.5vw);
+  font-size: calc(0.5rem + 0.5vw);
   font-weight: 300;
   line-height: 1.2;
 }
@@ -2212,11 +2212,11 @@ progress {
   height: 1.5em;
 }
 .form-control::-moz-placeholder {
-  color: #C44536;
+  color: #002e5d;
   opacity: 1;
 }
 .form-control::placeholder {
-  color: #C44536;
+  color: #002e5d;
   opacity: 1;
 }
 .form-control:disabled, .form-control[readonly] {
@@ -3930,11 +3930,12 @@ textarea.form-control-lg {
   background: none;
   border: 0;
   border-radius: 0.25rem;
+  color:#002e5d;
 }
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #0d6efd;
+  background-color: #002e5d;
 }
 
 .nav-fill > .nav-link,
