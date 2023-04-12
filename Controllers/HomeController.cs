@@ -14,12 +14,14 @@ namespace BYUEgypt.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private ApplicationDbContext context;
     private IBurialRepository repo;
     private fagelgamous_databaseContext gamous_context;
 
-    public HomeController(ILogger<HomeController> logger, IBurialRepository burialTemp, fagelgamous_databaseContext gamousContext)
+    public HomeController(ILogger<HomeController> logger, ApplicationDbContext temp, IBurialRepository burialTemp, fagelgamous_databaseContext gamousContext)
     {
         _logger = logger;
+        context = temp;
         repo = burialTemp;
         gamous_context = gamousContext;
     }
@@ -29,7 +31,7 @@ public class HomeController : Controller
         int pageSize = 5;
 
         var Burialmains = gamous_context.Burialmains
-            .Where(bm => bm.Area != "SW")
+            .Where(bm => bm.Area != "NW")
             .OrderBy(bm => bm.Burialnumber)
             .Skip((pageNum - 1) * pageSize)
             .Take(pageSize);
@@ -42,9 +44,12 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult RecordView()
+    [HttpPost]
+    public IActionResult RecordView(int id)
     {
-        return View();
+        Burialmain bm = repo.Burials.FirstOrDefault(bm => bm.Id == id);
+
+        return View(bm);
     }
     
     [Authorize]

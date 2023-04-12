@@ -2,7 +2,7 @@
     ViewData["Title"] = "Record View";
 }
 
-@model Artifact 
+@model Burialmain 
 
 
 <section style="height: 70vh" class="mt-5 mb-5 d-flex flex-column justify-content-center align-items-center">
@@ -13,26 +13,26 @@
         <div class="record-highlight h-100 w-100">
             <div class="bg-secondary h-100 w-100 text-start">
                 <div class="card-header">
-                    Model.Name
+                    @Model.Area
                 </div>
                 <div class="ps-3 mb-3">
                     <div class="card-text">
-                        Model.AgeAtDeath
+                        @Model.Sex
                     </div>
                     <div class="card-text">
-                        Model.Preservation
+                        @Model.Preservation
                     </div>
                     <div class="card-text">
-                        Model.ExcavationRecorder
+                        @Model.Excavationrecorder
                     </div>
                     <div class="card-text">
-                        Model.Depth
+                        @Model.Depth
                     </div>
                     <div class="card-text">
-                        Model.Length
+                        @Model.Length
                     </div>
                     <div class="card-text">
-                        Model.HairColor
+                        @Model.Haircolor
                     </div>
                 </div>
             </div>
