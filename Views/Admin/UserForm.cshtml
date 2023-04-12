@@ -1,9 +1,66 @@
 ﻿
 @{
-    ViewData["Title"] = "Manage Accounts";
 }
+
+@model UsersViewModel
+
 <h1>@ViewData["Title"]</h1>
 
-<form method="post">
 
+<form class="m-3 text-start" method="post">
+    <input type="hidden" asp-for="User.Id"/>
+    <div class="form-floating mb-3">
+        <input asp-for="User.UserName" type="text" class="form-control"/>
+        <label>Username</label>
+    </div>
+    <h4>Password</h4>
+    <div class="row">
+        <div class="col">
+            <div class="form-floating mb-3">
+                <input asp-for="Password" type="password" class="form-control"/>
+                <label>Enter a new password</label>
+            </div>
+        </div>
+        @if (ViewData["Title"].ToString().Contains("Edit"))
+        {
+            <div class="col">
+                <div class="form-floating mb-3">
+                    <input asp-for="CurrentPassword" type="password" class="form-control"/>
+                    <label>Enter current password</label>
+                </div>
+            </div>
+        }
+    </div>
+    <h4>Contact Information</h4>
+    <div class="row">
+        <div class="col-9">
+            <div class="form-floating mb-3">
+                <input asp-for="User.Email" type="email" class="form-control"/>
+                <label>Email address</label>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-floating mb-3">
+                <input asp-for="User.PhoneNumber" type="tel" class="form-control"/>
+                <label>Phone</label>
+            </div>
+        </div>
+    </div>
+    
+    <h4>Roles</h4>
+    <div class="ms-2 mb-2">
+        <div class="form-check">
+               <input asp-for="UserRole" class="form-check-input" type="checkbox">
+               <label class="form-check-label">User - permission to edit artifact records</label>
+           </div>
+            <div class="form-check">
+                <input asp-for="AdminRole" class="form-check-input" type="checkbox">
+                <label class="form-check-label">Admin - all permissions</label>
+            </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a asp-action="Users" class="btn btn-light">Cancel</a>
+    <div asp-validation-summary="All"></div>
 </form>
+

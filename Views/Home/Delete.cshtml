@@ -1,0 +1,12 @@
+@{
+    
+}
+@model Artifact
+
+<h1 class="mt-2">Confirm deletion</h1>
+<p>Are you sure you want to delete @Model.Name?</p>
+<form method="post" asp-action="Delete">
+    <button class="btn btn-warning" type="submit">Yes, delete @Model.Name</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-light">No, cancel</a>
+    <input type="hidden" asp-for="BurialId"/>
+</form>

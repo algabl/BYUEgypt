@@ -1,16 +1,67 @@
+
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
 @{
-    ViewData["Title"] = "Record View";
+    var currentUser = UserManager.GetUserAsync(User).Result;
 }
-
-
-
-<section class="d-flex justify-content-center align-items-center" style="height:100vh;">
-    <div class="record-view-container">
-        <div class="record-description bg-info">
-            some text for the description
-        </div>
-        <div class="record-facts bg-secondary">
-            some text for the facts
-        </div>
+@using Microsoft.CodeAnalysis.Differencing
+@model Burialmain 
+<div class="row">
+    <div class="col align-self-start">
+        <h1>@ViewData["Title"]</h1>
     </div>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        if (await UserManager.IsInRoleAsync(currentUser, "USER") || await UserManager.IsInRoleAsync(currentUser, "ADMIN"))
+        {
+            <div class="col align-self-end">
+                <a class="btn btn-primary" asp-controller="Home" asp-action="EditRecord" asp-route-id="@Model.Id">Edit record</a>
+            </div>
+        }
+    }
+</div>
+<section style="height: 70vh" class="mt-5 mb-5 d-flex flex-column justify-content-center align-items-center">
+    <div class="record-view-container w-90">
+        <div class="record-photo">
+            <img src="~/img/fag_el-gamous.jpg" alt="" width="100%">
+        </div>
+        <div class="record-highlight h-100 w-100">
+            <div class="bg-secondary h-100 w-100 text-start">
+                <div class="card-header">
+                    @Model.Area
+                </div>
+                <div class="ps-3 mb-3">
+                    <div class="card-text">
+                        @Model.Sex
+                    </div>
+                    <div class="card-text">
+                        @Model.Preservation
+                    </div>
+                    <div class="card-text">
+                        @Model.Excavationrecorder
+                    </div>
+                    <div class="card-text">
+                        @Model.Depth
+                    </div>
+                    <div class="card-text">
+                        @Model.Length
+                    </div>
+                    <div class="card-text">
+                        @Model.Haircolor
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="record-details h-100 w-100">
+            <div class="bg-info h-100 w-100 text-start">
+                <div class="card border-0" style="background:transparent;">
+                    <div class="card-header">Description</div>
+                    <div class="card-text ps-3">
+                        Model.Text
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>    
 </section>
