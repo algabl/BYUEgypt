@@ -26,8 +26,11 @@ public class HomeController : Controller
     
     public IActionResult Index()
     {
-        var artifacts = artContext.Artifacts.ToList();
-        return View(artifacts);
+        var viewModel = new ArtifactViewModel()
+        {
+            Artifacts = artContext.Artifacts
+        };
+        return View(viewModel);
     }
 
     public IActionResult Privacy()
