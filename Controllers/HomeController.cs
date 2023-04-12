@@ -56,13 +56,19 @@ public class HomeController : Controller
     {
         Burialmain bm = repo.Burials.Single(x => x.Id == id);
 
-        return View();
+        return View(bm);
     }
 
     [HttpPost]
     [Authorize(Roles = "USER, ADMIN")]
-    public IActionResult EditRecord()
+    public IActionResult EditRecord(Burialmain burial)
     {
+        if (ModelState.IsValid)
+        {
+            repo.EditRecord(burial);
+            return RedirectToAction("RecordView", "Home", new { id = burial.Id});
+        }
+        ViewData["Title"] = "Edit " + burial.Id;
         return View();
     }
     
@@ -85,7 +91,8 @@ public class HomeController : Controller
     public IActionResult Delete(Burialmain burial)
     {
         burial = repo.Burials.Single(x => x.Id == burial.Id);
+        long id = burial.Id;
+        repo.DeleteRecord(burial);
         return RedirectToAction("Index");
     }
-    
 }

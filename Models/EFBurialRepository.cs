@@ -16,6 +16,12 @@ public class EFBurialRepository : IBurialRepository
         Context.SaveChanges();
     }
 
+    public void EditRecord(Burialmain burial)
+    {
+        Context.Update(burial);
+        Context.SaveChanges();
+    }
+
     public string Whatever()
     {
         return "Hello world";
