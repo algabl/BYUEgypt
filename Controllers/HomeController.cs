@@ -14,15 +14,13 @@ namespace BYUEgypt.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private ApplicationDbContext context;
-    //private IBurialRepository repo;
+    private IBurialRepository repo;
     private fagelgamous_databaseContext gamous_context;
 
-    public HomeController(ILogger<HomeController> logger, ApplicationDbContext temp/*,IBurialRepository burialTemp*/, fagelgamous_databaseContext gamousContext)
+    public HomeController(ILogger<HomeController> logger, IBurialRepository burialTemp, fagelgamous_databaseContext gamousContext)
     {
         _logger = logger;
-        context = temp;
-        //repo = burialTemp;
+        repo = burialTemp;
         gamous_context = gamousContext;
     }
     

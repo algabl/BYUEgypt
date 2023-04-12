@@ -2,12 +2,12 @@ namespace BYUEgypt.Models;
 
 public class EFBurialRepository : IBurialRepository
 {
-    private fagelgamous_databaseContext context { get; set; }
+    private fagelgamous_databaseContext Context { get; set; }
 
     public EFBurialRepository(fagelgamous_databaseContext temp)
     {
-        context = temp;
+        Context = temp;
     }
 
-    public IQueryable<Burialmain> Burials => context.Burialmains;
+    public IQueryable<Burialmain> Burials => Context.Burialmains;
 }
