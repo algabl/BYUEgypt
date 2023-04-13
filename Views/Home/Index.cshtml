@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model IQueryable<Burialmain> 
+@model BurialmainsViewModel 
 
 <div class="index-font">
     <section class="index-background" style="height: 95vh;">
@@ -70,10 +70,10 @@
                   </h2>
                   <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                       <div class="accordion-body">
-                          <form class="row g-3">
+                          <form class="row g-3" asp-action="Index">
                             <div class="col-md-4">
-                              <label class="form-label">Sex</label>
-                              <select id="inputSex" class="form-select">
+                              <label for="inputSex" class="form-label">Sex</label>
+                              <select name="Sex" id="inputSex" class="form-select">
                                 <option selected>Choose...</option>
                                 <option>Female</option>
                                 <option>Male</option>
@@ -81,8 +81,8 @@
                               </select>
                             </div>
                             <div class="col-md-4">
-                              <label class="form-label">Perservation</label>
-                              <select id="inputAdultsubadult" class="form-select">
+                              <label for="inputPreservation" class="form-label">Preservation</label>
+                              <select name="Preservation" id="inputPreservation" class="form-select">
                                 <option selected>Choose...</option>
                                 <option value="V">Very Disturbed</option>
                                 <option value="B">Badly Preserved</option>
@@ -94,8 +94,8 @@
                               </select>
                             </div>
                             <div class="col-md-4">
-                              <label class="form-label">Area</label>
-                              <select id="inputArea" class="form-select">
+                              <label for="inputArea" class="form-label">Area</label>
+                              <select name="Area" id="inputArea" class="form-select">
                                 <option selected>Choose...</option>
                                 <option>NW</option>
                                 <option>SW</option>
@@ -104,8 +104,8 @@
                               </select>
                             </div>
                             <div class="col-md-3">
-                              <label class="form-label">Depth</label>
-                              <input type="number" class="form-control" id="inputDepth" placeholder="Enter a number">
+                              <label for="inputDepth" class="form-label">Depth</label>
+                              <input name="Depth" type="number" class="form-control" id="inputDepth" placeholder="Enter a number">
                             </div>
                             <div class="col-md-3">
                               <label class="form-label">Depth Indicator</label>
@@ -116,8 +116,8 @@
                               </select>
                             </div>
                             <div class="col-md-3">
-                              <label class="form-label">Length</label>
-                              <input type="number" class="form-control" id="inputLength" placeholder="Enter a number">
+                              <label for="inputLength" class="form-label">Length</label>
+                              <input name="Length" type="number" class="form-control" id="inputLength" placeholder="Enter a number">
                             </div>
                             <div class="col-md-3">
                               <label class="form-label">Length Indicator</label>
@@ -128,8 +128,8 @@
                               </select>
                               </div>
                             <div class="col-md-6">
-                              <label class="form-label">Age at Death</label>
-                              <select id="inputAgeatdeath" class="form-select">
+                              <label for="inputAgeatdeath" class="form-label">Age at Death</label>
+                              <select name="Ageatdeath" id="inputAgeatdeath" class="form-select">
                                 <option selected>Choose...</option>
                                 <option value="A">Adult - years 15+</option>
                                 <option value="C">Child - years 3-15</option>
@@ -139,8 +139,8 @@
                               </select>
                             </div>
                             <div class="col-md-6">
-                              <label class="form-label">Wrapping</label>
-                              <select id="inputWrapping" class="form-select">
+                              <label for="inputWrapping" class="form-label">Wrapping</label>
+                              <select name="Wrapping" id="inputWrapping" class="form-select">
                                 <option selected value="">Choose...</option>
                                 <option value="W">Full or nearly full wrapping remains</option>
                                 <option value="H">Partial wrapping remain</option>
@@ -159,13 +159,15 @@
               </div>  
           </div>
         <div class="container ">
-            @foreach (var bm in Model)
+            @foreach (var bm in Model.Burialmains)
             {
                 <partial name="BurialSummary" model="bm"/>
             }
         </div>
 
-        <div page-burials=""></div>
+        <div page-burials="@Model.PageInfo" page-action="Index" page-class="btn" 
+        page-class-normal="btn-outline-dark" page-class-selected="btn-info" page-classes-enabled="true"
+        class="btn-group pull-right m-1"></div>
     </section>
 
 

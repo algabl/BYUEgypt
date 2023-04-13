@@ -183,6 +183,51 @@ public class AnalysisController : Controller
         
         return View();
     }
+    
+    /*
+     *using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+
+public class MyController : Controller
+{
+    [HttpPost]
+    public async Task<IActionResult> PostDataAsync()
+    {
+        using (var client = new HttpClient())
+        {
+            var requestUri = "https://api.byuegypt.com/predict"; // Replace with the URI of the REST API
+
+            var data = new {
+                Prop1 = "Value1",
+                Prop2 = "Value2",
+                Prop3 = "Value3",
+                // Add 17 more properties here
+            };
+
+            var json = JsonConvert.SerializeObject(data);
+
+            var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync(requestUri, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Handle success
+                return Ok();
+            }
+            else
+            {
+                // Handle error
+                return BadRequest();
+            }
+        }
+    }
+}
+
+     * 
+     */
+    
 
     [HttpPost]
     public IActionResult SupAnalysis(ListDictionary dictionary)
