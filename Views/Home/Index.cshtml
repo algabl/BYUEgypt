@@ -1,11 +1,10 @@
 ﻿@inject UserManager<IdentityUser> UserManager
 @inject SignInManager<IdentityUser> SignInManager
 @{
-    ViewData["Title"] = "Home Page";
     var currentUser = UserManager.GetUserAsync(User).Result;
 }
 
-@model IQueryable<Burialmain> 
+@model BurialmainsViewModel 
 
 <div class="index-font">
     <section class="index-background" style="height: 95vh;">
@@ -22,7 +21,7 @@
     </section>
 
     <div class="row m-5">
-        <h2 class="fw-bold">Current projects</h2>
+        <h2 class="d-flex justify-content-center fw-bold">Current projects</h2>
     </div>
 
     <section class="mt-5" style="height:70vh;" id="">
@@ -33,7 +32,9 @@
             <div class="index-left-card">
                 <div class="card h-100" style="background-color: transparent; border: none;">
                     <div class="card-body" style="background-color: transparent; border: none;">
-                        <h2 class="card-title fw-bold"> <span class="wb-hero-major-text">The Fag el-Gamous Cemetary</span></h2>
+                        <h2 class="card-title fw-bold">
+                            <span class="wb-hero-major-text">The Fag el-Gamous Cemetary</span>
+                        </h2>
                         <h5 class="card-text">This cemetery was in use during the Graeco-Roman era of Egyptian history. In the early 1900’s some Mummy Portraits were found there by Bernard Grenfell and Arthur Hunt. The cemetery is very large and densely populated with burials. Some lie in the mudstone escarpments, where tombs were carved into the rocks. These are typically somewhat wealthier burials, including a golden masked mummy who was the daughter of a priest in the Ptolemaic period. Most of the burials lie loose in the sand. These burials range from being fully skeletonized to being extremely well preserved. They range from just after 300 BC to about 500 AD. During that time period nearly all of the inhabitants of the Fayoum converted to Christianity. There is some evidence for this in the burials. We are doing vigorous research attempting to determine if there are more detectable archaeological markers pointing to Christian burial practices.</h5>
                         <h5 class="card-text">This large cemetery population allows for significant statistical studies of burial practices. It has afforded a marvelous opportunity for demographic studies. Our textile analyses are providing significant new insights into changing burial patterns and the multiple and varied uses to which textiles were put. Because all of our textiles derive from a known setting, some of our most important work involves identifying and describing original in situ contexts that can be generalized to the many museum collections of uncertain provenance. We have also been able to study weaving practices, the use of tunics in various time periods, the use of sprang hairnets in various time periods, and a number of other textile studies. Analysis of amulets, figurines, pottery, jewelry, and other burial goods has also been possible. The site is among the most promising for telling us statistically significant information about burial practices in Graeco-Roman Egypt for the common person.</h5>
                     </div>
@@ -41,122 +42,122 @@
             </div>
         </div>
     </section>
-    
+
     <section style="height:70vh;" id="">
         <div class="index-right-container h-100">
             <div class="index-right-image ">
                 <img src="~/img/seila_pyramid.jpg" class="wb-section-photo" lt="freshly=picked" width="100%">
             </div>
             <div class="index-right-card">
-            <div class="card h-100" style="background-color: transparent; border: none;">
-                <div class="card-body" style="background-color: transparent; border: none;">
-                  <h2 class="card-title fw-bold"> <span class="wb-hero-major-text">The Seila Pyramid</span></h2>
-                    <h5 class="card-text fs-5">Our discovery of a stela with two of the names of Snefru, first king of the Fourth Dynasty, revealed who had built the pyramid. It lies 10 km due west of the Meidum Pyramid, and in terms of its elevation and the ratio of its construction, there are some clear links between the two pyramids. The Seila Pyramid has evidence for ritual activity on both the north and the eastern sides. It has a causeway on the eastern side, but no valley temple. It represents an important witness of Snefru’s innovations in regard to pyramid complexes, and play an important role in the development of pyramids. Besides the stelae, other important artifacts include an altar, the remains of a small statue, a foundation deposit jar, a model oar, and the remains of several limestone tables or altars.</h5>
-                    <h5 class="card-text fs-5">Link to view burial information  -->  <a class="text-decoration-none text-primary" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">https://egypt.byu.edu/</a></h5>
+                <div class="card h-100" style="background-color: transparent; border: none;">
+                    <div class="card-body" style="background-color: transparent; border: none;">
+                        <h2 class="card-title fw-bold">
+                            <span class="wb-hero-major-text">The Seila Pyramid</span>
+                        </h2>
+                        <h5 class="card-text fs-5">Our discovery of a stela with two of the names of Snefru, first king of the Fourth Dynasty, revealed who had built the pyramid. It lies 10 km due west of the Meidum Pyramid, and in terms of its elevation and the ratio of its construction, there are some clear links between the two pyramids. The Seila Pyramid has evidence for ritual activity on both the north and the eastern sides. It has a causeway on the eastern side, but no valley temple. It represents an important witness of Snefru’s innovations in regard to pyramid complexes, and play an important role in the development of pyramids. Besides the stelae, other important artifacts include an altar, the remains of a small statue, a foundation deposit jar, a model oar, and the remains of several limestone tables or altars.</h5>
+                        <h5 class="card-text fs-5">Link to view burial information --> <a class="text-decoration-none text-primary" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">https://egypt.byu.edu/</a></h5>
+                    </div>
                 </div>
-              </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <section style="">
         <div class="d-flex justify-content-center align-items center w-auto cairo-font">
-            
+
         </div>
-        <div class="d-flex mb-3 justify-content-center align-items center w-auto cairo-font row">
-            <div class="col-8">
-                <div class="accordion accordion-flush " id="accordionFlushExample">
-                    <div class="accordion-item ">
-                        <h2 class="accordion-header bg-primary text-light display-6">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                Current Burials - click to Filter
-                            </button>
-                        </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <form class="row g-3">
-                                    <div class="col-md-4">
-                                        <label class="form-label">Sex</label>
-                                        <select id="inputSex" class="form-select">
-                                            <option selected>Choose...</option>
-                                            <option>Female</option>
-                                            <option>Male</option>
-                                            <option>Unknown</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Perservation</label>
-                                        <select id="inputAdultsubadult" class="form-select">
-                                            <option selected>Choose...</option>
-                                            <option value="V">Very Disturbed</option>
-                                            <option value="B">Badly Preserved</option>
-                                            <option value="D">Deteriorated</option>
-                                            <option value="P">Poor</option>
-                                            <option value="S">Skeletalized</option>
-                                            <option value="B">Bones in a Jumbled Pile</option>
-                                            <option value="W">Whole/Great Preservation</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Area</label>
-                                        <select id="inputArea" class="form-select">
-                                            <option selected>Choose...</option>
-                                            <option>NW</option>
-                                            <option>SW</option>
-                                            <option>NE</option>
-                                            <option>SE</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Depth</label>
-                                        <input type="number" class="form-control" id="inputDepth" placeholder="Enter a number">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Depth Indicator</label>
-                                        <select id="inputDepthIndicator" class="form-select" aria-label="Default select example">
-                                            <option selected>Choose...</option>
-                                            <option>Greater than ></option>
-                                            <option>Less than <</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Length</label>
-                                        <input type="number" class="form-control" id="inputLength" placeholder="Enter a number">
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label">Length Indicator</label>
-                                        <select id="inputLengthIndicator" class="form-select">
-                                            <option selected>Choose...</option>
-                                            <option>Greater than ></option>
-                                            <option>Less than <</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Age at Death</label>
-                                        <select id="inputAgeatdeath" class="form-select">
-                                            <option selected>Choose...</option>
-                                            <option value="A">Adult - years 15+</option>
-                                            <option value="C">Child - years 3-15</option>
-                                            <option value="I">Infant - years 1-3</option>
-                                            <option value="N">Newborn - year 0-1</option>
-                                            <option value="U">Unknown</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Wrapping</label>
-                                        <select id="inputWrapping" class="form-select">
-                                            <option selected value="">Choose...</option>
-                                            <option value="W">Full or nearly full wrapping remains</option>
-                                            <option value="H">Partial wrapping remain</option>
-                                            <option value="B">Bones and/or only partial remnants of wrapping remains</option>
-                                            <option value="U">Unknown</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12">
-                                        <button type="submit" class="btn btn-primary">Filter</button>
-                                    </div>
-                                </form>
-                            </div>
+        <div class="d-flex mt-5 mb-3 justify-content-center align-items center w-auto cairo-font">
+            <div class="accordion accordion-flush w-75 " id="accordionFlushExample">
+                <div class="accordion-item ">
+                    <h2 class="accordion-header bg-primary text-light display-6">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Current Burials - click to Filter
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <form class="row g-3" asp-action="Index">
+                                <div class="col-md-4">
+                                    <label for="inputSex" class="form-label">Sex</label>
+                                    <select name="Sex" id="inputSex" class="form-select">
+                                        <option selected>Choose...</option>
+                                        <option>Female</option>
+                                        <option>Male</option>
+                                        <option>Unknown</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputPreservation" class="form-label">Preservation</label>
+                                    <select name="Preservation" id="inputPreservation" class="form-select">
+                                        <option selected>Choose...</option>
+                                        <option value="V">Very Disturbed</option>
+                                        <option value="B">Badly Preserved</option>
+                                        <option value="D">Deteriorated</option>
+                                        <option value="P">Poor</option>
+                                        <option value="S">Skeletalized</option>
+                                        <option value="B">Bones in a Jumbled Pile</option>
+                                        <option value="W">Whole/Great Preservation</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputArea" class="form-label">Area</label>
+                                    <select name="Area" id="inputArea" class="form-select">
+                                        <option selected>Choose...</option>
+                                        <option>NW</option>
+                                        <option>SW</option>
+                                        <option>NE</option>
+                                        <option>SE</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="inputDepth" class="form-label">Depth</label>
+                                    <input name="Depth" type="number" class="form-control" id="inputDepth" placeholder="Enter a number">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Depth Indicator</label>
+                                    <select id="inputDepthIndicator" class="form-select" aria-label="Default select example">
+                                        <option selected>Choose...</option>
+                                        <option>Greater than ></option>
+                                        <option>Less than <</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="inputLength" class="form-label">Length</label>
+                                    <input name="Length" type="number" class="form-control" id="inputLength" placeholder="Enter a number">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Length Indicator</label>
+                                    <select id="inputLengthIndicator" class="form-select">
+                                        <option selected>Choose...</option>
+                                        <option>Greater than ></option>
+                                        <option>Less than <</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputAgeatdeath" class="form-label">Age at Death</label>
+                                    <select name="Ageatdeath" id="inputAgeatdeath" class="form-select">
+                                        <option selected>Choose...</option>
+                                        <option value="A">Adult - years 15+</option>
+                                        <option value="C">Child - years 3-15</option>
+                                        <option value="I">Infant - years 1-3</option>
+                                        <option value="N">Newborn - year 0-1</option>
+                                        <option value="U">Unknown</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputWrapping" class="form-label">Wrapping</label>
+                                    <select name="Wrapping" id="inputWrapping" class="form-select">
+                                        <option selected value="">Choose...</option>
+                                        <option value="W">Full or nearly full wrapping remains</option>
+                                        <option value="H">Partial wrapping remain</option>
+                                        <option value="B">Bones and/or only partial remnants of wrapping remains</option>
+                                        <option value="U">Unknown</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Filter</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -166,19 +167,22 @@
                 {
                     if (await UserManager.IsInRoleAsync(currentUser, "USER") || await UserManager.IsInRoleAsync(currentUser, "ADMIN"))
                     {
-                        <a class=" mt-2 btn btn-primary" asp-controller="Home" asp-action="CreateRecord">Add new</a>
+                        <a class=" mt-2 btn btn-primary" asp-controller="Home" asp-action="CreateRecord"><i class="fa-solid fa-ankh"></i> Add new</a>
                     }
                 }
             </div>
         </div>
         <div class="container col-10">
-            @foreach (var bm in Model)
+            @foreach (var bm in Model.Burialmains)
             {
                 <partial name="BurialSummary" model="bm"/>
             }
         </div>
 
-        <div page-burials=""></div>
+        <div page-burials="@Model.PageInfo" page-action="Index" page-class="btn"
+             page-class-normal="btn-outline-dark" page-class-selected="btn-info" page-classes-enabled="true"
+             class="btn-group pull-right m-1">
+        </div>
     </section>
 
 

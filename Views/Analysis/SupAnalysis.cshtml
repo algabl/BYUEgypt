@@ -2,7 +2,8 @@
     ViewData["Title"] = "Supervised Analysis";
 }
 
-@model Burialmain
+<div class="">@TempData["responseString"]</div>
+
 
 <section style="height:70vh;">
     <div class="d-flex justify-content-center align-items-center cairo-font display-7">
@@ -15,7 +16,7 @@
     </div>    
 </section>
 
-<section style="height:100vh;">
+<section style="">
   <div class="d-flex justify-content-center align-items center w-auto cairo-font">
     <div class="accordion accordion-flush w-75 " id="accordionFlushExample">
         <div class="accordion-item ">
@@ -26,56 +27,56 @@
           </h2>
           <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
               <div class="accordion-body">
-                <form class="row g-3">
-                  @* 1st row *@
-                  <div class="col-md-3">
-                    <label class="form-label">Square North South</label>
-                    <input type="number" class="form-control" id="numberInput" placeholder="Input a Vertical space" min="0" max="200" step="10" onchange="roundToNearestTen()" required>
+                <form class="row g-3" asp-controller="Analysis" asp-action="SupAnalysis" method="post">
+                  
+                  <div class="col-md-3" id="Square-northsouth">
+                    <label for="squarenorthsouth" class="form-label">Square North South</label>
+                    <input name="squarenorthsouth" type="number" class="form-control" id="squarenorthsouth" placeholder="Input a Vertical space" min="0" max="200" step="10" onchange="roundToNearestTen()" required>
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label">Square East West</label>
-                    <input type="number" class="form-control" id="numberInput" placeholder="Input a Horizontal space" min="0" max="70" step="10" onchange="roundToNearestTen()" required>
+                  <div class="col-md-3" id="Square-eastwest">
+                    <label for="squareeastwest" class="form-label">Square East West</label>
+                    <input name="squareeastwest" type="number" class="form-control" id="squareeastwest" placeholder="Input a Horizontal space" min="0" max="70" step="10" onchange="roundToNearestTen()" required>
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label">Vertical Cardinal Direction</label>
-                    <select id="NorthSouth" class="form-select" required>
-                      <option selected>Choose...</option>
+                  <div class="col-md-3" id="North-south">
+                    <label for="northsouth" class="form-label">Vertical Cardinal Direction</label>
+                    <select name="northsouth" id="northsouth" class="form-select" required>
+                      <option value="" selected>Choose...</option>
                       <option value="N">North</option>
                       <option value="S">South</option>
                     </select>
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label">Horizontal Cardinal Direction</label>
-                    <select id="EastWest" class="form-select" required>
-                      <option selected>Choose...</option>
+                  <div class="col-md-3" id="East-west">
+                    <label for="eastwest" class="form-label">Horizontal Cardinal Direction</label>
+                    <select name="eastwest" id="eastwest" class="form-select" required>
+                      <option value="" selected>Choose...</option>
                       <option value="E">East</option>
                       <option value="W">West</option>
                     </select>
                   </div>
                   
                   @* 2nd row *@
-                  <div class="col-md-3" id="Area">
-                    <label class="form-label">Area</label>
-                    <select id="inputArea" class="form-select" required>
-                      <option selected>Choose...</option>
+                  <div class="col-md-3" id="inputArea">
+                    <label for="area" class="form-label">Area</label>
+                    <select name="area" id="area" class="form-select" required>
+                      <option value="" selected>Choose...</option>
                       <option>NW</option>
                       <option>SW</option>
                       <option>NE</option>
                       <option>SE</option>
                     </select>
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label">Length</label>
-                    <input type="number" class="form-control" id="inputLength" placeholder="">
+                  <div class="col-md-3" id="inputLength">
+                    <label for="length" class="form-label">Length</label>
+                    <input name="length" type="number" class="form-control" id="length" placeholder="">
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label">Depth</label>
-                    <input type="number" class="form-control" id="inputDepth" placeholder="" required>
+                  <div class="col-md-3" id="inputDepth">
+                    <label for="depth" class="form-label">Depth</label>
+                    <input name="depth" type="number" class="form-control" id="depth" placeholder="" required>
                   </div>
-                  <div class="col-md-3">
-                    <label asp-for="Wrapping" class="form-label">Wrapping</label>
-                    <select asp-for="Wrapping" id="inputWrapping" class="form-select">
-                      <option selected value="">Choose...</option>
+                  <div class="col-md-3" id="inputWrapping">
+                    <label for="wrapping" class="form-label">Wrapping</label>
+                    <select name="wrapping" id="wrapping" class="form-select">
+                      <option value="" selected value="">Choose...</option>
                       <option value="W">Full or nearly full wrapping remains</option>
                       <option value="H">Partial wrapping remain</option>
                       <option value="B">Bones and/or only partial remnants of wrapping remains</option>
@@ -84,37 +85,37 @@
                   </div>
                   
                   @* 3rd row *@
-                  <div class="col-md-3">
-                    <label class="form-label">South to Head</label>
-                    <input type="number" class="form-control" id="inputDepth" placeholder="">
+                  <div class="col-md-3 " id="South-to-head">
+                    <label for="southtohead" class="form-label">South to Head</label>
+                    <input name="southtohead" type="number" class="form-control" id="southtohead" placeholder="" step="0.01">
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label">South to Feet</label>
-                    <input type="number" class="form-control" id="inputDepth" placeholder="">
+                  <div class="col-md-3" id="South-to-feet">
+                    <label for="southtofeet" class="form-label">South to Feet</label>
+                    <input name="southtofeet" type="number" class="form-control" id="southtofeet" placeholder="" step="0.01">
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label">West to Head</label>
-                    <input type="number" class="form-control" id="inputDepth" placeholder="">
+                  <div class="col-md-3" id="West-to-head">
+                    <label for="westtohead" class="form-label">West to Head</label>
+                    <input name="westtohead" type="number" class="form-control" id="westtohead" placeholder="" step="0.01">
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label">West to Feet</label>
-                    <input type="number" class="form-control" id="inputDepth" placeholder="">
+                  <div class="col-md-3" id="West-to-feet">
+                    <label for="westtofeet" class="form-label">West to Feet</label>
+                    <input name="westtofeet" type="number" class="form-control" id="westtofeet" placeholder="" step="0.01">
                   </div>
                   
                   @* 4th row *@
-                  <div class="col-md-3">
-                    <label class="form-label">Sex</label>
-                    <select id="inputState" class="form-select">
-                      <option selected>Choose...</option>
+                  <div class="col-md-3" id="inputSex">
+                    <label for="sex" class="form-label">Sex</label>
+                    <select name="sex" id="sex" class="form-select">
+                      <option value="" selected>Choose...</option>
                       <option>Female</option>
                       <option>Male</option>
                       <option>Unknown</option>
                     </select>
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label">Age at Death</label>
-                    <select id="inputAgeatdeath" class="form-select">
-                      <option selected>Choose...</option>
+                  <div class="col-md-3" id="Age-at-death">
+                    <label for="ageatdeath" class="form-label">Age at Death</label>
+                    <select name="ageatdeath" id="ageatdeath" class="form-select">
+                      <option value="" selected>Choose...</option>
                       <option value="A">Adult - years 15+</option>
                       <option value="C">Child - years 3-15</option>
                       <option value="I">Infant - years 1-3</option>
@@ -122,34 +123,89 @@
                       <option value="U">Unknown</option>
                     </select>
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label">Adult subadult</label>
+                  <div class="col-md-3" id="Adult-sub-adult">
+                    <label for="adultsubadult" class="form-label">Adult subadult</label>
+                    <select name="adultsubadult" id="adultsubadult" class="form-select">
+                      <option value="" selected>Choose...</option>
+                      <option value="A">Adult</option>
+                      <option value="C">Child</option>
+                    </select>
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label">Hair Color</label>
+                  <div class="col-md-3" id="Hair-color">
+                    <label for="haircolor" class="form-label">Hair Color</label>
+                    <select name="haircolor" id="haircolor" class="form-select">
+                      <option value="" selected>Choose...</option>
+                      <option value="B">Brown/Dark Brown/Lt Brown</option>
+                      <option value="K">Black</option>
+                      <option value="A">Brown-Red</option>
+                      <option value="R">Red/Red-Bl</option>
+                      <option value="D">Blond</option>
+                      <option value="U">Unknown</option>
+                    </select>
                   </div>
-                  
-                  
+
                   @* 5th row *@
-                  <div class="col-md-3">
-                    <label class="form-label">Textile Color</label>
+                  <div class="col-md-3" id="textile-color">
+                    <label for="color" class="form-label">Textile Color</label>
+                    <select name="westtoheadcolor" id="color" class="form-select">
+                      <option value="" selected>Choose...</option>
+                      @foreach (String color in ViewBag.HairColors)
+                      {
+                        <option value="@color">@color</option>  
+                      }
+                    </select>
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label">Textile Structure</label>
+                  <div class="col-md-3" id="textile-structure">
+                    <label for="structure" class="form-label">Textile Structure</label>
+                    <select name="structure" id="structure" class="form-select">
+                      <option value="" selected>Choose...</option>
+                      @foreach (String structure in ViewBag.Structures)
+                      {
+                        <option value="@structure">@structure</option>  
+                      }
+                    </select>
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label">Textile Function</label>
+                  <div class="col-md-3" id="textile-function">
+                    <label for="function" class="form-label">Textile Function</label>
+                    <select name="function" id="function" class="form-select">
+                      <option value="" selected>Choose...</option>
+                      @foreach (String function in ViewBag.Functions)
+                      {
+                        <option value="@function">@function</option>  
+                      }
+                    </select>
                   </div>
-                  <div class="col-md-3">
-                    <label class="form-label">Textile Decoration</label>
+                  <div class="col-md-3" id="textile-decoration">
+                    <label for="decoration" class="form-label">Textile Decoration</label>
+                    <select name="decoration" id="decoration" class="form-select">
+                      <option value="" selected>Choose...</option>
+                      @foreach (String dec in ViewBag.Decorations)
+                      {
+                        <option value="@dec">@dec</option>  
+                      }
+                    </select>
                   </div>
                   
-                  
-                  
-                  
-                  
-                  
-                  
+                  @* 6th Row *@
+                  <div class="col-md-6" id="face-bundles">
+                    <label for="facebundles" class="form-label">Face Bundles</label>
+                    <select name="facebundles" id="facebundles" class="form-select">
+                      <option selected>Choose...</option>
+                      <option value="Y">Y</option>
+                      <option value="#38,39">#38,39</option>
+                      <option value="Y">TR E</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6" id="burial-goods">
+                    <label for="goods" class="form-label">Goods</label>
+                    <select name="goods" id="goods" class="form-select">
+                      <option value="" selected>Choose...</option>
+                      <option value="Y">Y</option>
+                      <option value="Necklace">Necklace</option>
+                      <option value="piece of jewelry">Piece of Jewelry</option>
+                    </select>
+                  </div>
+
                   <div class="col-12">
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </div>

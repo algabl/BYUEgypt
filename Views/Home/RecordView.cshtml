@@ -6,72 +6,208 @@
 }
 @using Microsoft.CodeAnalysis.Differencing
 @model Burialmain 
-<div class="row d-flex flex-column justify-content-center align-items-center">
-    <div class="col-10">
-        <div class="card">
-            <div class="card-header align-middle">
-                <div class="row">
-                    <div class="col-8">@ViewData["Title"]</div>
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        if (await UserManager.IsInRoleAsync(currentUser, "USER") || await UserManager.IsInRoleAsync(currentUser, "ADMIN"))
-                        {
-                            <div class="col-4">
-                                <a class="btn btn-primary float-end" asp-controller="Home" asp-action="EditRecord" asp-route-id="@Model.Id">Edit record</a>
-                            </div>
-                        }
-                    }
+<div class="row m-5">
+    <div class="col-10 d-flex cairo-font">
+        <span class="align-self-center display-4">@ViewData["Title"]</span>
+    </div>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        if (await UserManager.IsInRoleAsync(currentUser, "USER") || await UserManager.IsInRoleAsync(currentUser, "ADMIN"))
+        {
+            <div class="col-2 align-self-end">
+                <a class="btn btn-primary" asp-controller="Home" asp-action="EditRecord" asp-route-id="@Model.Id"><i class="fa-regular fa-edit"></i></a>
+                <a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@Model.Id"><i class="fa-regular fa-trash-can"></i></a>
+            </div>
+        }
+    }
+</div>
+<section style="height: 70vh" class="mt-5 mb-5 d-flex flex-column justify-content-center align-items-center">
+    <div class="record-view-container w-90">
+        <div class="record-photo">
+            <img src="~/img/fag_el-gamous.jpg" alt="" width="100%">
+        </div>
+        <div class="record-highlight h-100 w-100">
+            <div class="h-100 w-100 text-start">
+                <div class="card-header display-6" style="background:transparent;">
+                    <div class="row d-flex justify-content-evenly">
+                        <div class="col fw-bold">
+                            Area: <span class="record-indent">@Model.Squarenorthsouth @Model.Northsouth @Model.Squareeastwest @Model.Eastwest @Model.Area</span>
+                        </div>
+                        <div class="col fw-bold">
+                            Burial Number: <span class="record-indent">@Model.Burialnumber</span> 
+                        </div>
+                    </div>
+
+                </div>
+                <div class="ps-3 mb-3">
+                    <div class="row mt-5 pb-5 mb-5 border-1 border-bottom">
+                        <div class="col-4" id="Sex">
+                            @if (Model.Sex == String.Empty)
+                            {
+                                <div class="card-text display-7">
+                                    Sex: <span class="record-indent">Unknown</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="card-text display-7">
+                                    Sex: <span class="record-indent">@Model.Sex</span>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-4" id="Adultsubadult">
+                            @if (Model.Adultsubadult == String.Empty) {
+                                <div class="card-text display-7">
+                                    Age Classification: <span class="record-indent">Unknown</span>
+                                </div>
+                            }
+                            else {
+                                <div class="card-text display-7">
+                                    Age Classification: <span class="record-indent">@Model.Adultsubadult</span>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-4" id="Haircolor">
+                            @if (Model.Haircolor == String.Empty) {
+                                <div class="card-text display-7">
+                                    Hair Color: <span class="record-indent">Unknown</span>
+                                </div>
+                            }
+                            else {
+                                <div class="card-text display-7">
+                                    Hair Color: <span class="record-indent">@Model.Haircolor</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row mt-5 pb-5 mb-5 border-1 border-bottom">
+                        <div class="col-4" id="Length">
+                            @if (Model.Length == String.Empty) {
+                                <div class="card-text display-7">
+                                    Length: <span class="record-indent">Unknown</span>
+                                </div>
+                            }
+                            else {
+                                <div class="card-text display-7">
+                                    Length: <span class="record-indent">@Model.Length</span> M
+                                </div>
+                            }
+                        </div>
+                        <div class="col-4" id="Depth">
+                            @if (Model.Depth == String.Empty) {
+                                <div class="card-text display-7">
+                                    Depth: <span class="record-indent">Unknown</span>
+                                </div>
+                            }
+                            else {
+                                <div class="card-text display-7">
+                                    Depth: <span class="record-indent">@Model.Depth</span> M
+                                </div>
+                            }
+                        </div>
+                        <div class="col-4" id="Headdirection">
+                            @if (Model.Headdirection == String.Empty) {
+                                <div class="card-text display-7">
+                                    Head Direction: <span class="record-indent">Unknown</span>
+                                </div>
+                            }
+                            else {
+                                <div class="card-text display-7">
+                                    Head Direction: <span class="record-indent">@Model.Headdirection</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row mt-5 pb-5 mb-5 border-1 border-bottom">
+                        <div class="col-4" id="Excavationrecorder">
+                            @if (Model.Excavationrecorder == String.Empty) {
+                                <div class="card-text display-7">
+                                    Excavation Recorder: <span class="record-indent">Unknown</span>
+                                </div>
+                            }
+                            else {
+                                <div class="card-text display-7">
+                                    Excavation Recorder: <span class="record-indent">@Model.Excavationrecorder</span>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-4" id="Fieldbookexcavationyear">
+                            @if (Model.Fieldbookexcavationyear == String.Empty) {
+                                <div class="card-text display-7">
+                                    Field Book Year: <span class="record-indent">Unknown</span>
+                                </div>
+                            }
+                            else {
+                                <div class="card-text display-7">
+                                    Field Book Year: <span class="record-indent">@Model.Fieldbookexcavationyear</span>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-4" id="Fieldbookpage">
+                            @if (Model.Fieldbookpage == String.Empty) {
+                                <div class="card-text display-7">
+                                    Page: <span class="record-indent">Unknown</span>
+                                </div>
+                            }
+                            else {
+                                <div class="card-text display-7">
+                                    Page: <span class="record-indent">@Model.Fieldbookpage</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row mt-5 mb-5">
+                        <div class="col-4" id="Facebundles">
+                            @if (Model.Facebundles == String.Empty) {
+                                <div class="card-text display-7">
+                                    Face Bundle: <span class="record-indent">Unknown</span>
+                                </div>
+                            }
+                            else {
+                                <div class="card-text display-7">
+                                    Face Bundle: <span class="record-indent">@Model.Facebundles</span>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-4" id="Preservation">
+                            @if (Model.Preservation == String.Empty) {
+                                <div class="card-text display-7">
+                                    Preservation: <span class="record-indent">Unknown</span>
+                                </div>
+                            }
+                            else {
+                                <div class="card-text display-7">
+                                    Preservation: <span class="record-indent">@Model.Preservation</span>
+                                </div>
+                            }
+                        </div>
+                        <div class="col-4" id="Wrapping">
+                            @if (Model.Wrapping == String.Empty) {
+                                <div class="card-text display-7">
+                                    Wrapping: <span class="record-indent">Unknown</span>
+                                </div>
+                            }
+                            else {
+                                <div class="card-text display-7">
+                                    Wrapping: <span class="record-indent">@Model.Wrapping</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card-body">
-                <section style="height: 70vh" class="d-flex flex-column justify-content-center align-items-center">
-                    <div class="record-view-container w-90">
-                        <div class="record-photo">
-                            <img src="~/img/fag_el-gamous.jpg" alt="" width="100%">
-                        </div>
-                        <div class="record-highlight h-100 w-100">
-                            <div class="bg-light h-100 w-100 text-start">
-                                <div class="card-header">
-                                    @Model.Area
-                                </div>
-                                <div class="ps-3 mb-3">
-                                    <div class="card-text">
-                                        @Model.Sex
-                                    </div>
-                                    <div class="card-text">
-                                        @Model.Preservation
-                                    </div>
-                                    <div class="card-text">
-                                        @Model.Excavationrecorder
-                                    </div>
-                                    <div class="card-text">
-                                        @Model.Depth
-                                    </div>
-                                    <div class="card-text">
-                                        @Model.Length
-                                    </div>
-                                    <div class="card-text">
-                                        @Model.Haircolor
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="record-details h-100 w-100">
-                            <div class="bg-info h-100 w-100 text-start">
-                                <div class="card border-0" style="background:transparent;">
-                                    <div class="card-header">Description</div>
-                                    <div class="card-text ps-3">
-                                        Model.Text
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>    
-                </section>
+        </div>
+        <div class="record-details mt-5 h-100 w-100">
+            <div class="h-100 w-100 text-start">
+                <div class="card border-0" style="background:transparent;">
+                    <div class="card-header pb-3 display-7" style="background:transparent;">Description</div>
+                    <div class="card-text mt-3 ps-3 display-7">
+                        @Model.Text
+                    </div>
+                    
+                </div>
             </div>
         </div>
     </div>
-    
-</div>
+</section>
 

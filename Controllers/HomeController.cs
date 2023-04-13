@@ -22,22 +22,63 @@ public class HomeController : Controller
         _logger = logger;
         repo = burialTemp;
     }
+
     
+    [HttpGet]
     public IActionResult Index(int pageNum = 1)
     {
+        /*foreach (string key in Request.Form.Keys)
+        {
+            dictionary.Add(key, Request.Form[key]);
+        }*/
         int pageSize = 5;
+        var viewModel = new BurialmainsViewModel
+        {
+            
+            Burialmains = repo.Burials
+                .OrderBy(bm => bm.Id)
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+            
+            PageInfo = new PageInfo
+            {
+            TotalNumBurials = repo.Burials.Count(),
+            BurialsPerPage = pageSize,
+            CurrentPage = pageNum
+            }
+        };
+        ViewData["Title"] = "Home - " + viewModel.PageInfo.CurrentPage;
+        return View(viewModel);
+    }
 
-        var burialmains = repo.Burials
-            .Where(bm => bm.Area != "NW")
-            .OrderBy(bm => bm.Burialnumber)
-            .Skip((pageNum - 1) * pageSize)
-            .Take(pageSize);
-                
-        return View(burialmains);
+    [HttpPost]
+    public IActionResult Index(int pageNum = 1, int pageSize = 5)
+    {
+        
+        Dictionary<string, string> dictionary = new Dictionary<string, string>();
+        foreach (string key in Request.Form.Keys)
+        {
+            dictionary.Add(key, Request.Form[key]);
+        }
+        var viewModel = new BurialmainsViewModel
+        {
+            
+            Burialmains = repo.GenerateQuery(dictionary, pageSize, pageNum),
+            
+            PageInfo = new PageInfo
+            {
+                TotalNumBurials = repo.Burials.Count(),
+                BurialsPerPage = pageSize,
+                CurrentPage = pageNum
+            }
+        };
+        
+        return View(viewModel);
     }
 
     public IActionResult Privacy()
     {
+        ViewData["Title"] = "Privacy";
         return View();
     }
 
@@ -54,6 +95,7 @@ public class HomeController : Controller
     public IActionResult CreateRecord()
     {
         Burialmain bm = new Burialmain();
+        ViewData["Title"] = "Create new record";
         return View("EditRecord", bm);
     }
 
@@ -75,21 +117,21 @@ public class HomeController : Controller
     [Authorize(Roles = "USER, ADMIN")]
     public IActionResult EditRecord(long id)
     {
-        Burialmain bm = repo.Burials.Single(x => x.Id == id);
-
-        return View(bm);
+        Burialmain burialmain = repo.Burials.Single(x => x.Id == id);
+        ViewData["Title"] = "Edit " + burialmain.Id;
+        return View(burialmain);
     }
 
     [HttpPost]
     [Authorize(Roles = "USER, ADMIN")]
-    public IActionResult EditRecord(Burialmain burial)
+    public IActionResult EditRecord(Burialmain burialmain)
     {
         if (ModelState.IsValid)
         {
-            repo.EditRecord(burial);
-            return RedirectToAction("RecordView", "Home", new { id = burial.Id});
+            repo.EditRecord(burialmain);
+            return RedirectToAction("RecordView", "Home", new { id = burialmain.Id});
         }
-        ViewData["Title"] = "Edit " + burial.Id;
+        ViewData["Title"] = "Edit " + burialmain.Id;
         return View();
     }
     
@@ -102,7 +144,7 @@ public class HomeController : Controller
 
     [Authorize(Roles = "USER, ADMIN")]
     [HttpGet]
-    public IActionResult Delete(int id)
+    public IActionResult Delete(long id)
     {
         var burial = repo.Burials.Single(x => x.Id == id);
         ViewData["Title"] = "Delete " + burial.Id;
