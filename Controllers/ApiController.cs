@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 namespace BYUEgypt.Controllers;
 
+
 public class ApiController : Controller
 {
     private readonly HttpClient _httpClient = new HttpClient();
@@ -35,7 +36,8 @@ public class ApiController : Controller
     
         if (response.IsSuccessStatusCode) 
         {
-            string responseString = await response.Content.ReadAsStringAsync(); 
+            string responseString = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("response: \t" + responseString);
             // var responseObject = JsonConvert.DeserializeObject(responseString);
             TempData["responseString"] = responseString;
             return RedirectToAction("SupAnalysis", "Analysis");

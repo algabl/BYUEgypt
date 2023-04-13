@@ -186,8 +186,7 @@ public class AnalysisController : Controller
         return View();
     }
     
-   /*
-    public async Task<IActionResult> PostDataAction()
+   public async Task<IActionResult> Post()
     {
         using (var client = new HttpClient())
         {
@@ -215,12 +214,13 @@ public class AnalysisController : Controller
 
             if (response.IsSuccessStatusCode)
             {
-                string responseString = await response.Content.ReadAsStringAsync();
+                string responseString = response.Content.ReadAsStringAsync().Result;
+                Console.WriteLine("response: \t" + responseString);
                 // var responseObject = JsonConvert.DeserializeObject(responseString);
 
                 TempData["responseString"] = responseString;
                 
-                return RedirectToAction(responseString);
+                return RedirectToAction("SupAnalysis");
                 
             }
             else
@@ -230,7 +230,7 @@ public class AnalysisController : Controller
             }
         }
     }
-    */
+    
 
    [HttpPost]
     public IActionResult SupAnalysis(string response)

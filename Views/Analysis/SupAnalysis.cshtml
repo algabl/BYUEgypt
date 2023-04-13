@@ -2,7 +2,7 @@
     ViewData["Title"] = "Supervised Analysis";
 }
 
-@model String 
+<div class="">@TempData["responseString"]</div>
 
 
 <section style="height:70vh;">
@@ -27,7 +27,7 @@
           </h2>
           <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
               <div class="accordion-body">
-                <form class="row g-3" asp-controller="" asp-action="PostDataAction" method="post">
+                <form class="row g-3" asp-controller="Analysis" asp-action="Post" method="post">
                   
                   <div class="col-md-3" id="Square-northsouth">
                     <label for="squarenorthsouth" class="form-label">Square North South</label>
