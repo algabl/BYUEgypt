@@ -6,62 +6,72 @@
 }
 @using Microsoft.CodeAnalysis.Differencing
 @model Burialmain 
-<div class="row">
-    <div class="col align-self-start">
-        <h1>@ViewData["Title"]</h1>
+<div class="row d-flex flex-column justify-content-center align-items-center">
+    <div class="col-10">
+        <div class="card">
+            <div class="card-header align-middle">
+                <div class="row">
+                    <div class="col-8">@ViewData["Title"]</div>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        if (await UserManager.IsInRoleAsync(currentUser, "USER") || await UserManager.IsInRoleAsync(currentUser, "ADMIN"))
+                        {
+                            <div class="col-4">
+                                <a class="btn btn-primary float-end" asp-controller="Home" asp-action="EditRecord" asp-route-id="@Model.Id">Edit record</a>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="card-body">
+                <section style="height: 70vh" class="d-flex flex-column justify-content-center align-items-center">
+                    <div class="record-view-container w-90">
+                        <div class="record-photo">
+                            <img src="~/img/fag_el-gamous.jpg" alt="" width="100%">
+                        </div>
+                        <div class="record-highlight h-100 w-100">
+                            <div class="bg-light h-100 w-100 text-start">
+                                <div class="card-header">
+                                    @Model.Area
+                                </div>
+                                <div class="ps-3 mb-3">
+                                    <div class="card-text">
+                                        @Model.Sex
+                                    </div>
+                                    <div class="card-text">
+                                        @Model.Preservation
+                                    </div>
+                                    <div class="card-text">
+                                        @Model.Excavationrecorder
+                                    </div>
+                                    <div class="card-text">
+                                        @Model.Depth
+                                    </div>
+                                    <div class="card-text">
+                                        @Model.Length
+                                    </div>
+                                    <div class="card-text">
+                                        @Model.Haircolor
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="record-details h-100 w-100">
+                            <div class="bg-info h-100 w-100 text-start">
+                                <div class="card border-0" style="background:transparent;">
+                                    <div class="card-header">Description</div>
+                                    <div class="card-text ps-3">
+                                        Model.Text
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </section>
+            </div>
+        </div>
     </div>
-    @if (SignInManager.IsSignedIn(User))
-    {
-        if (await UserManager.IsInRoleAsync(currentUser, "USER") || await UserManager.IsInRoleAsync(currentUser, "ADMIN"))
-        {
-            <div class="col align-self-end">
-                <a class="btn btn-primary" asp-controller="Home" asp-action="EditRecord" asp-route-id="@Model.Id">Edit record</a>
-            </div>
-        }
-    }
+    
 </div>
-<section style="height: 70vh" class="mt-5 mb-5 d-flex flex-column justify-content-center align-items-center">
-    <div class="record-view-container w-90">
-        <div class="record-photo">
-            <img src="~/img/fag_el-gamous.jpg" alt="" width="100%">
-        </div>
-        <div class="record-highlight h-100 w-100">
-            <div class="bg-secondary h-100 w-100 text-start">
-                <div class="card-header">
-                    @Model.Area
-                </div>
-                <div class="ps-3 mb-3">
-                    <div class="card-text">
-                        @Model.Sex
-                    </div>
-                    <div class="card-text">
-                        @Model.Preservation
-                    </div>
-                    <div class="card-text">
-                        @Model.Excavationrecorder
-                    </div>
-                    <div class="card-text">
-                        @Model.Depth
-                    </div>
-                    <div class="card-text">
-                        @Model.Length
-                    </div>
-                    <div class="card-text">
-                        @Model.Haircolor
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="record-details h-100 w-100">
-            <div class="bg-info h-100 w-100 text-start">
-                <div class="card border-0" style="background:transparent;">
-                    <div class="card-header">Description</div>
-                    <div class="card-text ps-3">
-                        Model.Text
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>    
-</section>
+

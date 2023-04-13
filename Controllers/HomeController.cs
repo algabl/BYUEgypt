@@ -48,21 +48,48 @@ public class HomeController : Controller
         ViewData["Title"] = "Burial " + bm.Id;
         return View(bm);
     }
-    
 
+    [HttpGet]
+    [Authorize(Roles = "USER, ADMIN")]
+    public IActionResult CreateRecord()
+    {
+        Burialmain bm = new Burialmain();
+        return View("EditRecord", bm);
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "USER, ADMIN")]
+    public IActionResult CreateRecord(Burialmain burial)
+    {
+        if (ModelState.IsValid)
+        {
+            repo.CreateRecord(burial);
+            return RedirectToAction("RecordView", "Home", new { id = burial.Id });
+        }
+
+        ViewData["Title"] = "Create new record";
+        return View("EditRecord");
+    }
+    
     [HttpGet]
     [Authorize(Roles = "USER, ADMIN")]
     public IActionResult EditRecord(long id)
     {
         Burialmain bm = repo.Burials.Single(x => x.Id == id);
 
-        return View();
+        return View(bm);
     }
 
     [HttpPost]
     [Authorize(Roles = "USER, ADMIN")]
-    public IActionResult EditRecord()
+    public IActionResult EditRecord(Burialmain burial)
     {
+        if (ModelState.IsValid)
+        {
+            repo.EditRecord(burial);
+            return RedirectToAction("RecordView", "Home", new { id = burial.Id});
+        }
+        ViewData["Title"] = "Edit " + burial.Id;
         return View();
     }
     
@@ -72,7 +99,8 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
-    
+
+    [Authorize(Roles = "USER, ADMIN")]
     [HttpGet]
     public IActionResult Delete(int id)
     {
@@ -82,10 +110,11 @@ public class HomeController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "USER, ADMIN")]
     public IActionResult Delete(Burialmain burial)
     {
         burial = repo.Burials.Single(x => x.Id == burial.Id);
+        repo.DeleteRecord(burial);
         return RedirectToAction("Index");
     }
-    
 }

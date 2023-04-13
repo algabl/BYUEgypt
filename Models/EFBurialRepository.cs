@@ -16,8 +16,15 @@ public class EFBurialRepository : IBurialRepository
         Context.SaveChanges();
     }
 
-    public string Whatever()
+    public void EditRecord(Burialmain burial)
     {
-        return "Hello world";
+        Context.Update(burial);
+        Context.SaveChanges();
+    }
+
+    public void CreateRecord(Burialmain burial)
+    {
+        Context.Add(burial);
+        Context.SaveChanges();
     }
 }
