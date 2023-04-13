@@ -27,7 +27,7 @@
           </h2>
           <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
               <div class="accordion-body">
-                <form class="row g-3" asp-controller="Analysis" asp-action="Post" method="post">
+                <form class="row g-3" asp-controller="Analysis" asp-action="SupAnalysis" method="post">
                   
                   <div class="col-md-3" id="Square-northsouth">
                     <label for="squarenorthsouth" class="form-label">Square North South</label>
@@ -87,19 +87,19 @@
                   @* 3rd row *@
                   <div class="col-md-3 " id="South-to-head">
                     <label for="southtohead" class="form-label">South to Head</label>
-                    <input name="southtohead" type="number" class="form-control" id="southtohead" placeholder="">
+                    <input name="southtohead" type="number" class="form-control" id="southtohead" placeholder="" step="0.01">
                   </div>
                   <div class="col-md-3" id="South-to-feet">
                     <label for="southtofeet" class="form-label">South to Feet</label>
-                    <input name="southtofeet" type="number" class="form-control" id="southtofeet" placeholder="">
+                    <input name="southtofeet" type="number" class="form-control" id="southtofeet" placeholder="" step="0.01">
                   </div>
                   <div class="col-md-3" id="West-to-head">
                     <label for="westtohead" class="form-label">West to Head</label>
-                    <input name="westtohead" type="number" class="form-control" id="westtohead" placeholder="">
+                    <input name="westtohead" type="number" class="form-control" id="westtohead" placeholder="" step="0.01">
                   </div>
                   <div class="col-md-3" id="West-to-feet">
                     <label for="westtofeet" class="form-label">West to Feet</label>
-                    <input name="westtofeet" type="number" class="form-control" id="westtofeet" placeholder="">
+                    <input name="westtofeet" type="number" class="form-control" id="westtofeet" placeholder="" step="0.01">
                   </div>
                   
                   @* 4th row *@

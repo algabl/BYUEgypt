@@ -19,7 +19,7 @@ public class AnalysisController : Controller
     }
     
     [HttpGet]
-    public IActionResult SupAnalysis()
+    public IActionResult SupervisedAnalysis()
     {
         List<string> HairColors = new List<string>{ "Brown (Dark and Tan)", "Undyed (white)", "Yellow/Green",
        "Black", "White (bleached linen)", "Red (for ribbon)", "Dark Tan",
@@ -183,25 +183,28 @@ public class AnalysisController : Controller
         ViewBag.Functions = Functions;
         ViewBag.Decorations = Decorations;
         
-        return View();
+        return View("SupAnalysis");
     }
-    
-   public async Task<IActionResult> Post()
+
+    [HttpPost]
+    public async Task<IActionResult> SupAnalysis()
     {
         using (var client = new HttpClient())
         {
-            var requestUri = new Uri("https://api.byuegypt.com/predict"); // Replace with the URI of the REST API
+            var requestUri = new Uri("https://api.byuegypt.com/predict/"); // Replace with the URI of the REST API
 
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            Dictionary<string, object> dictionary = new Dictionary<string, object>();
             foreach (string key in Request.Form.Keys)
             {
                 dictionary.Add(key, Request.Form[key]);
             }
 
-
+            dictionary["southtohead"] = (float) dictionary["southtohead"];
+            dictionary["westtohead"] = (float) dictionary["westtohead"];
+            dictionary["southtofeet"] = (float) dictionary["southtofeet"];
+            dictionary["westtofeet"] = (float) dictionary["westtofeet"];
+            
             var json = JsonConvert.SerializeObject(dictionary, Formatting.Indented);
-
-            var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
             var request = new HttpRequestMessage
             {
@@ -209,18 +212,20 @@ public class AnalysisController : Controller
                 RequestUri = requestUri,
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
-            
+            Console.WriteLine("response: \t" + request.Content);
             HttpResponseMessage response = await client.SendAsync(request);
+            string responseString = response.Content.ReadAsStringAsync().Result;
+            Console.WriteLine("response: \t" + responseString);
+            
 
             if (response.IsSuccessStatusCode)
             {
-                string responseString = response.Content.ReadAsStringAsync().Result;
+                string responseString2 = response.Content.ReadAsStringAsync().Result;
                 Console.WriteLine("response: \t" + responseString);
                 // var responseObject = JsonConvert.DeserializeObject(responseString);
 
                 TempData["responseString"] = responseString;
-                
-                return RedirectToAction("SupAnalysis");
+                return View();
                 
             }
             else
@@ -229,15 +234,7 @@ public class AnalysisController : Controller
                 return BadRequest();
             }
         }
-    }
-    
-
-   [HttpPost]
-    public IActionResult SupAnalysis(string response)
-    {
-        string responseString = (string)TempData["responseString"];
         
-        return View(responseString);
     }
     
     public IActionResult UnSupAnalysis()
