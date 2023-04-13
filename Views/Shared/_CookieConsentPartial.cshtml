@@ -9,19 +9,20 @@
 @if (showBanner)
 {
     <div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
-        Use this space to summarize your privacy and cookie use policy. <a asp-controller="Home" asp-action="Privacy">Learn More</a>.
-        <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
+        <p>
+            This website uses cookies to improve your browsing experience and to personalize content. By continuing to use our website, you consent to our use of cookies. For more information, please see our Privacy Policy. <a asp-controller="Home" asp-action="Privacy">Learn More</a>.
+        </p>
+        <button type="button" class="accept-policy close btn btn-primary" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
             <span aria-hidden="true">Accept</span>
         </button>
     </div>
     <script>
         (function () {
-            var button = document.querySelector("#cookieConsent button[data-cookie-string]");
+            let button = document.querySelector("#cookieConsent button[data-cookie-string]");
             button.addEventListener("click", function (event) {
                 document.cookie = button.dataset.cookieString;
             }, false);
-        })();
-                    }
+        })();           
     </script>
 }
 
