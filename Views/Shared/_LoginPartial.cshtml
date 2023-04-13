@@ -5,6 +5,7 @@
 @{
     var currentUser = UserManager.GetUserAsync(User).Result;
 }
+
 <ul class="navbar-nav">
     
     @if (SignInManager.IsSignedIn(User))
@@ -15,17 +16,17 @@
             </a>
             <ul class="dropdown-menu bg-primary">
                 <li>
-                    <a class="dropdown-item text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a>
+                    <a class="dropdown-item text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fa-solid fa-user"></i> Profile</a>
                 </li>
                 @if (await UserManager.IsInRoleAsync(currentUser, "ADMIN"))
                 {
                     <li>
-                        <a class="dropdown-item text-light" asp-controller="Admin" asp-action="Users">Admin</a>
+                        <a class="dropdown-item text-light" asp-controller="Admin" asp-action="Users"><i class="fa-solid fa-toolbox"></i> Admin</a>
                     </li>
                 }
-                <li class="dropdown-item">
+                <li>
                      <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                         <button type="submit" class="dropdown-item text-light">Logout</button>
+                         <button type="submit" class="dropdown-item text-light"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
                      </form>
                  </li>
             </ul>
@@ -34,7 +35,7 @@
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Login"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
         </li>
     }
 </ul>
