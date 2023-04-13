@@ -16,7 +16,6 @@ public class EFBurialRepository : IBurialRepository
         Context.Remove(burial);
         Context.SaveChanges();
     }
-
     public IQueryable<Burialmain> GenerateQuery(Dictionary<string, string> dict, int pageSize = 5, int pageNum = 1)
     {
         var queryable = Context.Burialmains.AsQueryable();
@@ -48,8 +47,15 @@ public class EFBurialRepository : IBurialRepository
         return queryable;
     }
 
-    public string Whatever()
+    public void EditRecord(Burialmain burial)
     {
-        return "Hello world";
+        Context.Update(burial);
+        Context.SaveChanges();
+    }
+
+    public void CreateRecord(Burialmain burial)
+    {
+        Context.Add(burial);
+        Context.SaveChanges();
     }
 }

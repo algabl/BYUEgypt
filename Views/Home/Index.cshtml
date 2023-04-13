@@ -1,5 +1,8 @@
-﻿@{
+﻿@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+@{
     ViewData["Title"] = "Home Page";
+    var currentUser = UserManager.GetUserAsync(User).Result;
 }
 
 @model BurialmainsViewModel 
@@ -155,11 +158,19 @@
                       </div>
                   </div>
                 </div>
-                
               </div>  
-          </div>
-        <div class="container ">
-            @foreach (var bm in Model.Burialmains)
+            <div class="col-1">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    if (await UserManager.IsInRoleAsync(currentUser, "USER") || await UserManager.IsInRoleAsync(currentUser, "ADMIN"))
+                    {
+                        <a class=" mt-2 btn btn-primary" asp-controller="Home" asp-action="CreateRecord">Add new</a>
+                    }
+                }
+            </div>
+        </div>
+        <div class="container col-10">
+            @foreach (var bm in Model)
             {
                 <partial name="BurialSummary" model="bm"/>
             }
