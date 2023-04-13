@@ -44,10 +44,19 @@
             </li>
             <li class="nav-item navbar-text dropdown">
               <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Record Summaries
+              </a>
+              <ul class="dropdown-menu bg-primary">
+                <li><a class="dropdown-item text-light" asp-area="" asp-controller="Home" asp-action="BurialRecords">Burial Records</a></li>
+                <li><a class="dropdown-item text-light" asp-area="" asp-controller="Home" asp-action="BurialRecords">Textile Records</a></li>
+              </ul>
+            </li>
+            <li class="nav-item navbar-text dropdown">
+              <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Analysis
               </a>
               <ul class="dropdown-menu bg-primary">
-                <li><a class="dropdown-item text-light" asp-area="" asp-controller="Analysis" asp-action="SupAnalysis">Supervised Analysis</a></li>
+                <li><a class="dropdown-item text-light" asp-area="" asp-controller="Analysis" asp-action="SupervisedAnalysis">Supervised Analysis</a></li>
                 <li><a class="dropdown-item text-light" asp-area="" asp-controller="Analysis" asp-action="UnSupAnalysis">Unsupervised Analysis</a></li>
               </ul>
             </li>
