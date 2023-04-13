@@ -15,7 +15,7 @@
     </div>    
 </section>
 
-<section style="height:100vh;">
+<section style="">
   <div class="d-flex justify-content-center align-items center w-auto cairo-font">
     <div class="accordion accordion-flush w-75 " id="accordionFlushExample">
         <div class="accordion-item ">
@@ -124,32 +124,88 @@
                   </div>
                   <div class="col-md-3">
                     <label class="form-label">Adult subadult</label>
+                    <select id="inputAgeatdeath" class="form-select">
+                      <option selected>Choose...</option>
+                      <option value="A">Adult</option>
+                      <option value="C">Child</option>
+                    </select>
                   </div>
                   <div class="col-md-3">
                     <label class="form-label">Hair Color</label>
+                    <select id="inputAgeatdeath" class="form-select">
+                      <option selected>Choose...</option>
+                      <option value="B">Brown/Dark Brown/Lt Brown</option>
+                      <option value="K">Black</option>
+                      <option value="A">Brown-Red</option>
+                      <option value="R">Red/Red-Bl</option>
+                      <option value="D">Blond</option>
+                      <option value="U">Unknown</option>
+                    </select>
                   </div>
                   
                   
                   @* 5th row *@
                   <div class="col-md-3">
                     <label class="form-label">Textile Color</label>
+                    <select id="inputAgeatdeath" class="form-select">
+                      <option selected>Choose...</option>
+                      @foreach (String color in ViewBag.HairColors)
+                      {
+                        <option value="@color">@color</option>  
+                      }
+                    </select>
                   </div>
                   <div class="col-md-3">
                     <label class="form-label">Textile Structure</label>
+                    <select id="inputAgeatdeath" class="form-select">
+                      <option selected>Choose...</option>
+                      @foreach (String structure in ViewBag.Structures)
+                      {
+                        <option value="@structure">@structure</option>  
+                      }
+                    </select>
                   </div>
                   <div class="col-md-3">
                     <label class="form-label">Textile Function</label>
+                    <select id="inputAgeatdeath" class="form-select">
+                      <option selected>Choose...</option>
+                      @foreach (String function in ViewBag.Functions)
+                      {
+                        <option value="@function">@function</option>  
+                      }
+                    </select>
                   </div>
                   <div class="col-md-3">
                     <label class="form-label">Textile Decoration</label>
+                    <select id="inputAgeatdeath" class="form-select">
+                      <option selected>Choose...</option>
+                      @foreach (String dec in ViewBag.Decorations)
+                      {
+                        <option value="@dec">@dec</option>  
+                      }
+                    </select>
                   </div>
                   
-                  
-                  
-                  
-                  
-                  
-                  
+                  @* 6th Row *@
+                  <div class="col-md-6">
+                    <label class="form-label">Face Bundles</label>
+                    <select id="inputAgeatdeath" class="form-select">
+                      <option selected>Choose...</option>
+                      <option value="Y">Y</option>
+                      <option value="#38,39">#38,39</option>
+                      <option value="Y">TR E</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Goods</label>
+                    <select id="inputAgeatdeath" class="form-select">
+                      <option selected>Choose...</option>
+                      <option value="Y">Y</option>
+                      <option value="Necklace">Necklace</option>
+                      <option value="piece of jewelry">Piece of Jewelry</option>
+                    </select>
+                  </div>
+
                   <div class="col-12">
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </div>
