@@ -8,7 +8,7 @@
 @model Burialmain 
 <div class="row mt-5">
     <div class="col d-flex justify-content-center align-items-center cairo-font">
-        <span class="align-self-center display-4">@ViewData["Title"]</span>
+        <span class="align-self-center display-5 mb-2">@ViewData["Title"]</span>
     </div>
     @if (SignInManager.IsSignedIn(User))
     {
@@ -27,7 +27,7 @@
         </div>
         <div class="record-highlight h-100 w-100">
             <div class="h-100 w-100 text-start">
-                <div class="card-header display-6" style="background:transparent;">
+                <div class="card-header display-7 mt-5" style="background:transparent;">
                     <div class="row d-flex justify-content-evenly">
                         <div class="col fw-bold">
                             Area: <span class="record-indent">@Model.Squarenorthsouth @Model.Northsouth @Model.Squareeastwest @Model.Eastwest @Model.Area</span>
@@ -148,6 +148,7 @@
                                     Page: <span class="record-indent">Unknown</span>
                                 </div>
                             }
+                            
                             else {
                                 <div class="card-text display-7">
                                     Page: <span class="record-indent">@Model.Fieldbookpage</span>
@@ -208,6 +209,6 @@
             </div>
         </div>
     </div>
-    
-</div>
+</section>
+
 

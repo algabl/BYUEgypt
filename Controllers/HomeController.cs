@@ -25,30 +25,9 @@ public class HomeController : Controller
 
     
     [HttpGet]
-    public IActionResult Index( int pageNum = 1)
+    public IActionResult Index()
     {
-        /*foreach (string key in Request.Form.Keys)
-        {
-            dictionary.Add(key, Request.Form[key]);
-        }*/
-        int pageSize = 5;
-        var viewModel = new BurialmainsViewModel
-        {
-            
-            Burialmains = repo.Burials
-                .OrderBy(bm => bm.Id)
-                .Skip((pageNum - 1) * pageSize)
-                .Take(pageSize),
-            
-            PageInfo = new PageInfo
-            {
-            TotalNumBurials = repo.Burials.Count(),
-            BurialsPerPage = pageSize,
-            CurrentPage = pageNum
-            }
-        };
-                
-        return View(viewModel);
+        return View();
     }
 
     [HttpPost]
@@ -73,6 +52,29 @@ public class HomeController : Controller
             }
         };
         
+        return View(viewModel);
+    }
+
+    [HttpGet]
+    public IActionResult BurialSummary(int pageNum = 1)
+    {
+        int pageSize = 5;
+        var viewModel = new BurialmainsViewModel
+        {
+            
+            Burialmains = repo.Burials
+                .OrderBy(bm => bm.Id)
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+            
+            PageInfo = new PageInfo
+            {
+                TotalNumBurials = repo.Burials.Count(),
+                BurialsPerPage = pageSize,
+                CurrentPage = pageNum
+            }
+        };
+                
         return View(viewModel);
     }
 
