@@ -22,18 +22,58 @@ public class HomeController : Controller
         _logger = logger;
         repo = burialTemp;
     }
-    
-    public IActionResult Index(int pageNum = 1)
-    {
-        int pageSize = 5;
 
-        var burialmains = repo.Burials
-            .Where(bm => bm.Area != "NW")
-            .OrderBy(bm => bm.Burialnumber)
-            .Skip((pageNum - 1) * pageSize)
-            .Take(pageSize);
+    
+    [HttpGet]
+    public IActionResult Index( int pageNum = 1)
+    {
+        /*foreach (string key in Request.Form.Keys)
+        {
+            dictionary.Add(key, Request.Form[key]);
+        }*/
+        int pageSize = 5;
+        var viewModel = new BurialmainsViewModel
+        {
+            
+            Burialmains = repo.Burials
+                .OrderBy(bm => bm.Id)
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+            
+            PageInfo = new PageInfo
+            {
+            TotalNumBurials = repo.Burials.Count(),
+            BurialsPerPage = pageSize,
+            CurrentPage = pageNum
+            }
+        };
                 
-        return View(burialmains);
+        return View(viewModel);
+    }
+
+    [HttpPost]
+    public IActionResult Index(int pageNum = 1, int pageSize = 5)
+    {
+        
+        Dictionary<string, string> dictionary = new Dictionary<string, string>();
+        foreach (string key in Request.Form.Keys)
+        {
+            dictionary.Add(key, Request.Form[key]);
+        }
+        var viewModel = new BurialmainsViewModel
+        {
+            
+            Burialmains = repo.GenerateQuery(dictionary, pageSize, pageNum),
+            
+            PageInfo = new PageInfo
+            {
+                TotalNumBurials = repo.Burials.Count(),
+                BurialsPerPage = pageSize,
+                CurrentPage = pageNum
+            }
+        };
+        
+        return View(viewModel);
     }
 
     public IActionResult Privacy()

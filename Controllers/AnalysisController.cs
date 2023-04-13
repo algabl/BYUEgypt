@@ -1,12 +1,14 @@
 using System.Collections.Specialized;
 using BYUEgypt.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace BYUEgypt.Controllers;
-
 public class AnalysisController : Controller
 {
-    
     private IBurialRepository repo;
     private fagelgamous_databaseContext gamous_context;
 
@@ -183,11 +185,59 @@ public class AnalysisController : Controller
         
         return View();
     }
-
-    [HttpPost]
-    public IActionResult SupAnalysis(ListDictionary dictionary)
+    
+   public async Task<IActionResult> Post()
     {
-        return View();
+        using (var client = new HttpClient())
+        {
+            var requestUri = new Uri("https://api.byuegypt.com/predict"); // Replace with the URI of the REST API
+
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            foreach (string key in Request.Form.Keys)
+            {
+                dictionary.Add(key, Request.Form[key]);
+            }
+
+
+            var json = JsonConvert.SerializeObject(dictionary, Formatting.Indented);
+
+            var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = requestUri,
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+            
+            HttpResponseMessage response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                string responseString = response.Content.ReadAsStringAsync().Result;
+                Console.WriteLine("response: \t" + responseString);
+                // var responseObject = JsonConvert.DeserializeObject(responseString);
+
+                TempData["responseString"] = responseString;
+                
+                return RedirectToAction("SupAnalysis");
+                
+            }
+            else
+            {
+                // Handle error
+                return BadRequest();
+            }
+        }
+    }
+    
+
+   [HttpPost]
+    public IActionResult SupAnalysis(string response)
+    {
+        string responseString = (string)TempData["responseString"];
+        
+        return View(responseString);
     }
     
     public IActionResult UnSupAnalysis()
