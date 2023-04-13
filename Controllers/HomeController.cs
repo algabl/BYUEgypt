@@ -14,30 +14,66 @@ namespace BYUEgypt.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private ApplicationDbContext context;
 
     private IBurialRepository repo;
-    private fagelgamous_databaseContext gamous_context;
 
-    public HomeController(ILogger<HomeController> logger, ApplicationDbContext temp, IBurialRepository burialTemp, fagelgamous_databaseContext gamousContext)
+    public HomeController(ILogger<HomeController> logger, IBurialRepository burialTemp)
     {
         _logger = logger;
-        context = temp;
         repo = burialTemp;
-        gamous_context = gamousContext;
     }
-    
-    public IActionResult Index(int pageNum = 1)
-    {
-        int pageSize = 5;
 
-        var burialmains = gamous_context.Burialmains
-            .Where(bm => bm.Area != "NW")
-            .OrderBy(bm => bm.Burialnumber)
-            .Skip((pageNum - 1) * pageSize)
-            .Take(pageSize);
+    
+    [HttpGet]
+    public IActionResult Index( int pageNum = 1)
+    {
+        /*foreach (string key in Request.Form.Keys)
+        {
+            dictionary.Add(key, Request.Form[key]);
+        }*/
+        int pageSize = 5;
+        var viewModel = new BurialmainsViewModel
+        {
+            
+            Burialmains = repo.Burials
+                .OrderBy(bm => bm.Id)
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+            
+            PageInfo = new PageInfo
+            {
+            TotalNumBurials = repo.Burials.Count(),
+            BurialsPerPage = pageSize,
+            CurrentPage = pageNum
+            }
+        };
                 
-        return View(burialmains);
+        return View(viewModel);
+    }
+
+    [HttpPost]
+    public IActionResult Index(int pageNum = 1, int pageSize = 5)
+    {
+        
+        Dictionary<string, string> dictionary = new Dictionary<string, string>();
+        foreach (string key in Request.Form.Keys)
+        {
+            dictionary.Add(key, Request.Form[key]);
+        }
+        var viewModel = new BurialmainsViewModel
+        {
+            
+            Burialmains = repo.GenerateQuery(dictionary, pageSize, pageNum),
+            
+            PageInfo = new PageInfo
+            {
+                TotalNumBurials = repo.Burials.Count(),
+                BurialsPerPage = pageSize,
+                CurrentPage = pageNum
+            }
+        };
+        
+        return View(viewModel);
     }
 
     public IActionResult Privacy()
@@ -80,17 +116,15 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult Delete(int id)
     {
-        var artifact = artContext.Artifacts.Single(x => x.BurialId == id);
-        ViewData["Title"] = "Delete " + artifact.Name;
-        return View(artifact);
+        var burial = repo.Burials.Single(x => x.Id == id);
+        ViewData["Title"] = "Delete " + burial.Id;
+        return View(burial);
     }
 
     [HttpPost]
-    public IActionResult Delete(Artifact artifact)
+    public IActionResult Delete(Burialmain burial)
     {
-        artifact = artContext.Artifacts.Single(x => x.BurialId == artifact.BurialId);
-        artContext.Artifacts.Remove(artifact);
-        artContext.SaveChanges();
+        burial = repo.Burials.Single(x => x.Id == burial.Id);
         return RedirectToAction("Index");
     }
     

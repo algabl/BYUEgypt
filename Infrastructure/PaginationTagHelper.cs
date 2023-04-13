@@ -31,6 +31,8 @@ namespace BYUEgypt.Infrastructure
             IUrlHelper uh = uhf.GetUrlHelper(vc);
             TagBuilder final = new TagBuilder("div");
             
+            
+            
             for (int i = 1; i < PageBurials.TotalPages + 1; i++)
             {
                 TagBuilder tb = new TagBuilder("a");
@@ -43,6 +45,19 @@ namespace BYUEgypt.Infrastructure
                 tb.InnerHtml.Append(i.ToString());
                 final.InnerHtml.AppendHtml(tb);
             }
+            
+            /*for (int i = 1; i < PageBurials.TotalPages + 1; i++)
+            {
+                TagBuilder tb = new TagBuilder("a");
+                tb.Attributes["href"] = uh.Action(PageAction, new {pageNum = i});
+                if (PageClassesEnabled) {
+                    tb.AddCssClass(PageClass);
+                    tb.AddCssClass(i == PageBurials.CurrentPage
+                        ? PageClassSelected : PageClassNormal);
+                }
+                tb.InnerHtml.Append(i.ToString());
+                final.InnerHtml.AppendHtml(tb);
+            }*/
 
             tho.Content.AppendHtml(final.InnerHtml);
         }
