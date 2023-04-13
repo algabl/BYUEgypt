@@ -144,9 +144,9 @@
                   <label class="form-label">Notes</label>
                   <textarea class="form-control" asp-for="Text"></textarea>
                 </div>
-                <div class="col-12">
+                <div class="col-12 mt-5">
                   <button type="submit" class="btn btn-primary">Save</button>
-                  <a class="btn btn-light" asp-controller="Home" asp-action="RecordView" asp-route-id="@Model.Id">Cancel</a>
+                  @*<a class="btn btn-light" asp-controller="Home" asp-action="RecordView" asp-route-id="@Model.Id">Cancel</a>*@
                 </div>
                 <div asp-validation-summary="All"></div>
               </form>

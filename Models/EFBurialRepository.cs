@@ -22,8 +22,9 @@ public class EFBurialRepository : IBurialRepository
         Context.SaveChanges();
     }
 
-    public string Whatever()
+    public void CreateRecord(Burialmain burial)
     {
-        return "Hello world";
+        Context.Add(burial);
+        Context.SaveChanges();
     }
 }
