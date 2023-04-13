@@ -47,7 +47,7 @@ public class HomeController : Controller
             CurrentPage = pageNum
             }
         };
-                
+        ViewData["Title"] = "Home - " + viewModel.PageInfo.CurrentPage;
         return View(viewModel);
     }
 
@@ -78,6 +78,7 @@ public class HomeController : Controller
 
     public IActionResult Privacy()
     {
+        ViewData["Title"] = "Privacy";
         return View();
     }
 
@@ -94,6 +95,7 @@ public class HomeController : Controller
     public IActionResult CreateRecord()
     {
         Burialmain bm = new Burialmain();
+        ViewData["Title"] = "Create new record";
         return View("EditRecord", bm);
     }
 
@@ -115,21 +117,21 @@ public class HomeController : Controller
     [Authorize(Roles = "USER, ADMIN")]
     public IActionResult EditRecord(long id)
     {
-        Burialmain bm = repo.Burials.Single(x => x.Id == id);
-
-        return View(bm);
+        Burialmain burialmain = repo.Burials.Single(x => x.Id == id);
+        ViewData["Title"] = "Edit " + burialmain.Id;
+        return View(burialmain);
     }
 
     [HttpPost]
     [Authorize(Roles = "USER, ADMIN")]
-    public IActionResult EditRecord(Burialmain burial)
+    public IActionResult EditRecord(Burialmain burialmain)
     {
         if (ModelState.IsValid)
         {
-            repo.EditRecord(burial);
-            return RedirectToAction("RecordView", "Home", new { id = burial.Id});
+            repo.EditRecord(burialmain);
+            return RedirectToAction("RecordView", "Home", new { id = burialmain.Id});
         }
-        ViewData["Title"] = "Edit " + burial.Id;
+        ViewData["Title"] = "Edit " + burialmain.Id;
         return View();
     }
     
@@ -142,7 +144,7 @@ public class HomeController : Controller
 
     [Authorize(Roles = "USER, ADMIN")]
     [HttpGet]
-    public IActionResult Delete(int id)
+    public IActionResult Delete(long id)
     {
         var burial = repo.Burials.Single(x => x.Id == id);
         ViewData["Title"] = "Delete " + burial.Id;
