@@ -25,7 +25,7 @@ public class HomeController : Controller
 
     
     [HttpGet]
-    public IActionResult Index( int pageNum = 1)
+    public IActionResult Index(int pageNum = 1)
     {
         /*foreach (string key in Request.Form.Keys)
         {
