@@ -8,7 +8,7 @@
 @model Burialmain 
 <div class="row mt-5">
     <div class="col d-flex justify-content-center align-items-center cairo-font">
-        <h1 class="align-self-center">@ViewData["Title"]</h1>
+        <span class="align-self-center display-4">@ViewData["Title"]</span>
     </div>
     @if (SignInManager.IsSignedIn(User))
     {
@@ -27,19 +27,19 @@
         </div>
         <div class="record-highlight h-100 w-100">
             <div class="h-100 w-100 text-start">
-                <div class="card-header display-7" style="background:transparent;">
+                <div class="card-header display-6" style="background:transparent;">
                     <div class="row d-flex justify-content-evenly">
-                        <div class="col">
+                        <div class="col fw-bold">
                             Area: <span class="record-indent">@Model.Squarenorthsouth @Model.Northsouth @Model.Squareeastwest @Model.Eastwest @Model.Area</span>
                         </div>
-                        <div class="col">
+                        <div class="col fw-bold">
                             Burial Number: <span class="record-indent">@Model.Burialnumber</span> 
                         </div>
                     </div>
 
                 </div>
                 <div class="ps-3 mb-3">
-                    <div class="row mt-3">
+                    <div class="row mt-5 pb-5 mb-5 border-1 border-bottom">
                         <div class="col-4" id="Sex">
                             @if (Model.Sex == String.Empty)
                             {
@@ -79,7 +79,7 @@
                             }
                         </div>
                     </div>
-                    <div class="row mt-3">
+                    <div class="row mt-5 pb-5 mb-5 border-1 border-bottom">
                         <div class="col-4" id="Length">
                             @if (Model.Length == String.Empty) {
                                 <div class="card-text display-7">
@@ -117,7 +117,7 @@
                             }
                         </div>
                     </div>
-                    <div class="row mt-3">
+                    <div class="row mt-5 pb-5 mb-5 border-1 border-bottom">
                         <div class="col-4" id="Excavationrecorder">
                             @if (Model.Excavationrecorder == String.Empty) {
                                 <div class="card-text display-7">
@@ -155,7 +155,7 @@
                             }
                         </div>
                     </div>
-                    <div class="row mt-3">
+                    <div class="row mt-5 mb-5">
                         <div class="col-4" id="Facebundles">
                             @if (Model.Facebundles == String.Empty) {
                                 <div class="card-text display-7">
@@ -196,10 +196,10 @@
                 </div>
             </div>
         </div>
-        <div class="record-details h-100 w-100">
+        <div class="record-details mt-5 h-100 w-100">
             <div class="h-100 w-100 text-start">
                 <div class="card border-0" style="background:transparent;">
-                    <div class="card-header display-7" style="background:transparent;">Description</div>
+                    <div class="card-header pb-3 display-7" style="background:transparent;">Description</div>
                     <div class="card-text mt-3 ps-3 display-7">
                         @Model.Text
                     </div>

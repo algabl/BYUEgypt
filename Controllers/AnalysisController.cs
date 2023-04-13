@@ -1,12 +1,14 @@
 using System.Collections.Specialized;
 using BYUEgypt.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace BYUEgypt.Controllers;
-
 public class AnalysisController : Controller
 {
-    
     private IBurialRepository repo;
     private fagelgamous_databaseContext gamous_context;
 
@@ -184,37 +186,42 @@ public class AnalysisController : Controller
         return View();
     }
     
-    /*
-     *using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-
-public class MyController : Controller
-{
-    [HttpPost]
-    public async Task<IActionResult> PostDataAsync()
+   /*
+    public async Task<IActionResult> PostDataAction()
     {
         using (var client = new HttpClient())
         {
-            var requestUri = "https://api.byuegypt.com/predict"; // Replace with the URI of the REST API
+            var requestUri = new Uri("https://api.byuegypt.com/predict"); // Replace with the URI of the REST API
 
-            var data = new {
-                Prop1 = "Value1",
-                Prop2 = "Value2",
-                Prop3 = "Value3",
-                // Add 17 more properties here
-            };
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            foreach (string key in Request.Form.Keys)
+            {
+                dictionary.Add(key, Request.Form[key]);
+            }
 
-            var json = JsonConvert.SerializeObject(data);
+
+            var json = JsonConvert.SerializeObject(dictionary, Formatting.Indented);
 
             var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync(requestUri, content);
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = requestUri,
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+            
+            HttpResponseMessage response = await client.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
             {
-                // Handle success
-                return Ok();
+                string responseString = await response.Content.ReadAsStringAsync();
+                // var responseObject = JsonConvert.DeserializeObject(responseString);
+
+                TempData["responseString"] = responseString;
+                
+                return RedirectToAction(responseString);
+                
             }
             else
             {
@@ -223,16 +230,14 @@ public class MyController : Controller
             }
         }
     }
-}
+    */
 
-     * 
-     */
-    
-
-    [HttpPost]
-    public IActionResult SupAnalysis(ListDictionary dictionary)
+   [HttpPost]
+    public IActionResult SupAnalysis(string response)
     {
-        return View();
+        string responseString = (string)TempData["responseString"];
+        
+        return View(responseString);
     }
     
     public IActionResult UnSupAnalysis()
