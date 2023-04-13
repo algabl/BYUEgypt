@@ -7,6 +7,7 @@
 <div class="m-5">
     <h1 class="mt-2">Confirm deletion</h1>
     <p>Are you sure you want to delete @Model.UserName?</p>
+    <b>This is permanent and cannot be undone.</b>
     <form method="post" asp-action="Delete">
         <button class="btn btn-danger" type="submit">Yes, delete @Model.UserName</button>
         <a asp-action="Users" class="btn btn-light">No, cancel</a>

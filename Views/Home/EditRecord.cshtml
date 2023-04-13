@@ -6,7 +6,7 @@
 <div class="row d-flex flex-column justify-content-center align-items-center p-3">
     <div class="col-10">
         <div class="card">
-            <div class="card-header">@Model.Id</div>
+          <div class="card-header">@ViewData["Title"]</div>
             <div class="card-body">
               <form method="post" class="m-3 row">
                 <input type="hidden" asp-for="Id"/>
@@ -14,7 +14,7 @@
                 <div class="col-md-4">
                   <label class="form-label">Sex</label>
                   <select asp-for="Sex" class="form-select">
-                    <option selected>Choose...</option>
+                    <option value="" selected>Choose...</option>
                     <option value="F">Female</option>
                     <option value="M">Male</option>
                     <option value="">Unknown</option>
