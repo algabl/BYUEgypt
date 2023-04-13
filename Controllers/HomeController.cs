@@ -25,7 +25,7 @@ public class HomeController : Controller
 
     
     [HttpGet]
-    public IActionResult Index(Dictionary<string, string> dictionary, int pageNum = 1)
+    public IActionResult Index( int pageNum = 1)
     {
         /*foreach (string key in Request.Form.Keys)
         {
@@ -35,7 +35,10 @@ public class HomeController : Controller
         var viewModel = new BurialmainsViewModel
         {
             
-            Burialmains = repo.GenerateQuery(dictionary, pageSize, pageNum),
+            Burialmains = repo.Burials
+                .OrderBy(bm => bm.Id)
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
             
             PageInfo = new PageInfo
             {
@@ -57,7 +60,20 @@ public class HomeController : Controller
         {
             dictionary.Add(key, Request.Form[key]);
         }
-        return View();
+        var viewModel = new BurialmainsViewModel
+        {
+            
+            Burialmains = repo.GenerateQuery(dictionary, pageSize, pageNum),
+            
+            PageInfo = new PageInfo
+            {
+                TotalNumBurials = repo.Burials.Count(),
+                BurialsPerPage = pageSize,
+                CurrentPage = pageNum
+            }
+        };
+        
+        return View(viewModel);
     }
 
     public IActionResult Privacy()
