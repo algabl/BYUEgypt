@@ -2,7 +2,43 @@
     ViewData["Title"] = "Supervised Analysis";
 }
 
-<div class="">@TempData["responseString"]</div>
+
+<div id="myModal" class="sup-analysis-modal cairo-font">
+  <div class="sup-analysis-modal-content card">
+    <div class="card-header bg-primary">
+      <div class="row">
+        <div class="col">Your Predicted Head Direction is:</div>
+        <div class="col">
+          <div id="region" class="card-title display-7 text-light">@ViewBag.SupAnalysisResult</div>    
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 display-7 mb-4">With the following parameters:</div>
+        @foreach (var item in ViewData)
+        {
+          
+          List<string> attributes = new List<string> { "Color", "Decoration", "Westtohead", "Haircolor", "Adultsubadult", "Function", "Sex", "Ageatdeath", "Structure", "Area", "Depth", "Wrapping", "Southtofeet", "Westtofeet", "Southtohead", "Westtohead", "SquareEastWest", "Northsouth", "SquareNorthsouth", "Eastwest" };
+          if (attributes.Contains(item.Key))
+          {
+            if (!string.IsNullOrWhiteSpace((string?) item.Value))
+            {
+              <div class="col-md-3 mb-3 card-text display-7">
+                <strong>@item.Key:</strong> @item.Value
+              </div>
+            }
+          }
+        }
+      </div>
+      
+    </div>
+    
+    <span class="sup-analysis-close">&times;</span>
+    
+  </div>
+</div>
+
 
 
 <section style="height:70vh;">
@@ -147,7 +183,7 @@
                   @* 5th row *@
                   <div class="col-md-3" id="textile-color">
                     <label for="color" class="form-label">Textile Color</label>
-                    <select name="westtoheadcolor" id="color" class="form-select">
+                    <select name="color" id="color" class="form-select">
                       <option value="" selected>Choose...</option>
                       @foreach (String color in ViewBag.HairColors)
                       {

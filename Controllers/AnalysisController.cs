@@ -21,7 +21,89 @@ public class AnalysisController : Controller
     [HttpGet]
     public IActionResult SupervisedAnalysis()
     {
-        List<string> HairColors = new List<string>{ "Brown (Dark and Tan)", "Undyed (white)", "Yellow/Green",
+        SetViewBag();
+
+        string SupAnalysisResult = "";
+        
+        ViewBag.SupAnalysisResult = SupAnalysisResult;
+        
+        return View("SupAnalysis");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SupAnalysis()
+    {
+        using (var client = new HttpClient())
+        {
+            var requestUri = new Uri("https://api.byuegypt.com/predict/"); // Replace with the URI of the REST API
+
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            foreach (string key in Request.Form.Keys)
+            {
+                Console.WriteLine(key + ":\t"+   Request.Form[key]);
+                dictionary.Add(key, Request.Form[key]);
+            }
+
+            var json = JsonConvert.SerializeObject(dictionary, Formatting.Indented);
+
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                RequestUri = requestUri,
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+            HttpResponseMessage response = await client.SendAsync(request);
+            string responseString = response.Content.ReadAsStringAsync().Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("response: \t" + responseString);
+                Console.WriteLine(responseString.GetType());
+                responseString = responseString.Substring(responseString.Length - 3, 1);
+                Console.WriteLine("response: \t" + responseString);
+                responseString = (responseString == "W") ? responseString = "West" : responseString = "East";
+                SetViewBag();
+                SetModal(dictionary);
+                
+                ViewBag.SupAnalysisResult = responseString;
+                return View();
+            }
+            else
+            {
+                // Handle error
+                return BadRequest();
+            }
+        }
+        
+    }
+
+    public void SetModal(Dictionary<string, string> dict)
+    {
+        ViewData["Color"] = dict["color"];   
+        ViewData["Decoration"] = dict["decoration"]; 
+        ViewData["Westtohead"] = dict["westtohead"]; 
+        ViewData["Haircolor"] = dict["haircolor"]; 
+        ViewData["Adultsubadult"] = dict["adultsubadult"]; 
+        ViewData["Function"] = dict["function"];
+        ViewData["Sex"] = dict["sex"];
+        ViewData["Ageatdeath"] = dict["ageatdeath"]; 
+        ViewData["Structure"] = dict["structure"];
+        ViewData["Area"] = dict["area"];
+        ViewData["Depth"] = dict["depth"];
+        ViewData["Wrapping"] = dict["wrapping"];
+        ViewData["Southtofeet"] = dict["southtofeet"];
+        ViewData["Westtofeet"] = dict["westtofeet"];
+        ViewData["Southtohead"] = dict["southtohead"];
+        ViewData["Westtohead"] = dict["westtohead"];
+        ViewData["SquareEastWest"] = dict["squareeastwest"];
+        ViewData["Eastwest"] = dict["eastwest"];
+        ViewData["SquareNorthsouth"] = dict["squarenorthsouth"];
+        ViewData["Northsouth"] = dict["northsouth"];
+    }
+
+    public void SetViewBag()
+    {
+        List<string> hairColors = new List<string>{ "Brown (Dark and Tan)", "Undyed (white)", "Yellow/Green",
        "Black", "White (bleached linen)", "Red (for ribbon)", "Dark Tan",
        "Undyed", "Blue (Blue-Green)", "Green (avocado)",
        "Yellow (Gold decoration threads)", "Yellow (mustard)",
@@ -62,8 +144,8 @@ public class AnalysisController : Controller
        "Undyed (possibly white)", "Red?", "Red (wool thread)",
        "Red (small thread)", "Purple/Brown", "Blue (band)",
        "Brown (possible)", "Red (linen)", "Yellow (wool)", "Brown",
-       "Yellow-gold", "Beige" };
-        List<string> Structures = new List<string> {"Weft twining", "Tapestry: slit", "Basket weave (2 to 1)",
+       "Yellow-gold", "Beige" }; 
+        List<string> structures = new List<string> {"Weft twining", "Tapestry: slit", "Basket weave (2 to 1)",
        "Sewn ?", "Darning ?", "Sewn", "Darning",
        "Ribbon technique (see 3.4)", "Decorative Band", "Weft-faced",
        "Pile: loop (colored)", "Weft ribs (4 thread)", "Braided fringe",
@@ -128,8 +210,8 @@ public class AnalysisController : Controller
        "Weft ribs (every 2 cm)", "Weft ribs (x 2 x 2 x)",
        "Weft ribs (3x)", "Sewn: yellow and purple wool inserted",
        "Other: hemmed opening", "Soumak", "Tapestry: dovetail",
-       "Plain weave: 1 over 2", "Ribbon technique (rope)", "Sprang"} ;
-        List<string> Functions = new List<string> {"Fragmentary/Unknown", "Head covering", "Face bundle", "Cordage",
+       "Plain weave: 1 over 2", "Ribbon technique (rope)", "Sprang"} ; 
+        List<string> functions = new List<string> {"Fragmentary/Unknown", "Head covering", "Face bundle", "Cordage",
        "Ribbon", "Other - Rope", "Tunic", "Blanket/shroud", "Fragmentary",
        "Other-scarf", "Tunic - Possible", "Ribbon - Torn Strips",
        "Blanket/Shroud (basket weave)", "Tunic (?)",
@@ -166,8 +248,8 @@ public class AnalysisController : Controller
        "Ribbon - 2.5 cm wide", "Other - Leg padding",
        "Face Bundle - Sprang", "Other - Skull Cap",
        "Other - Fronts Piece", "Other - Torn Strips",
-       "Ribbon - 5 twist single ply thread wrapped around 3 times"};
-        List<string> Decorations = new List<string> {"Roundels", "Undyed", "Animal motifs", "Roundels (2)",
+       "Ribbon - 5 twist single ply thread wrapped around 3 times"}; 
+        List<string> decorations = new List<string> {"Roundels", "Undyed", "Animal motifs", "Roundels (2)",
             "Other - Unknown", "Open warp (1.5 cm band)",
             "Flying Thread Brocades", "Other (applied pattern)",
             "Abstract motifs", "Plant Motifs (?)",
@@ -177,60 +259,13 @@ public class AnalysisController : Controller
             "Human motifs", "Warp stripes", "Clavi",
             "Other (unknown - too fragmentary)", "Weft bands (one red)",
             "Weft bands", "Clavi?", "Open warp", "Plant motifs?",
-            "Warp ribs (4)", "Other - Applied Pattern", "Other"};
-        ViewBag.HairColors = HairColors;
-        ViewBag.Structures = Structures;
-        ViewBag.Functions = Functions;
-        ViewBag.Decorations = Decorations;
-        
-        return View("SupAnalysis");
+            "Warp ribs (4)", "Other - Applied Pattern", "Other"}; 
+        ViewBag.HairColors = hairColors; 
+        ViewBag.Structures = structures;
+        ViewBag.Functions = functions; 
+        ViewBag.Decorations = decorations;
     }
-
-    [HttpPost]
-    public async Task<IActionResult> SupAnalysis()
-    {
-        using (var client = new HttpClient())
-        {
-            var requestUri = new Uri("https://api.byuegypt.com/predict/"); // Replace with the URI of the REST API
-
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
-            foreach (string key in Request.Form.Keys)
-            {
-                Console.WriteLine(key + ":\t"+   Request.Form[key]);
-                dictionary.Add(key, Request.Form[key]);
-            }
-
-            var json = JsonConvert.SerializeObject(dictionary, Formatting.Indented);
-
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Post,
-                RequestUri = requestUri,
-                Content = new StringContent(json, Encoding.UTF8, "application/json")
-            };
-            Console.WriteLine("response: \t" + request.Content);
-            HttpResponseMessage response = await client.SendAsync(request);
-            string responseString = response.Content.ReadAsStringAsync().Result;
-            Console.WriteLine("response: \t" + responseString);
-
-            if (response.IsSuccessStatusCode)
-            {
-                string responseString2 = response.Content.ReadAsStringAsync().Result;
-                Console.WriteLine("response: \t" + responseString);
-                // var responseObject = JsonConvert.DeserializeObject(responseString);
-
-                TempData["responseString"] = responseString;
-                return View();
-                
-            }
-            else
-            {
-                // Handle error
-                return BadRequest();
-            }
-        }
-        
-    }
+    
     
     public IActionResult UnSupAnalysis()
     {
