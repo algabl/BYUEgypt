@@ -98,7 +98,7 @@ public class HomeController : Controller
                 
         return View(viewModel);
     }
-    
+
     [HttpGet]
     public IActionResult RecordView(long id)
     {
@@ -153,7 +153,7 @@ public class HomeController : Controller
     }
     [Authorize(Roles = "USER, ADMIN")]
     [HttpGet]
-    public IActionResult Delete(long id)
+    public IActionResult Delete(int id)
     {
         var burial = repo.Burials.Single(x => x.Id == id);
         ViewData["Title"] = "Delete " + burial.Id;
