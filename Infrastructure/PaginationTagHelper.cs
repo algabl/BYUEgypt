@@ -19,7 +19,7 @@ namespace BYUEgypt.Infrastructure
         [ViewContext]
         [HtmlAttributeNotBound]
         public ViewContext vc { get; set; }
-        public PageInfo PageBurials { get; set; }
+        public PageInfo PageInfo { get; set; }
         public string PageAction { get; set; }
         public bool PageClassesEnabled { get; set; } = false;
         public string PageClass { get; set; }
@@ -30,16 +30,15 @@ namespace BYUEgypt.Infrastructure
         {
             IUrlHelper uh = uhf.GetUrlHelper(vc);
             TagBuilder final = new TagBuilder("div");
-            
-            
-            
-            for (int i = 1; i < PageBurials.TotalPages + 1; i++)
+
+
+            for (int i = 1; i <= PageInfo.TotalPages; i++)
             {
                 TagBuilder tb = new TagBuilder("a");
                 tb.Attributes["href"] = uh.Action(PageAction, new {pageNum = i});
                 if (PageClassesEnabled) {
                     tb.AddCssClass(PageClass);
-                    tb.AddCssClass(i == PageBurials.CurrentPage
+                    tb.AddCssClass(i == PageInfo.CurrentPage
                         ? PageClassSelected : PageClassNormal);
                 }
                 tb.InnerHtml.Append(i.ToString());

@@ -49,11 +49,10 @@ public class HomeController : Controller
     // Burial actions
     
     // Lists all burialmain records
-    public IActionResult BurialRecords()
+    public IActionResult BurialRecords(int pageNum = 1)
     {
         int pageSize = 20;
-        int pageNum = 1;
-        
+
         var viewModel = new BurialmainsViewModel
         {
             Burials = repo.Burials
@@ -70,8 +69,8 @@ public class HomeController : Controller
         
         return View("BurialRecordsList", viewModel);
     }
-    
-    // Returns a filtered list based on user-entered filters
+
+    // Returns a filtered list based on user-entered filters (filtering and pagination do not work at the same time because of the way our filters are structured
     public IActionResult BurialRecordsList(int pageNum = 1)
     {
         int pageSize = 20;
@@ -178,12 +177,10 @@ public class HomeController : Controller
     // Textile actions
     
     // Lists all textile records
-    public IActionResult TextileRecords()
+    public IActionResult TextileRecords(int pageNum = 1)
     {
         
         int pageSize = 20;
-        int pageNum = 1;
-        
         var viewModel = new TextilesViewModel
         {
             Textiles = textileRepo.Textiles
