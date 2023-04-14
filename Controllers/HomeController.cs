@@ -190,6 +190,7 @@ public class HomeController : Controller
                 CurrentPage = pageNum
             }
         };
+        ViewData["Title"] = "Textiles";
         return View("TextileRecordsList", viewModel);
     }
     public IActionResult TextileRecordsList(int pageNum = 1)
@@ -209,6 +210,7 @@ public class HomeController : Controller
                 CurrentPage = pageNum
             }
         };
+        ViewData["Title"] = "Textiles";
         return View(viewModel);
     }
     public IActionResult TextileView(long id)

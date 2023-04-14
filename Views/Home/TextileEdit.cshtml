@@ -1,0 +1,52 @@
+@{
+}
+
+@model Textile
+
+<div class="row d-flex flex-column justify-content-center align-items-center p-3">
+    <div class="col-10">
+        <div class="card">
+          <div class="card-header">@ViewData["Title"]</div>
+            <div class="card-body">
+              <form method="post" class="m-3 row">
+                <input type="hidden" asp-for="Id"/>
+                <h4>Location and position</h4>
+
+                <div class="col-md-3">
+                  <label class="form-label">Locale</label>
+                  <input type="text" step="10" class="form-control" asp-for="Locale" placeholder="">
+                </div>
+                <div class="col-sm-2">
+                  <label class="form-label">Burial #</label>
+                  <input type="number" step="1" class="form-control" asp-for="Burialnumber" placeholder="">
+                </div>
+                <h4>Excavation Details</h4>
+                <div class="col-md-3">
+                  <label class="form-label">Estimated Period</label>
+                  <input type="text" class="form-control" asp-for="Estimatedperiod" placeholder="">
+                </div>
+                <div class="col-md-2">
+                  <label class="form-label">Sample Date</label>
+                  <input type="text" asp-for="Sampledate" class="form-control"/>
+                </div>
+                <div class="col-md-2">
+                  <label class="form-label">Photographed Date</label>
+                  <input type="text" asp-for="Photographeddate" class="form-control"/>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Notes</label>
+                  <textarea class="form-control" asp-for="Description"></textarea>
+                </div>
+                <div class="col-12 mt-5">
+                  <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Save</button>
+                  @if (ViewData["Title"].ToString().Contains("Edit"))
+                  {
+                    <a class="btn btn-light" asp-controller="Home" asp-action="TextileView" asp-route-id="@Model.Id">Cancel</a>
+                  }
+                </div>
+                <div asp-validation-summary="All"></div>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
