@@ -158,7 +158,7 @@ public class HomeController : Controller
     // Ability to delete existing burial records
     [Authorize(Roles = "USER, ADMIN")]
     [HttpGet]
-    public IActionResult Delete(int id)
+    public IActionResult Delete(long id)
     {
         var burial = repo.Burials.Single(x => x.Id == id);
         ViewData["Title"] = "Delete " + burial.Id;
