@@ -16,11 +16,13 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
 
     private IBurialRepository repo;
+    private ITextileRepository textileRepo;
 
-    public HomeController(ILogger<HomeController> logger, IBurialRepository burialTemp)
+    public HomeController(ILogger<HomeController> logger, IBurialRepository burialTemp, ITextileRepository textileTemp)
     {
         _logger = logger;
         repo = burialTemp;
+        textileRepo = textileTemp;
     }
     
     public IActionResult Index()
@@ -79,17 +81,52 @@ public class HomeController : Controller
                 
         return View(viewModel);
     }
-
-    [HttpGet]
-    public IActionResult TextileRecordsList()
+    public IActionResult TextileRecords()
     {
-        return View();
+        
+        int pageSize = 20;
+        int pageNum = 1;
+        
+        var viewModel = new TextilesViewModel
+        {
+            Textiles = textileRepo.Textiles
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+            
+            PageInfo = new PageInfo
+            {
+                TotalNumBurials = repo.Burials.Count(),
+                BurialsPerPage = pageSize,
+                CurrentPage = pageNum
+            }
+        };
+        return View("TextileRecordsList", viewModel);
     }
-    
-    [HttpPost]
     public IActionResult TextileRecordsList(int pageNum = 1)
     {
-        return View();
+        int pageSize = 20;
+
+        var viewModel = new TextilesViewModel
+        {
+            Textiles = textileRepo.Textiles
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+            
+            PageInfo = new PageInfo
+            {
+                TotalNumBurials = repo.Burials.Count(),
+                BurialsPerPage = pageSize,
+                CurrentPage = pageNum
+            }
+        };
+        return View(viewModel);
+    }
+
+    public IActionResult TextileView(long id)
+    {
+        Textile tx = textileRepo.Textiles.Single(tx => tx.Id == id);
+        ViewData["Title"] = "Textile " + tx.Id;
+        return View(tx);
     }
 
     public IActionResult Privacy()

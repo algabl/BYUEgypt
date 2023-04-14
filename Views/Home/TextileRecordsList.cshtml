@@ -104,9 +104,9 @@
           </div>
         </div>
         <div class="container col-10">
-            @foreach (var bm in Model.Textiles)
+            @foreach (var tx in Model.Textiles)
             {
-                <partial name="BurialSummary" model="bm"/>
+                <partial name="TextileSummary" model="tx"/>
             }
         </div>
 
