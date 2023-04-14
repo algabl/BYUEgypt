@@ -1,0 +1,15 @@
+@{
+    
+}
+@model Textile
+
+<div class="m-5">
+    <h1 class="mt-2">Confirm deletion</h1>
+    <p>Are you sure you want to delete @Model.Id?</p>
+    <b>This is permanent and cannot be undone.</b>
+    <form method="post" asp-action="TextileDelete">
+        <button class="btn btn-danger" type="submit">Yes, delete</button>
+        <a asp-controller="Home" asp-action="TextileView" asp-route-id="@Model.Id" class="btn btn-light">No, cancel</a>
+        <input type="hidden" asp-for="Id"/>
+    </form>
+</div>

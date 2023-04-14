@@ -1,0 +1,74 @@
+
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+@{
+    var currentUser = UserManager.GetUserAsync(User).Result;
+}
+@using Microsoft.CodeAnalysis.Differencing
+@model Textile 
+<div class="row m-5">
+    <div class="col-10 d-flex cairo-font">
+        <span class="align-self-center display-4">@ViewData["Title"]</span>
+    </div>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        if (await UserManager.IsInRoleAsync(currentUser, "USER") || await UserManager.IsInRoleAsync(currentUser, "ADMIN"))
+        {
+            <div class="col-2 align-self-end">
+                <a class="btn btn-primary" asp-controller="Home" asp-action="TextileEdit" asp-route-id="@Model.Id"><i class="fa-regular fa-edit"></i></a>
+                <a class="btn btn-danger" asp-controller="Home" asp-action="TextileDelete" asp-route-id="@Model.Id"><i class="fa-regular fa-trash-can"></i></a>
+            </div>
+        }
+    }
+</div>
+<section style="height: 70vh" class="mt-5 mb-5 d-flex flex-column justify-content-center align-items-center">
+    <div class="record-view-container w-90">
+        <div class="record-photo">
+            <img src="~/img/fag_el-gamous.jpg" alt="" width="100%">
+        </div>
+        <div class="record-highlight h-100 w-100">
+            <div class="h-100 w-100 text-start">
+                <div class="card-header display-6" style="background:transparent;">
+                    <div class="row d-flex justify-content-evenly">
+                        <div class="col fw-bold">
+                            Burial Number: <span class="record-indent">@Model.Burialnumber</span> 
+                        </div>
+                    </div>
+
+                </div>
+                <div class="ps-3 mb-3">
+                    <div class="row mt-5 pb-5 mb-5 border-1 border-bottom">
+                        <div class="col-4" id="Sex">
+                            <div class="card-text display-7">
+                                Description: <span class="record-indent">@Model.Description</span>
+                            </div>
+                        </div>
+                        <div class="col-4" id="Adultsubadult">
+                            <div class="card-text display-7">
+                                Estimated Period: <span class="record-indent">@Model.Estimatedperiod</span>
+                            </div>
+                        </div>
+                        <div class="col-4" id="Haircolor">
+                            <div class="card-text display-7">
+                                Sample Date: <span class="record-indent">@Model.Sampledate</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-5 pb-5 mb-5 border-1 border-bottom">
+                        <div class="col-4" id="Length">
+                            <div class="card-text display-7">
+                                Photographed Date: <span class="record-indent">@Model.Photographeddate</span> M
+                            </div>
+                        </div>
+                        <div class="col-4" id="Depth">
+                            <div class="card-text display-7">
+                                Direction: <span class="record-indent">@Model.Direction</span> M
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

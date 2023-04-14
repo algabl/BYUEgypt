@@ -1,11 +1,7 @@
-﻿@inject UserManager<IdentityUser> UserManager
-@inject SignInManager<IdentityUser> SignInManager
+﻿
 @{
     ViewData["Title"] = "Home Page";
-    var currentUser = UserManager.GetUserAsync(User).Result;
 }
-
-@model BurialmainsViewModel 
 
 <div class="index-font">
     <section class="index-background" style="height: 95vh;">

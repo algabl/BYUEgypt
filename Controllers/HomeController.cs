@@ -16,71 +16,87 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
 
     private IBurialRepository repo;
+    private ITextileRepository textileRepo;
 
-    public HomeController(ILogger<HomeController> logger, IBurialRepository burialTemp)
+    public HomeController(ILogger<HomeController> logger, IBurialRepository burialTemp, ITextileRepository textileTemp)
     {
         _logger = logger;
         repo = burialTemp;
+        textileRepo = textileTemp;
     }
 
     
-    [HttpGet]
+    // Universal things
+    
     public IActionResult Index()
     {
         return View();
     }
 
-    [HttpPost]
-    public IActionResult Index(int pageNum = 1, int pageSize = 5)
+    public IActionResult Privacy()
     {
+        return View();
+    }
+    
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+
+    
+    // Burials
+    public IActionResult BurialRecords()
+    {
+        int pageSize = 20;
+        int pageNum = 1;
         
-        Dictionary<string, string> dictionary = new Dictionary<string, string>();
-        foreach (string key in Request.Form.Keys)
-        {
-            dictionary.Add(key, Request.Form[key]);
-        }
         var viewModel = new BurialmainsViewModel
         {
-            
-            Burialmains = repo.GenerateQuery(dictionary, pageSize, pageNum),
+            Burials = repo.Burials
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
             
             PageInfo = new PageInfo
             {
-                TotalNumBurials = repo.Burials.Count(),
-                BurialsPerPage = pageSize,
+                TotalNumRecords = repo.Burials.Count(),
+                RecordsPerPage = pageSize,
                 CurrentPage = pageNum
             }
         };
         
-        return View(viewModel);
+        return View("BurialRecordsList", viewModel);
     }
-
-    [HttpGet]
-    public IActionResult BurialSummary(int pageNum = 1)
+    
+    public IActionResult BurialRecordsList(int pageNum = 1)
     {
-        int pageSize = 5;
+        int pageSize = 20;
+
+        Dictionary<string, string?> dict = new Dictionary<string, string?>();
+        foreach (string key in Request.Form.Keys)
+        {
+            dict.Add(key, Request.Form[key]);
+        }
+
+        // IQueryable<Burialmain> query = repo.GenerateQuery(dict);
+
         var viewModel = new BurialmainsViewModel
         {
-            
-            Burialmains = repo.Burials
+            Burials = repo.GenerateQuery(dict)
                 .OrderBy(bm => bm.Id)
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize),
             
             PageInfo = new PageInfo
             {
-                TotalNumBurials = repo.Burials.Count(),
-                BurialsPerPage = pageSize,
+                TotalNumRecords = repo.Burials.Count(),
+                RecordsPerPage = pageSize,
                 CurrentPage = pageNum
             }
         };
                 
         return View(viewModel);
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
     }
 
     [HttpGet]
@@ -96,7 +112,8 @@ public class HomeController : Controller
     public IActionResult CreateRecord()
     {
         Burialmain bm = new Burialmain();
-        return View("EditRecord", bm);
+        ViewData["Title"] = "Create new record";
+        return View("BurialEdit", bm);
     }
 
     [HttpPost]
@@ -110,21 +127,21 @@ public class HomeController : Controller
         }
 
         ViewData["Title"] = "Create new record";
-        return View("EditRecord");
+        return View("BurialEdit");
     }
     
     [HttpGet]
     [Authorize(Roles = "USER, ADMIN")]
-    public IActionResult EditRecord(long id)
+    public IActionResult BurialEdit(long id)
     {
         Burialmain bm = repo.Burials.Single(x => x.Id == id);
-
+        ViewData["Title"] = "Edit " + bm.Id;
         return View(bm);
     }
 
     [HttpPost]
     [Authorize(Roles = "USER, ADMIN")]
-    public IActionResult EditRecord(Burialmain burial)
+    public IActionResult BurialEdit(Burialmain burial)
     {
         if (ModelState.IsValid)
         {
@@ -134,14 +151,6 @@ public class HomeController : Controller
         ViewData["Title"] = "Edit " + burial.Id;
         return View();
     }
-    
-    
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
-
     [Authorize(Roles = "USER, ADMIN")]
     [HttpGet]
     public IActionResult Delete(int id)
@@ -159,4 +168,115 @@ public class HomeController : Controller
         repo.DeleteRecord(burial);
         return RedirectToAction("Index");
     }
+    
+    // Textiles
+    
+    public IActionResult TextileRecords()
+    {
+        
+        int pageSize = 20;
+        int pageNum = 1;
+        
+        var viewModel = new TextilesViewModel
+        {
+            Textiles = textileRepo.Textiles
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+            
+            PageInfo = new PageInfo
+            {
+                TotalNumRecords = repo.Burials.Count(),
+                RecordsPerPage = pageSize,
+                CurrentPage = pageNum
+            }
+        };
+        ViewData["Title"] = "Textiles";
+        return View("TextileRecordsList", viewModel);
+    }
+    public IActionResult TextileRecordsList(int pageNum = 1)
+    {
+        int pageSize = 20;
+
+        var viewModel = new TextilesViewModel
+        {
+            Textiles = textileRepo.Textiles
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+            
+            PageInfo = new PageInfo
+            {
+                TotalNumRecords = repo.Burials.Count(),
+                RecordsPerPage = pageSize,
+                CurrentPage = pageNum
+            }
+        };
+        ViewData["Title"] = "Textiles";
+        return View(viewModel);
+    }
+    public IActionResult TextileView(long id)
+    {
+        Textile tx = textileRepo.Textiles.Single(tx => tx.Id == id);
+        ViewData["Title"] = "Textile " + tx.Id;
+        return View(tx);
+    }
+    
+    [HttpPost]
+    [Authorize(Roles = "USER, ADMIN")]
+    public IActionResult CreateTextile(Textile textile)
+    {
+        if (ModelState.IsValid)
+        {
+            textileRepo.CreateRecord(textile);
+            return RedirectToAction("RecordView", "Home", new { id = textile.Id });
+        }
+
+        ViewData["Title"] = "Create new record";
+        return View("TextileEdit");
+    }
+    
+    [HttpGet]
+    [Authorize(Roles = "USER, ADMIN")]
+    public IActionResult TextileEdit(long id)
+    {
+        Textile textile = textileRepo.Textiles.Single(x => x.Id == id);
+        ViewData["Title"] = "Edit " + textile.Id;
+        return View(textile);
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "USER, ADMIN")]
+    public IActionResult TextileEdit(Textile textile)
+    {
+        if (ModelState.IsValid)
+        {
+            textileRepo.EditRecord(textile);
+            return RedirectToAction("TextileView", "Home", new { id = textile.Id});
+        }
+        ViewData["Title"] = "Edit " + textile.Id;
+        return View();
+    }
+
+    [Authorize(Roles = "USER, ADMIN")]
+    [HttpGet]
+    public IActionResult TextileDelete(long id)
+    {
+        var textile = textileRepo.Textiles.Single(x => x.Id == id);
+        ViewData["Title"] = "Delete " + textile.Id;
+        return View(textile);
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "USER, ADMIN")]
+    public IActionResult TextileDelete(Textile textile)
+    {
+        textile = textileRepo.Textiles.Single(x => x.Id == textile.Id);
+        textileRepo.DeleteRecord(textile);
+        return RedirectToAction("Index");
+    }
+
+
+    
+    
+    
+
 }
