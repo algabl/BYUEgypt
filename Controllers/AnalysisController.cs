@@ -18,6 +18,8 @@ public class AnalysisController : Controller
         gamous_context = gamousContext;
     }
     
+    
+    // Returns view that has form for users to access the Supervised Model API
     [HttpGet]
     public IActionResult SupervisedAnalysis()
     {
@@ -30,6 +32,7 @@ public class AnalysisController : Controller
         return View("SupAnalysis");
     }
 
+    // Returns a prediction from the API based on information the user has entered, using the supervised model
     [HttpPost]
     public async Task<IActionResult> SupAnalysis()
     {
@@ -77,6 +80,7 @@ public class AnalysisController : Controller
         
     }
 
+    // Determines what shows up in the pop-up showing the model's prediction
     public void SetModal(Dictionary<string, string> dict)
     {
         ViewData["Color"] = dict["color"];   
@@ -101,6 +105,7 @@ public class AnalysisController : Controller
         ViewData["Northsouth"] = dict["northsouth"];
     }
 
+    // Populates the HTML form with possible options
     public void SetViewBag()
     {
         List<string> hairColors = new List<string>{ "Brown (Dark and Tan)", "Undyed (white)", "Yellow/Green",
@@ -267,6 +272,7 @@ public class AnalysisController : Controller
     }
     
     
+    // View showing our unsupervised analysis results
     public IActionResult UnSupAnalysis()
     {
         return View();

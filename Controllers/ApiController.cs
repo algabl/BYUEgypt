@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 namespace BYUEgypt.Controllers;
 
 
+// Gives the site access to the API hosting our supervised model
 public class ApiController : Controller
 {
     private readonly HttpClient _httpClient = new HttpClient();

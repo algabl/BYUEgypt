@@ -26,7 +26,7 @@ public class HomeController : Controller
     }
 
     
-    // Universal things
+    // Universal actions
     
     public IActionResult Index()
     {
@@ -46,7 +46,9 @@ public class HomeController : Controller
 
 
     
-    // Burials
+    // Burial actions
+    
+    // Lists all burialmain records
     public IActionResult BurialRecords()
     {
         int pageSize = 20;
@@ -69,6 +71,7 @@ public class HomeController : Controller
         return View("BurialRecordsList", viewModel);
     }
     
+    // Returns a filtered list based on user-entered filters
     public IActionResult BurialRecordsList(int pageNum = 1)
     {
         int pageSize = 20;
@@ -78,9 +81,7 @@ public class HomeController : Controller
         {
             dict.Add(key, Request.Form[key]);
         }
-
-        // IQueryable<Burialmain> query = repo.GenerateQuery(dict);
-
+        
         var viewModel = new BurialmainsViewModel
         {
             Burials = repo.GenerateQuery(dict)
@@ -99,6 +100,7 @@ public class HomeController : Controller
         return View(viewModel);
     }
 
+    // Individual view of burial record
     [HttpGet]
     public IActionResult RecordView(long id)
     {
@@ -107,6 +109,7 @@ public class HomeController : Controller
         return View(bm);
     }
 
+    // Ability to create new burial record
     [HttpGet]
     [Authorize(Roles = "USER, ADMIN")]
     public IActionResult CreateRecord()
@@ -130,6 +133,7 @@ public class HomeController : Controller
         return View("BurialEdit");
     }
     
+    // Ability to edit existing burial records
     [HttpGet]
     [Authorize(Roles = "USER, ADMIN")]
     public IActionResult BurialEdit(long id)
@@ -151,6 +155,8 @@ public class HomeController : Controller
         ViewData["Title"] = "Edit " + burial.Id;
         return View();
     }
+    
+    // Ability to delete existing burial records
     [Authorize(Roles = "USER, ADMIN")]
     [HttpGet]
     public IActionResult Delete(int id)
@@ -169,8 +175,9 @@ public class HomeController : Controller
         return RedirectToAction("Index");
     }
     
-    // Textiles
+    // Textile actions
     
+    // Lists all textile records
     public IActionResult TextileRecords()
     {
         
@@ -193,6 +200,8 @@ public class HomeController : Controller
         ViewData["Title"] = "Textiles";
         return View("TextileRecordsList", viewModel);
     }
+    
+    // This action *in the future* will  like BurialRecordsList, return a list of filtered textiles
     public IActionResult TextileRecordsList(int pageNum = 1)
     {
         int pageSize = 20;
@@ -213,11 +222,22 @@ public class HomeController : Controller
         ViewData["Title"] = "Textiles";
         return View(viewModel);
     }
+    
+    // Ability to view single textile record
     public IActionResult TextileView(long id)
     {
         Textile tx = textileRepo.Textiles.Single(tx => tx.Id == id);
         ViewData["Title"] = "Textile " + tx.Id;
         return View(tx);
+    }
+    
+    [HttpGet]
+    [Authorize(Roles = "USER, ADMIN")]
+    public IActionResult CreateTextile()
+    {
+        Textile textile = new Textile();
+        ViewData["Title"] = "Create new record";
+        return View("TextileEdit", textile);
     }
     
     [HttpPost]
