@@ -1,12 +1,52 @@
 ﻿@using Microsoft.AspNetCore.Http.Features
 
-@{
+<div id="cookie-notification" class="alert alert-info alert-dismissible fade show" style="display:none;">
+	<p>
+		This website uses cookies to improve your browsing experience and to personalize content. By continuing to use our website, you consent to our use of cookies. For more information, please see our Privacy Policy. <a asp-controller="Home" asp-action="Privacy">Learn More</a>.
+	</p>	<button class="accept-policy close btn btn-primary" onclick="acceptCookie()">Accept</button>
+</div>
+
+<script>
+	function setCookie(name, value, days) {
+		var expires = "";
+		if (days) {
+			var date = new Date();
+			date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+			expires = "; expires=" + date.toUTCString();
+		}
+		document.cookie = name + "=" + (value || "") + expires + "; path=/";
+	}
+
+	function getCookie(name) {
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		for (var i = 0; i < ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+			if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+		}
+		return null;
+	}
+
+	function acceptCookie() {
+		setCookie("cookie_accepted", true, 30);
+		document.getElementById("cookie-notification").style.display = "none";
+	}
+
+	window.onload = function () {
+		var cookieAccepted = getCookie("cookie_accepted");
+		if (!cookieAccepted) {
+			document.getElementById("cookie-notification").style.display = "block";
+		}
+	};
+</script>
+@*@{
     var consentFeature = Context.Features.Get<ITrackingConsentFeature>();
     var showBanner = !consentFeature?.CanTrack ?? false;
     var cookieString = consentFeature?.CreateConsentCookie();
 }
-
-@if (showBanner)
+*@
+@*@if (showBanner)
 {
     <div id="cookieConsent" class="alert alert-info alert-dismissible fade show" role="alert">
         <p>
@@ -24,5 +64,5 @@
             }, false);
         })();           
     </script>
-}
+}*@
 
