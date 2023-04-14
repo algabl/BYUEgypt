@@ -22,49 +22,20 @@ public class HomeController : Controller
         _logger = logger;
         repo = burialTemp;
     }
-
     
-    [HttpGet]
     public IActionResult Index()
     {
         return View();
-    }
-
-    [HttpPost]
-    public IActionResult Index(int pageNum = 1, int pageSize = 5)
-    {
-        
-        Dictionary<string, string> dictionary = new Dictionary<string, string>();
-        foreach (string key in Request.Form.Keys)
-        {
-            dictionary.Add(key, Request.Form[key]);
-        }
-        var viewModel = new BurialmainsViewModel
-        {
-            
-            Burialmains = repo.GenerateQuery(dictionary, pageSize, pageNum),
-            
-            PageInfo = new PageInfo
-            {
-                TotalNumBurials = repo.Burials.Count(),
-                BurialsPerPage = pageSize,
-                CurrentPage = pageNum
-            }
-        };
-        
-        return View(viewModel);
     }
 
     public IActionResult BurialRecords()
     {
         int pageSize = 20;
         int pageNum = 1;
+        
         var viewModel = new BurialmainsViewModel
         {
-            
-            // foreach (key in Request.Form.Keys)
-            Burialmains = repo.Burials
-                .OrderBy(bm => bm.Id)
+            Burials = repo.Burials
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize),
             
@@ -75,44 +46,28 @@ public class HomeController : Controller
                 CurrentPage = pageNum
             }
         };
+        
         return View("BurialRecordsList", viewModel);
     }
     
     public IActionResult BurialRecordsList(int pageNum = 1)
     {
-        int pageSize = 5;
+        int pageSize = 20;
 
-        var Query = repo.Burials.AsQueryable();
+        Dictionary<string, string?> dict = new Dictionary<string, string?>();
         foreach (string key in Request.Form.Keys)
         {
-            if (key.Substring(0, 3) != "ind")
-            {
-                if (Request.Form["indicator" + key] == "==") 
-                {
-                    Query.Where(bm => bm.GetType().GetProperty(key).GetValue(bm).ToString() == Request.Form[key]);
-                } 
-                else if (Request.Form["indicator" + key] == "!=") 
-                {
-                    Query.Where(bm => bm.GetType().GetProperty(key).GetValue(bm).ToString() != Request.Form[key]);
-                } 
-                else if (Request.Form["indicator" + key] == ">") 
-                {
-                    Query.Where(bm => ((double) bm.GetType().GetProperty(key).GetValue(bm)) > ((double)((object) Request.Form[key])));
-                } 
-                else if (Request.Form["indicator" + key] == "<") 
-                {
-                    Query.Where(bm => ((double) bm.GetType().GetProperty(key).GetValue(bm)) < ((double)((object) Request.Form[key])));
-                } 
-            }
-
-            Query.Skip((pageNum - 1) * pageSize).Take(pageSize);
+            dict.Add(key, Request.Form[key]);
         }
-        
+
+        // IQueryable<Burialmain> query = repo.GenerateQuery(dict);
+
         var viewModel = new BurialmainsViewModel
         {
-            
-            // foreach (key in Request.Form.Keys)
-            Burialmains = Query,
+            Burials = repo.GenerateQuery(dict)
+                .OrderBy(bm => bm.Id)
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
             
             PageInfo = new PageInfo
             {

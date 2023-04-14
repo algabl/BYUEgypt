@@ -198,7 +198,6 @@ public class AnalysisController : Controller
             {
                 Console.WriteLine(key + ":\t"+   Request.Form[key]);
                 dictionary.Add(key, Request.Form[key]);
-                
             }
 
             var json = JsonConvert.SerializeObject(dictionary, Formatting.Indented);
@@ -213,7 +212,6 @@ public class AnalysisController : Controller
             HttpResponseMessage response = await client.SendAsync(request);
             string responseString = response.Content.ReadAsStringAsync().Result;
             Console.WriteLine("response: \t" + responseString);
-            
 
             if (response.IsSuccessStatusCode)
             {

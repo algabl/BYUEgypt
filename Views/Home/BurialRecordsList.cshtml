@@ -19,40 +19,147 @@
                   </h2>
                   <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                       <div class="accordion-body">
-                          <form class="row g-3" method="post" asp-action="BurialRecordsList" asp-controller="Home">
-                            <div class="col-md-3">
-                              <label for="Sex" class="form-label">Sex</label>
-                              <select name="Sex" id="Sex" class="form-select">
-                                <option value="" selected>Choose...</option>
-                                <option value="F">Female</option>
-                                <option value="M">Male</option>
-                                <option value="U">Unknown</option>
-                              </select>
-                            </div>
-                            <div class="col-md-3">
-                              <label for="indicatorSex" class="form-label">Is... </label>
-                              <select name="indicatorSex" id="indicatorSex" class="form-select">
-                                <option value="==">Equal To</option>
-                                <option value="!=">Is not Equal To</option>
-                              </select>
-                            </div>
-                            <div class="col-md-3">
-                              <label for="Depth" class="form-label">Depth</label>
-                              <input type="number" name="Depth" id="Depth" class="form-control" step="0.01">
-                            </div>
-                            <div class="col-md-3">
-                              <label for="indicatorDepth" class="form-label">Is... </label>
-                              <select name="indicatorDepth" id="indicatorDepth" class="form-select">
-                                <option value="==">Equal To</option>
-                                <option value="!=">Is not Equal To</option>
-                                <option value=">">Greater Than</option>
-                                <option value="<">Less Than</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                              <button type="submit" class="btn btn-primary">Filter</button>
-                            </div>
-                          </form>
+                        <form class="row g-3" method="post" asp-action="BurialRecordsList" asp-controller="Home">
+                          @* first row *@
+                          <div class="col-md-3">
+                            <label for="Sex" class="form-label">Sex</label>
+                            <select name="Sex" id="Sex" class="form-select">
+                              <option value="" selected>Choose...</option>
+                              <option value="F">Female</option>
+                              <option value="M">Male</option>
+                              <option value="U">Unknown</option>
+                            </select>
+                          </div>
+                          <div class="col-md-3">
+                            <label for="indicatorSex" class="form-label">Is... </label>
+                            <select name="indicatorSex" id="indicatorSex" class="form-select">
+                              <option value="==">Equal To</option>
+                              <option value="!=">Is not Equal To</option>
+                            </select>
+                          </div>
+                          <div class="col-md-3" id="Age-at-death">
+                            <label for="Ageatdeath" class="form-label">Age at Death</label>
+                            <select name="Ageatdeath" id="Ageatdeath" class="form-select">
+                              <option value="" selected>Choose...</option>
+                              <option value="A">Adult - years 15+</option>
+                              <option value="C">Child - years 3-15</option>
+                              <option value="I">Infant - years 1-3</option>
+                              <option value="N">Newborn - year 0-1</option>
+                              <option value="U">Unknown</option>
+                            </select>
+                          </div>
+                          <div class="col-md-3">
+                            <label for="indicatorAgeatdeath" class="form-label">Is... </label>
+                            <select name="indicatorAgeatdeath" id="indicatorAgeatdeath" class="form-select">
+                              <option value="==">Equal To</option>
+                              <option value="!=">Is not Equal To</option>
+                            </select>
+                          </div>
+                          
+                          @* second row *@
+                          <div class="col-md-3" id="Hair-color">
+                            <label for="Haircolor" class="form-label">Hair Color</label>
+                            <select name="Haircolor" id="Haircolor" class="form-select">
+                              <option value="" selected>Choose...</option>
+                              <option value="B">Brown/Dark Brown/Lt Brown</option>
+                              <option value="K">Black</option>
+                              <option value="A">Brown-Red</option>
+                              <option value="R">Red/Red-Bl</option>
+                              <option value="D">Blond</option>
+                              <option value="U">Unknown</option>
+                            </select>
+                          </div>
+                          <div class="col-md-3">
+                            <label for="indicatorHaircolor" class="form-label">Is... </label>
+                            <select name="indicatorHaircolor" id="indicatorHaircolor" class="form-select">
+                              <option value="==">Equal To</option>
+                              <option value="!=">Is not Equal To</option>
+                            </select>
+                          </div>
+                          <div class="col-md-3" id="inputWrapping">
+                            <label for="Wrapping" class="form-label">Wrapping</label>
+                            <select name="Wrapping" id="Wrapping" class="form-select">
+                              <option value="" selected>Choose...</option>
+                              <option value="W">Full or nearly full wrapping remains</option>
+                              <option value="H">Partial wrapping remain</option>
+                              <option value="B">Bones and/or only partial remnants of wrapping remains</option>
+                              <option value="U">Unknown</option>
+                            </select>
+                          </div>
+                          <div class="col-md-3">
+                            <label for="indicatorWrapping" class="form-label">Is... </label>
+                            <select name="indicatorWrapping" id="indicatorWrapping" class="form-select">
+                              <option value="==">Equal To</option>
+                              <option value="!=">Is not Equal To</option>
+                            </select>
+                          </div>
+                          
+                          @* third row *@
+                          <div class="col-md-3" id="Square-northsouth">
+                            <label for="Squarenorthsouth" class="form-label">Square North South</label>
+                            <input name="Squarenorthsouth" type="number" class="form-control" id="Squarenorthsouth" placeholder="Input a Vertical space" min="0" max="200" step="10" onchange="roundToNearestTen()" >
+                          </div>
+                          <div class="col-md-3">
+                            <label for="indicatorSquarenorthsouth" class="form-label">Is... </label>
+                            <select name="indicatorSquarenorthsouth" id="indicatorSquarenorthsouth" class="form-select">
+                              <option value="==">Equal To</option>
+                              <option value="!=">Is not Equal To</option>
+                            </select>
+                          </div>
+                          <div class="col-md-3 d-flex justify-content-center align-items-center">
+                            <div class="display-7"> North or South? </div>
+                          </div>
+                          <div class="col-md-3" id="North-south">
+                            <label for="Northsouth" class="form-label">Vertical Cardinal Direction</label>
+                            <select name="Northsouth" id="Northsouth" class="form-select" >
+                              <option value="" selected>Choose...</option>
+                              <option value="N">North</option>
+                              <option value="S">South</option>
+                            </select>
+                          </div>
+                          
+                          @* fourth row *@
+                          <div class="col-md-3" id="Square-eastwest">
+                            <label for="Squareeastwest" class="form-label">Square East West</label>
+                            <input name="Squareeastwest" type="number" class="form-control" id="Squareeastwest" placeholder="Input a Horizontal space" min="0" max="70" step="10" onchange="roundToNearestTen()" >
+                          </div>
+                          <div class="col-md-3">
+                            <label for="indicatorSquareeastwest" class="form-label">Is... </label>
+                            <select name="indicatorSquareeastwest" id="indicatorSquareeastwest" class="form-select">
+                              <option value="==">Equal To</option>
+                              <option value="!=">Is not Equal To</option>
+                            </select>
+                          </div>
+                          <div class="col-md-3 d-flex justify-content-center align-items-center">
+                            <div class="display-7"> East or West? </div>
+                          </div>
+                          <div class="col-md-3" id="East-west">
+                            <label for="Eastwest" class="form-label">Horizontal Cardinal Direction</label>
+                            <select name="Eastwest" id="Eastwest" class="form-select" >
+                              <option value="" selected>Choose...</option>
+                              <option value="E">East</option>
+                              <option value="W">West</option>
+                            </select>
+                          </div>
+
+
+                          <div class="col-md-3">
+                            <label for="Depth" class="form-label">Depth</label>
+                            <input type="number" name="Depth" id="Depth" class="form-control" step="0.01">
+                          </div>
+                          <div class="col-md-3">
+                            <label for="indicatorDepth" class="form-label">Is... </label>
+                            <select name="indicatorDepth" id="indicatorDepth" class="form-select">
+                              <option value="==">Equal To</option>
+                              <option value="!=">Is not Equal To</option>
+                              <option value=">">Greater Than</option>
+                              <option value="<">Less Than</option>
+                            </select>
+                          </div>
+                          <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                          </div>
+                        </form>
                       </div>
                   </div>
                 </div>
@@ -70,7 +177,7 @@
           </div>
         </div>
         <div class="container col-10">
-            @foreach (var bm in Model.Burialmains)
+            @foreach (var bm in Model.Burials)
             {
                 <partial name="BurialSummary" model="bm"/>
             }
