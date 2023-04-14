@@ -80,6 +80,18 @@ public class HomeController : Controller
         return View(viewModel);
     }
 
+    [HttpGet]
+    public IActionResult TextileRecordsList()
+    {
+        return View();
+    }
+    
+    [HttpPost]
+    public IActionResult TextileRecordsList(int pageNum = 1)
+    {
+        return View();
+    }
+
     public IActionResult Privacy()
     {
         return View();

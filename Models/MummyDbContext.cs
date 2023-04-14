@@ -4,7 +4,7 @@ namespace BYUEgypt.Models;
 
 public class MummyDbContext : DbContext
 {
-    public MummyDbContext(DbContextOptions<ArtifactContext> options) : base(options)
+    public MummyDbContext(DbContextOptions<MummyDbContext> options) : base(options)
     {
         // leavin blank
     }
