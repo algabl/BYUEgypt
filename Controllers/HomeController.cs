@@ -26,11 +26,27 @@ public class HomeController : Controller
     }
 
     
+    // Universal things
+    
     public IActionResult Index()
     {
         return View();
     }
 
+    public IActionResult Privacy()
+    {
+        return View();
+    }
+    
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+
+    
+    // Burials
     public IActionResult BurialRecords()
     {
         int pageSize = 20;
@@ -44,8 +60,8 @@ public class HomeController : Controller
             
             PageInfo = new PageInfo
             {
-                TotalNumBurials = repo.Burials.Count(),
-                BurialsPerPage = pageSize,
+                TotalNumRecords = repo.Burials.Count(),
+                RecordsPerPage = pageSize,
                 CurrentPage = pageNum
             }
         };
@@ -82,59 +98,7 @@ public class HomeController : Controller
                 
         return View(viewModel);
     }
-    public IActionResult TextileRecords()
-    {
-        
-        int pageSize = 20;
-        int pageNum = 1;
-        
-        var viewModel = new TextilesViewModel
-        {
-            Textiles = textileRepo.Textiles
-                .Skip((pageNum - 1) * pageSize)
-                .Take(pageSize),
-            
-            PageInfo = new PageInfo
-            {
-                TotalNumRecords = repo.Burials.Count(),
-                RecordsPerPage = pageSize,
-                CurrentPage = pageNum
-            }
-        };
-        return View("TextileRecordsList", viewModel);
-    }
-    public IActionResult TextileRecordsList(int pageNum = 1)
-    {
-        int pageSize = 20;
-
-        var viewModel = new TextilesViewModel
-        {
-            Textiles = textileRepo.Textiles
-                .Skip((pageNum - 1) * pageSize)
-                .Take(pageSize),
-            
-            PageInfo = new PageInfo
-            {
-                TotalNumRecords = repo.Burials.Count(),
-                RecordsPerPage = pageSize,
-                CurrentPage = pageNum
-            }
-        };
-        return View(viewModel);
-    }
-
-    public IActionResult TextileView(long id)
-    {
-        Textile tx = textileRepo.Textiles.Single(tx => tx.Id == id);
-        ViewData["Title"] = "Textile " + tx.Id;
-        return View(tx);
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
+    
     [HttpGet]
     public IActionResult RecordView(long id)
     {
@@ -187,14 +151,6 @@ public class HomeController : Controller
         ViewData["Title"] = "Edit " + burial.Id;
         return View();
     }
-    
-    
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
-
     [Authorize(Roles = "USER, ADMIN")]
     [HttpGet]
     public IActionResult Delete(long id)
@@ -212,4 +168,113 @@ public class HomeController : Controller
         repo.DeleteRecord(burial);
         return RedirectToAction("Index");
     }
+    
+    // Textiles
+    
+    public IActionResult TextileRecords()
+    {
+        
+        int pageSize = 20;
+        int pageNum = 1;
+        
+        var viewModel = new TextilesViewModel
+        {
+            Textiles = textileRepo.Textiles
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+            
+            PageInfo = new PageInfo
+            {
+                TotalNumRecords = repo.Burials.Count(),
+                RecordsPerPage = pageSize,
+                CurrentPage = pageNum
+            }
+        };
+        return View("TextileRecordsList", viewModel);
+    }
+    public IActionResult TextileRecordsList(int pageNum = 1)
+    {
+        int pageSize = 20;
+
+        var viewModel = new TextilesViewModel
+        {
+            Textiles = textileRepo.Textiles
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+            
+            PageInfo = new PageInfo
+            {
+                TotalNumRecords = repo.Burials.Count(),
+                RecordsPerPage = pageSize,
+                CurrentPage = pageNum
+            }
+        };
+        return View(viewModel);
+    }
+    public IActionResult TextileView(long id)
+    {
+        Textile tx = textileRepo.Textiles.Single(tx => tx.Id == id);
+        ViewData["Title"] = "Textile " + tx.Id;
+        return View(tx);
+    }
+    
+    [HttpPost]
+    [Authorize(Roles = "USER, ADMIN")]
+    public IActionResult CreateTextile(Textile textile)
+    {
+        if (ModelState.IsValid)
+        {
+            textileRepo.CreateRecord(textile);
+            return RedirectToAction("RecordView", "Home", new { id = textile.Id });
+        }
+
+        ViewData["Title"] = "Create new record";
+        return View("TextileEdit");
+    }
+    
+    [HttpGet]
+    [Authorize(Roles = "USER, ADMIN")]
+    public IActionResult TextileEdit(long id)
+    {
+        Textile textile = textileRepo.Textiles.Single(x => x.Id == id);
+        ViewData["Title"] = "Edit " + textile.Id;
+        return View(textile);
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "USER, ADMIN")]
+    public IActionResult TextileEdit(Textile textile)
+    {
+        if (ModelState.IsValid)
+        {
+            textileRepo.EditRecord(textile);
+            return RedirectToAction("TextileView", "Home", new { id = textile.Id});
+        }
+        ViewData["Title"] = "Edit " + textile.Id;
+        return View();
+    }
+
+    [Authorize(Roles = "USER, ADMIN")]
+    [HttpGet]
+    public IActionResult TextileDelete(long id)
+    {
+        var textile = textileRepo.Textiles.Single(x => x.Id == id);
+        ViewData["Title"] = "Delete " + textile.Id;
+        return View(textile);
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "USER, ADMIN")]
+    public IActionResult TextileDelete(Textile textile)
+    {
+        textile = textileRepo.Textiles.Single(x => x.Id == textile.Id);
+        textileRepo.DeleteRecord(textile);
+        return RedirectToAction("Index");
+    }
+
+
+    
+    
+    
+
 }

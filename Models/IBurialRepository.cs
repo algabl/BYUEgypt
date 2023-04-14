@@ -7,6 +7,4 @@ public interface IBurialRepository
     IQueryable<Burialmain> GenerateQuery(Dictionary<string, string?> dict);
     
     void EditRecord(Burialmain burial);
-    void CreateRecord(Burialmain burial);
-    IQueryable<Textile> Textiles { get; }
-}
+    void CreateRecord(Burialmain burial); }
