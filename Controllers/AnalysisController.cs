@@ -193,17 +193,14 @@ public class AnalysisController : Controller
         {
             var requestUri = new Uri("https://api.byuegypt.com/predict/"); // Replace with the URI of the REST API
 
-            Dictionary<string, object> dictionary = new Dictionary<string, object>();
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
             foreach (string key in Request.Form.Keys)
             {
+                Console.WriteLine(key + ":\t"+   Request.Form[key]);
                 dictionary.Add(key, Request.Form[key]);
+                
             }
 
-            dictionary["southtohead"] = (float) dictionary["southtohead"];
-            dictionary["westtohead"] = (float) dictionary["westtohead"];
-            dictionary["southtofeet"] = (float) dictionary["southtofeet"];
-            dictionary["westtofeet"] = (float) dictionary["westtofeet"];
-            
             var json = JsonConvert.SerializeObject(dictionary, Formatting.Indented);
 
             var request = new HttpRequestMessage
