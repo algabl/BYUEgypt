@@ -1,8 +1,11 @@
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+
 @model BurialmainsViewModel 
 
 @{
     ViewData["Title"] = "Burial Summaries";
-    // var currentUser = UserManager.GetUserAsync(User).Result;
+    var currentUser = UserManager.GetUserAsync(User).Result;
 }
 
 <section style="">
@@ -58,7 +61,6 @@
                 </div>
               </div>  
           <div class="col-1">
-          @*
             @if (SignInManager.IsSignedIn(User))
             {
               if (await UserManager.IsInRoleAsync(currentUser, "USER") || await UserManager.IsInRoleAsync(currentUser, "ADMIN"))
@@ -66,7 +68,7 @@
                 <a class=" mt-2 btn btn-primary" asp-controller="Home" asp-action="CreateRecord">Add new</a>
               }
               
-            }*@
+            }
           </div>
         </div>
         <div class="container col-10">

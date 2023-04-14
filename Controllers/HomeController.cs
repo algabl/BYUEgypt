@@ -46,8 +46,8 @@ public class HomeController : Controller
             
             PageInfo = new PageInfo
             {
-                TotalNumBurials = repo.Burials.Count(),
-                BurialsPerPage = pageSize,
+                TotalNumRecords = repo.Burials.Count(),
+                RecordsPerPage = pageSize,
                 CurrentPage = pageNum
             }
         };
@@ -70,8 +70,8 @@ public class HomeController : Controller
             
             PageInfo = new PageInfo
             {
-                TotalNumBurials = repo.Burials.Count(),
-                BurialsPerPage = pageSize,
+                TotalNumRecords = repo.Burials.Count(),
+                RecordsPerPage = pageSize,
                 CurrentPage = pageNum
             }
         };
@@ -116,12 +116,28 @@ public class HomeController : Controller
             
             PageInfo = new PageInfo
             {
-                TotalNumBurials = repo.Burials.Count(),
-                BurialsPerPage = pageSize,
+                TotalNumRecords = repo.Burials.Count(),
+                RecordsPerPage = pageSize,
                 CurrentPage = pageNum
             }
         };
                 
+        return View(viewModel);
+    }
+
+    public IActionResult TextileRecordsList(int pageNum = 1)
+    {
+        int pageSize = 20;
+        var viewModel = new TextilesViewModel
+        {
+            Textiles = repo.Textiles,
+            PageInfo = new PageInfo
+            {
+                TotalNumRecords = repo.Textiles.Count(),
+                RecordsPerPage = pageSize,
+                CurrentPage = pageNum
+            }
+        };
         return View(viewModel);
     }
 
@@ -143,7 +159,8 @@ public class HomeController : Controller
     public IActionResult CreateRecord()
     {
         Burialmain bm = new Burialmain();
-        return View("EditRecord", bm);
+        ViewData["Title"] = "Create new record";
+        return View("BurialEdit", bm);
     }
 
     [HttpPost]
@@ -157,21 +174,21 @@ public class HomeController : Controller
         }
 
         ViewData["Title"] = "Create new record";
-        return View("EditRecord");
+        return View("BurialEdit");
     }
     
     [HttpGet]
     [Authorize(Roles = "USER, ADMIN")]
-    public IActionResult EditRecord(long id)
+    public IActionResult BurialEdit(long id)
     {
         Burialmain bm = repo.Burials.Single(x => x.Id == id);
-
+        ViewData["Title"] = "Edit " + bm.Id;
         return View(bm);
     }
 
     [HttpPost]
     [Authorize(Roles = "USER, ADMIN")]
-    public IActionResult EditRecord(Burialmain burial)
+    public IActionResult BurialEdit(Burialmain burial)
     {
         if (ModelState.IsValid)
         {
@@ -191,7 +208,7 @@ public class HomeController : Controller
 
     [Authorize(Roles = "USER, ADMIN")]
     [HttpGet]
-    public IActionResult Delete(int id)
+    public IActionResult Delete(long id)
     {
         var burial = repo.Burials.Single(x => x.Id == id);
         ViewData["Title"] = "Delete " + burial.Id;

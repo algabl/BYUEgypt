@@ -48,6 +48,18 @@
                     </label>
                   </div>
                 </div>
+                 <div class="col-md-3">
+                    <label class="form-label">Hair Color</label>
+                    <select asp-for="Haircolor" class="form-select">
+                      <option value="" selected>Choose...</option>
+                      <option value="B">Brown/Dark Brown/Lt Brown</option>
+                      <option value="K">Black</option>
+                      <option value="A">Brown-Red</option>
+                      <option value="R">Red/Red-Bl</option>
+                      <option value="D">Blond</option>
+                      <option value="U">Unknown</option>
+                    </select>
+                  </div>
                 <div class="col-md-4">
                   <label class="form-label">Preservation</label>
                   <input type="text" asp-for="Preservation" class="form-control"/>
@@ -79,19 +91,35 @@
                 </div>
                 
                 <div class="col-md-3">
-                  <label class="form-label">North/South Square</label>
+                  <label class="form-label">N/S Square</label>
                   <input type="number" step="10" class="form-control" asp-for="Squarenorthsouth" placeholder="">
                 </div>
                 <div class="col-md-3">
-                  <label class="form-label">East/West Square</label>
+                  <label class="form-label">E/W Square</label>
                   <input type="number" step="10" class="form-control" asp-for="Squareeastwest" placeholder="">
                 </div>
+                <div class="col-md-3">
+                  <label class="form-label">Distance South -> Head</label>
+                  <input type="number" step="0.01" class="form-control" asp-for="Southtohead"/>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Distance West -> Head</label>
+                  <input type="number" step="0.01" class="form-control" asp-for="Westtohead"/>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Distance South -> Feet</label>
+                  <input type="number" step="0.01" class="form-control" asp-for="Southtofeet"/>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">Distance West -> Feet</label>
+                  <input type="number" step="0.01" class="form-control" asp-for="Westtofeet"/>
+                </div>
                 <div class="col-sm-2">
-                  <label class="form-label">Burial Number</label>
+                  <label class="form-label">Burial #</label>
                   <input type="number" step="1" class="form-control" asp-for="Burialnumber" placeholder="">
                 </div>
                 <div class="col-sm-2">
-                  <label class="form-label">Cluster Number</label>
+                  <label class="form-label">Cluster #</label>
                   <input type="number" step="1" class="form-control" asp-for="Clusternumber" placeholder="">
                 </div>
                 <div class="col-md-3">
@@ -102,10 +130,22 @@
                   <label class="form-label">Length</label>
                   <input type="number" class="form-control" asp-for="Length" placeholder="">
                 </div>
+                <div class="col-md-3">
+                  <label class="form-label">Head Direction</label>
+                  <input type="text" class="form-control" asp-for="Headdirection" placeholder=""/>
+                </div>
+                <div class="col-md-3">
+                  <label class="form-label">East/West</label>
+                  <select asp-for="Eastwest" class="form-select">
+                    <option value="">Choose...</option>
+                    <option value="E">East</option>
+                    <option value="W">West</option>
+                  </select>
+                </div>
                 <h4>Excavation Details</h4>
                 <div class="col-md-3">
                   <label class="form-label">Field Book Page</label>
-                  <input type="number" step="1" class="form-control" asp-for="Length" placeholder="">
+                  <input type="number" step="1" class="form-control" asp-for="Fieldbookpage" placeholder="">
                 </div>
                 <div class="col-md-3">
                   <label class="form-label">Field Book Excavation Year</label>
@@ -134,7 +174,7 @@
                 <div class="col-md-4">
                   <label class="form-label">Samples Collected</label>
                   <select asp-for="Samplescollected" class="form-select">
-                    <option selected>Choose...</option>
+                    <option value="" selected>Choose...</option>
                     <option value="true">True</option>
                     <option value="false">False</option>
                     <option value="unknown">Unknown</option>

@@ -58,4 +58,5 @@ public class EFBurialRepository : IBurialRepository
         Context.Add(burial);
         Context.SaveChanges();
     }
+    public IQueryable<Textile> Textiles => Context.Textiles;
 }
