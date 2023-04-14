@@ -16,54 +16,58 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
 
     private IBurialRepository repo;
+    private ITextileRepository textileRepo;
 
-    public HomeController(ILogger<HomeController> logger, IBurialRepository burialTemp)
+    public HomeController(ILogger<HomeController> logger, IBurialRepository burialTemp, ITextileRepository textileTemp)
     {
         _logger = logger;
         repo = burialTemp;
+        textileRepo = textileTemp;
     }
 
     
-    [HttpGet]
     public IActionResult Index()
     {
         return View();
-    }
-
-    [HttpPost]
-    public IActionResult Index(int pageNum = 1, int pageSize = 5)
-    {
-        
-        Dictionary<string, string> dictionary = new Dictionary<string, string>();
-        foreach (string key in Request.Form.Keys)
-        {
-            dictionary.Add(key, Request.Form[key]);
-        }
-        var viewModel = new BurialmainsViewModel
-        {
-            
-            Burialmains = repo.GenerateQuery(dictionary, pageSize, pageNum),
-            
-            PageInfo = new PageInfo
-            {
-                TotalNumRecords = repo.Burials.Count(),
-                RecordsPerPage = pageSize,
-                CurrentPage = pageNum
-            }
-        };
-        
-        return View(viewModel);
     }
 
     public IActionResult BurialRecords()
     {
         int pageSize = 20;
         int pageNum = 1;
+        
         var viewModel = new BurialmainsViewModel
         {
+            Burials = repo.Burials
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
             
-            // foreach (key in Request.Form.Keys)
-            Burialmains = repo.Burials
+            PageInfo = new PageInfo
+            {
+                TotalNumBurials = repo.Burials.Count(),
+                BurialsPerPage = pageSize,
+                CurrentPage = pageNum
+            }
+        };
+        
+        return View("BurialRecordsList", viewModel);
+    }
+    
+    public IActionResult BurialRecordsList(int pageNum = 1)
+    {
+        int pageSize = 20;
+
+        Dictionary<string, string?> dict = new Dictionary<string, string?>();
+        foreach (string key in Request.Form.Keys)
+        {
+            dict.Add(key, Request.Form[key]);
+        }
+
+        // IQueryable<Burialmain> query = repo.GenerateQuery(dict);
+
+        var viewModel = new BurialmainsViewModel
+        {
+            Burials = repo.GenerateQuery(dict)
                 .OrderBy(bm => bm.Id)
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize),
@@ -75,44 +79,20 @@ public class HomeController : Controller
                 CurrentPage = pageNum
             }
         };
-        return View("BurialRecordsList", viewModel);
+                
+        return View(viewModel);
     }
-    
-    public IActionResult BurialRecordsList(int pageNum = 1)
+    public IActionResult TextileRecords()
     {
-        int pageSize = 5;
-
-        var Query = repo.Burials.AsQueryable();
-        foreach (string key in Request.Form.Keys)
-        {
-            if (key.Substring(0, 3) != "ind")
-            {
-                if (Request.Form["indicator" + key] == "==") 
-                {
-                    Query.Where(bm => bm.GetType().GetProperty(key).GetValue(bm).ToString() == Request.Form[key]);
-                } 
-                else if (Request.Form["indicator" + key] == "!=") 
-                {
-                    Query.Where(bm => bm.GetType().GetProperty(key).GetValue(bm).ToString() != Request.Form[key]);
-                } 
-                else if (Request.Form["indicator" + key] == ">") 
-                {
-                    Query.Where(bm => ((double) bm.GetType().GetProperty(key).GetValue(bm)) > ((double)((object) Request.Form[key])));
-                } 
-                else if (Request.Form["indicator" + key] == "<") 
-                {
-                    Query.Where(bm => ((double) bm.GetType().GetProperty(key).GetValue(bm)) < ((double)((object) Request.Form[key])));
-                } 
-            }
-
-            Query.Skip((pageNum - 1) * pageSize).Take(pageSize);
-        }
         
-        var viewModel = new BurialmainsViewModel
+        int pageSize = 20;
+        int pageNum = 1;
+        
+        var viewModel = new TextilesViewModel
         {
-            
-            // foreach (key in Request.Form.Keys)
-            Burialmains = Query,
+            Textiles = textileRepo.Textiles
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
             
             PageInfo = new PageInfo
             {
@@ -121,24 +101,33 @@ public class HomeController : Controller
                 CurrentPage = pageNum
             }
         };
-                
-        return View(viewModel);
+        return View("TextileRecordsList", viewModel);
     }
-
     public IActionResult TextileRecordsList(int pageNum = 1)
     {
         int pageSize = 20;
+
         var viewModel = new TextilesViewModel
         {
-            Textiles = repo.Textiles,
+            Textiles = textileRepo.Textiles
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+            
             PageInfo = new PageInfo
             {
-                TotalNumRecords = repo.Textiles.Count(),
+                TotalNumRecords = repo.Burials.Count(),
                 RecordsPerPage = pageSize,
                 CurrentPage = pageNum
             }
         };
         return View(viewModel);
+    }
+
+    public IActionResult TextileView(long id)
+    {
+        Textile tx = textileRepo.Textiles.Single(tx => tx.Id == id);
+        ViewData["Title"] = "Textile " + tx.Id;
+        return View(tx);
     }
 
     public IActionResult Privacy()
