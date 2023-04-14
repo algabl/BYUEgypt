@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BYUEgypt.Controllers;
 
+
+// Admin functionality controller. We decided to allow anyone to create an account on the site, but only those with the "USER" role can edit records, and only those with the "ADMIN" role can manage permissions.
+
 [Authorize(Roles = "ADMIN")]
 public class AdminController : Controller
 {
@@ -20,8 +23,10 @@ public class AdminController : Controller
         _roleManager = rolMg;
     }
     
+    // Displays a list of all registered users on the site
     public IActionResult Users()
     {
+        // Creates a list of UserViewModels to give to view
         var userList = _userManager.Users;
         var users = new List<UserViewModel>();
         foreach (var u in userList)
@@ -38,6 +43,7 @@ public class AdminController : Controller
         return View(users);
     }
 
+    // Form to add a new user
     [HttpGet]
     public IActionResult UserForm()
     {
@@ -59,6 +65,8 @@ public class AdminController : Controller
                     await _userManager.AddToRoleAsync(viewModel.User, "USER");
                 if (viewModel.AdminRole)
                     await _userManager.AddToRoleAsync(viewModel.User, "ADMIN");
+                
+                // Email confirmation is required for a user to begin using the site as authenticated. For the purposes of this prototype, we will automatically email confirm any users created by an admin.
                 await _userManager.ConfirmEmailAsync(viewModel.User,
                     _userManager.GenerateEmailConfirmationTokenAsync(viewModel.User).Result);
                 return RedirectToAction("Users");
@@ -75,6 +83,7 @@ public class AdminController : Controller
         return View(viewModel);
     }
 
+    // Form to edit existing users. This would be where admins give users certain permissions. 
     [HttpGet]
     public IActionResult Edit(string id)
     {
@@ -99,8 +108,20 @@ public class AdminController : Controller
             user.UserName = viewModel.User.UserName;
             user.Email = viewModel.User.Email;
             user.PhoneNumber = viewModel.User.PhoneNumber;
+            
+            // Validates that the entered information follows the requirements of ASP.NET Core Identity
             var result = await _userManager.UserValidators[0].ValidateAsync(_userManager, user);
-
+            if (!result.Succeeded)
+            {
+                List<IdentityError> errorList = result.Errors.ToList();
+                var errors = string.Join(", ", errorList.Select(e => e.Description));
+                ModelState.AddModelError(string.Empty, errors);
+                ViewData["Title"] = "Edit " + viewModel.User.UserName;
+                ViewBag.Roles = _roleManager.Roles.ToList();
+                return View("UserForm", viewModel);
+            }
+            
+            // Changes password and checks validity
             if (viewModel.Password != null)
             {
                 if (user.PasswordHash == null)
@@ -137,6 +158,7 @@ public class AdminController : Controller
         return View("UserForm", viewModel);
     }
 
+    // Allows ability to delete users
     [HttpGet]
     public IActionResult Delete(string id)
     {
