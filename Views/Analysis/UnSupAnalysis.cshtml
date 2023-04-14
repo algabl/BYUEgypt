@@ -1,15 +1,38 @@
 @{
     ViewData["Title"] = "Unsupervised Analysis";
 }
-<h1>@ViewData["Title"]</h1>
+<h1 class="text-center mt-3">@ViewData["Title"]</h1>
 
-<section style="height:70vh;">
-    <div class="d-flex justify-content-center align-items-center">
-        <div class="row m-5">
-            <img src="" alt="The Sunsupervised Model">
-        </div>
-        <div class="row">
-            Some description about the Unsupervised Model
+<section>
+    <div class="d-flex">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-10 align-items-sm-center">
+                <p>
+                    The research team at Fag el-Gamous has a working hypothesis that the burial practices in the 1,000-year-old cemetery could have changed over time. In order to further explore this hypothesis, we have put together a number of visualizations that show the frequency of various occurrences (such as sex, hair color, burial orientation, and age) over different burial depths, which represent different times of burial. The time since burial increases with depth, so by looking at the change in data over burial depth we can analyze how burial practices changed over time.
+                </p>
+                <p>
+                    Firstly, hair color. The cemetery consistently has a majority of burials with brown hair, though that’s expected due to its frequency of occurrence in the population. There are a smattering of burials with black and blonde hair very loosely centered around the 1.2m burial depth, and burials with brown/red and red/blonde hair start showing up much later, with not even a single occurrence of red hair earlier than 1.4m.
+                </p>
+                <p>
+                    Second, sex. The only obvious significant finding from the analysis of sex at different burial depths is that the frequency of female burials started increasing after the frequency of male burials, indicating a higher proportion of the burials were male in the 2.4m to 1.6m depth period. The female frequency increased after that, to approximately the same as the male frequency.
+                </p>
+                <p>
+                    There does seem to be a significant change in the age at death for burials over time. For 2.9m to 2.3m, only adults were buried, but child burials start occurring at 2.3m, and infant and newborn burials around 2.0m. Burial rates remain roughly the same after that for each age group.
+                </p>
+                <p>
+                    Wrapping presence is interesting, as while a lot of the disparity in this data may be due to the effects of time, the decrease in partial wrappings for more recent burials may indicate a change in burial wrapping materials, to something that is either more or less resilient to decay over time, increasing the number of full wrappings or findings of only bones.
+                </p>
+                <p>                    
+                    Lastly, head direction indicates a very clear change over time. While western burials seem to have always been significantly more common, eastern burials still occurred, at least in the 2.4m to 0.7m time period. However, the frequency of eastern burials decreases sharply after 1.4m, and drops off completely after 0.7m, while western burials stay consistently frequent during this period. This complete cessation of burials with an eastern head direction is quite interesting.
+                </p>
+                <p>                    
+                    This selection of features is just the beginning of the kind of findings further analysis could bring. We were not able to analyze other features such as textile findings (due to a lack of connecting data) and other biological analyses, but perhaps in the future more data could be used to gain an even greater insight into the burial practices at the Fag el-Gamous cemetary and how they have changed over time.
+                </p>
+                
+            </div>
+            <div class="col-10">
+                <img class="img-fluid" src="~/img/Unsupervised Analysis.png"/>
+            </div>
         </div>
     </div>    
 </section>
