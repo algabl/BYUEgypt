@@ -7,7 +7,7 @@
   <div class="sup-analysis-modal-content card">
     <div class="card-header bg-primary">
       <div class="row">
-        <div class="col">Your Predicted Head Direction is:</div>
+        <div class="col text-light">Your Predicted Head Direction is:</div>
         <div class="col">
           <div id="region" class="card-title display-7 text-light">@ViewBag.SupAnalysisResult</div>    
         </div>
@@ -41,14 +41,14 @@
 
 
 
-<section style="height:70vh;">
+<section style="height:20vh;">
     <div class="d-flex justify-content-center align-items-center cairo-font display-7">
         <div class="row m-5">
-            <img src="" alt="The Supervised Model">
+          <h1>@ViewData["Title"]</h1>
         </div>
-        <div class="row">
-            Some description about the Supervised Model
-        </div>    
+      <div class="row">
+        <p>As a proof of concept for the type of analysis and prediction that can be done on collected burial data, we have made available a tool that predicts the head direction of a burial from a number of other data points. The only required inputs are location-based, but other data points may be inputted as well to increase the accuracy of the prediction. This technology and process can be used to predict other significant information about burial sites and will hopefully make the analysis process for burial findings much easier.</p>
+      </div>    
     </div>    
 </section>
 
